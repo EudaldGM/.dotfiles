@@ -12,6 +12,8 @@ end
 vim.opt.rtp:prepend(lazypath)
  
 require("lazy").setup({
-    spec = "eudaldgm.lazy",
-    change_detection = { notify = false }
+  spec = {
+    { import = "eudaldgm.lazy" },           -- Your custom plugin specs
+  },
+  change_detection = { notify = false },
 })

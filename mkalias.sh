@@ -6,4 +6,4 @@ ln -s ~/.dotfiles/zshrc ~/.zshrc
 ln -s ~/.dotfiles/nvimrc ~/.nvimrc
 
 #.conf files
-ln -s ~/.dotfiles/nvim .config/nvim
+ln -sr ~/.dotfiles/nvim .config/nvim
