@@ -1,4 +1,4 @@
-return { 
+return {
   --errors shortcuts
   vim.keymap.set('n', '¡¡', function() vim.diagnostic.jump({ count = 1 }) end, {desc = "go to next error"}),
   vim.keymap.set('n', '¡l', function() vim.diagnostic.jump({ count = -1 }) end, {desc = "go to previous error"}),
@@ -11,5 +11,8 @@ return {
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go to Declaration' }),
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' }),
 
-
+  --travel between buffers
+  vim.keymap.set('n', '<C-n>', ':bnext<CR>'),
+  vim.keymap.set('n', '<C-p>', ':bprevious<CR>'),
+  vim.keymap.set('n', '<C-w>', ':bdelete<CR>'),
 }
