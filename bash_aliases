@@ -36,7 +36,6 @@ alias nv="nvim"
 
 #git
 alias gcm="git commit -m"
-alias gr="cd $(git rev-parse --show-toplevel)"
 
 
 

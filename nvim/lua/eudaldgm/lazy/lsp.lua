@@ -22,6 +22,13 @@ return {
           ensure_installed = {
             'lua_ls',
 			'gopls',
+			'htmx',
+			'pylsp',
+			'kube-linter',
+			'terraform',
+			'terraform-ls',
+			'yamlls',
+			'yamlfmt'
           },
           auto_update = true,
         },

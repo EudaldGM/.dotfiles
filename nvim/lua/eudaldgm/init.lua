@@ -1,4 +1,4 @@
-vim.g.mapleader = "'"
+vim.g.mapleader = " "
 vim.api.nvim_set_option("clipboard","unnamedplus")
 
 vim.opt.number = true

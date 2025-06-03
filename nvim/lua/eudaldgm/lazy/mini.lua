@@ -7,16 +7,16 @@ return {
 	  	require('mini.comment').setup()
 		require('mini.indentscope').setup()
 		require('mini.pairs').setup()
-
+		require('mini.statusline').setup()
 
 		--miniSurround
 		require('mini.surround').setup({
 			mappings = {
-				add = 'ssa',
-				delete = 'ssd',
-				replace = 'ssr',
-				find = 'ssf',
-				highlight = 'ssh',
+				add = '<leader>sa',
+				delete = '<leader>sd',
+				replace = '<leader>sr',
+				find = '<leader>sf',
+				highlight = '<leader>sh',
 			}
 		})
 
@@ -27,7 +27,8 @@ return {
 
 		vim.keymap.set('n', '<leader>o',function()
 			require('mini.files').open()
-		end)
+			end,
+			{desc = 'Open miniFiles'})
 
 
 		-- miniPickConfig	
