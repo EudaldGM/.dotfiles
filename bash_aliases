@@ -38,16 +38,14 @@ alias nv="nvim"
 alias gcm="git commit -m"
 
 
+#typos
+alias nivm="nvim"
 
 #functions
 mdcd(){
 mkdir $1
 cd $1
 }
-
-
-
-
 
 ktunnel(){
     ~/repos/dsh-k8s-work/scripts/kubectx-tunnel.sh -n $1

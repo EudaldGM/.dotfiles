@@ -11,6 +11,7 @@ return {
       },
     },
   },
+
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -24,11 +25,13 @@ return {
 			'gopls',
 			'htmx',
 			'pylsp',
+			'black',
 			'kube-linter',
 			'terraform',
 			'terraform-ls',
 			'yamlls',
-			'yamlfmt'
+			'yamlfmt',
+			'bashls'
           },
           auto_update = true,
         },
@@ -36,6 +39,7 @@ return {
       { 'j-hui/fidget.nvim', opts = {} },
       'saghen/blink.cmp',
     },
+
       config = function()
 	  require('mason').setup()
       require('mason-lspconfig').setup()
