@@ -31,7 +31,8 @@ return {
 			'terraform-ls',
 			'yamlls',
 			'yamlfmt',
-			'bashls'
+			'bashls',
+			'just-lsp'
           },
           auto_update = true,
         },

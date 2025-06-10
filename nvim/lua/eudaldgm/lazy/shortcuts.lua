@@ -28,7 +28,7 @@ return {
 	-- vim.keymap.set('n', '<leader>th', ':tabprevious<CR>', { desc = 'Previous tab' }),
 
 	--Terminal
-	vim.api.nvim_set_keymap('n', '<leader>t', ':below 5split | terminal<CR>', { noremap = true, silent = true }),
+	vim.api.nvim_set_keymap('n', '<leader>t', ':below 15split | terminal<CR>', { noremap = true, silent = true }),
 	vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 }
