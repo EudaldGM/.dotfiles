@@ -10,6 +10,7 @@ return {
 		require('mini.statusline').setup()
 		require("mini.git").setup()
 
+
 		--miniSurround
 		require('mini.surround').setup({
 			mappings = {
