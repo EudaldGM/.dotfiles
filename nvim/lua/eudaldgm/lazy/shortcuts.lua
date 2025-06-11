@@ -14,7 +14,7 @@ return {
 	--travel between buffers
 	vim.keymap.set('n', '<leader><C-n>', ':bnext<CR>'),
 	vim.keymap.set('n', '<leader><C-p>', ':bprevious<CR>'),
-	vim.keymap.set('n', '<leader><C-w>', ':bdelete<CR>'),
+	vim.keymap.set('n', '<leader><C-w>', ':bdelete!<CR>'),
 
 	--miniPick shortcuts
 	vim.keymap.set('n', '<leader>ff', function() require('mini.pick').builtin.files() end, { desc = 'Find Files' }),
@@ -28,7 +28,6 @@ return {
 	-- vim.keymap.set('n', '<leader>th', ':tabprevious<CR>', { desc = 'Previous tab' }),
 
 	--Terminal
-	vim.api.nvim_set_keymap('n', '<leader>t', ':below 15split | terminal<CR>', { noremap = true, silent = true }),
+	vim.api.nvim_set_keymap('n', '<leader>t', ':below 15split | terminal<CR> i', { noremap = true, silent = true }),
 	vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-
 }
