@@ -54,3 +54,7 @@ ktunnel(){
 klogs(){
     kgp -A | grep $1 | awk '{print $2, $1}' | xargs -l bash -c 'kubectl logs $0 --namespace $1'
 }
+
+bkk(){
+	cp $1 $1".bak"
+}

@@ -32,7 +32,12 @@ return {
 			'yamlls',
 			'yamlfmt',
 			'bashls',
-			'just-lsp'
+			'just-lsp',
+			'json-lsp',
+			'helm-ls',
+			'zls',
+			'pgformatter',
+			'postgrestools',
           },
           auto_update = true,
         },

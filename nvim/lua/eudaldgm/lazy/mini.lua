@@ -10,7 +10,6 @@ return {
 		require('mini.statusline').setup()
 		require("mini.git").setup()
 
-
 		--miniSurround
 		require('mini.surround').setup({
 			mappings = {
@@ -36,7 +35,7 @@ return {
 		-- miniPickConfig	
    		require('mini.pick').setup()
 
-		vim.ui.select = vim.schedule_wrap(MiniPick.ui_select)
+		--vim.ui.select = vim.schedule_wrap(MiniPick.ui_select)
 		--miniTabline
 		require('mini.tabline').setup({
      		show_numbers = true,

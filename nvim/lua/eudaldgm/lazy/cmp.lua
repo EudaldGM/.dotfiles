@@ -18,10 +18,10 @@ return {
   config = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
-	local allowed_filetypes = { 'go', 'python', 'lua', 'yaml', 'terraform', 'tf' }
+	local allowed_filetypes = { 'go', 'python', 'lua', 'yaml', 'terraform', 'tf', 'zig', 'sql'}
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup({})
-	
+
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -43,7 +43,7 @@ return {
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
         -- Manually trigger a completion from nvim-cmp.
-        ['<C-Space>'] = cmp.mapping.complete({}),
+        ['<C-space>'] = cmp.mapping.complete({}),
 
        -- Enter key accepts completion
         ['<CR>'] = cmp.mapping.confirm({

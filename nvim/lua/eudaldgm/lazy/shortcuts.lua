@@ -29,5 +29,21 @@ return {
 
 	--Terminal
 	vim.api.nvim_set_keymap('n', '<leader>t', ':below 15split | terminal<CR> i', { noremap = true, silent = true }),
-	vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+	vim.keymap.set('t', '<Esc>', '<C-\\><C-n>'),
+
+
+
+	--miscSrtcts
+	vim.keymap.set('n', '<leader>q', function() vim.fn.setreg( '+', vim.fn.expand('%:p')) end, {desc = "get path for current file"}),
+	vim.keymap.set('n', '<leader>Q', function()
+		local MiniFiles = require('mini.files')
+		local fs_entry = MiniFiles.get_fs_entry()
+  		if fs_entry then
+    		vim.fn.setreg('+', fs_entry.path)
+    		print('Copied: ' .. fs_entry.path)
+  		else
+    		print('Not in mini.files or no entry selected')
+  		end
+	end, {desc = "copy selected file path in mini.files"})
+
 }

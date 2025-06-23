@@ -73,6 +73,7 @@ ZSH_THEME="af-magic"
 plugins=(
     git 
     zellij
+	kube-ps1
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -144,3 +145,14 @@ _just_completion() {
     fi
 }
 compctl -K _just_completion just
+
+#prompt stuff
+PROMPT=$PROMPT'$(kube_ps1)'
+PROMPT_EOL_MARK=''
+
+#kube_ps1
+KUBE_PS1_SYMBOL_CUSTOM=k8s
+KUBE_PS1_SYMBOL_ENABLE=false
+KUBE_PS1_HIDE_IF_NOCONTEXT=true
+KUBE_PS1_CTX_COLOR=blue
+
