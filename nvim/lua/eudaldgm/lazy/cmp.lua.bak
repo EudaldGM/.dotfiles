@@ -18,37 +18,37 @@ return {
   config = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
-    --local cmp_ai = require('cmp_ai.config')
-
+    local cmp_ai = require('cmp_ai.config')
+    
     local allowed_filetypes = { 'go', 'python', 'lua', 'yaml', 'terraform', 'tf', 'zig', 'sql' }
-
+    
     -- Load VSCode-style snippets
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup({})
-
+    
     -- Configure cmp-ai for Ollama with debugging
-    -- cmp_ai:setup({
-    --   max_lines = 1000,
-    --   provider = 'Ollama',
-    --   provider_options = {
-    --     model = 'codellama:7b-code',
-    --     url = 'http://localhost:11434',
-    --     -- Alternative models to try:
-    --     -- model = 'deepseek-coder:6.7b',
-    --     -- model = 'codeqwen:7b',
-    --   },
-    --   notify = true,
-    --   notify_callback = function(msg)
-    --     vim.notify("CMP-AI: " .. tostring(msg), vim.log.levels.INFO)
-    --   end,
-    --   run_on_every_keystroke = false,
-    --   ignored_file_types = {
-    --     -- file types to ignore
-    --   },
-    --   -- Add debug logging
-    --   debug = true,
-    -- })
-
+    cmp_ai:setup({
+      max_lines = 1000,
+      provider = 'Ollama',
+      provider_options = {
+        model = 'codellama:7b-code', 
+        url = 'http://localhost:11434',
+        -- Alternative models to try:
+        -- model = 'deepseek-coder:6.7b',
+        -- model = 'codeqwen:7b',
+      },
+      notify = true,
+      notify_callback = function(msg)
+        vim.notify("CMP-AI: " .. tostring(msg), vim.log.levels.INFO)
+      end,
+      run_on_every_keystroke = false,
+      ignored_file_types = {
+        -- file types to ignore
+      },
+      -- Add debug logging
+      debug = true,
+    })
+    
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -91,7 +91,7 @@ return {
             Operator = "󰆕",
             TypeParameter = "",
           }
-
+          
           -- Add source name to the completion item
           local menu_map = {
             buffer = "[Buffer]",
@@ -100,15 +100,15 @@ return {
             path = "[Path]",
             cmp_ai = "[AI]",
           }
-
+          
           vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind] or "", vim_item.kind)
           vim_item.menu = menu_map[entry.source.name] or ""
-
+          
           -- Highlight AI suggestions differently
           if entry.source.name == 'cmp_ai' then
             vim_item.kind_hl_group = 'CmpItemKindAI'
           end
-
+          
           return vim_item
         end,
       },
@@ -146,7 +146,7 @@ return {
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp', priority = 1000 },
-        --{ name = 'cmp_ai', priority = 900, max_item_count = 3 }, -- Limit AI suggestions
+        { name = 'cmp_ai', priority = 900, max_item_count = 3 }, -- Limit AI suggestions
         { name = 'luasnip', priority = 800 },
         { name = 'path', priority = 700 },
         { name = 'buffer', priority = 600, max_item_count = 5 },
@@ -160,7 +160,7 @@ return {
         ghost_text = true, -- Show preview of the completion
       },
     })
-
+    
     -- Set up highlight group for AI completions
     vim.api.nvim_set_hl(0, 'CmpItemKindAI', { fg = '#00ff00', bold = true })
   end,

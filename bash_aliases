@@ -58,3 +58,8 @@ klogs(){
 bkk(){
 	cp $1 $1".bak"
 }
+
+firstCommit(){
+	brunch=$(git branch --show-current)
+
+}
