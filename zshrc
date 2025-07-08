@@ -120,7 +120,7 @@ eval "$($(which mise) activate zsh)"
 export MISE_SHELL=bash
 export __MISE_ORIG_PATH="$PATH"
 export PATH="/home/eudald/.local/share/mise/shims:$PATH"
-
+# source ~/.dotfiles/mise_completion.sh
 #aws
 complete -C '/usr/local/bin/aws_completer' aws
 

@@ -1,18 +1,13 @@
--- nvim-cmp configuration with AI completion support
 return {
   'hrsh7th/nvim-cmp',
   event = 'InsertEnter',
   dependencies = {
-    -- Snippet Engine & its associated nvim-cmp source
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
-    -- Adds LSP completion capabilities
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
-    -- Adds a number of user-friendly snippets
     'rafamadriz/friendly-snippets',
-    -- AI completion source
     'tzachar/cmp-ai',
   },
   config = function()
@@ -22,7 +17,6 @@ return {
 
     local allowed_filetypes = { 'go', 'python', 'lua', 'yaml', 'terraform', 'tf', 'zig', 'sql' }
 
-    -- Load VSCode-style snippets
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup({})
 
@@ -61,7 +55,6 @@ return {
       enabled = function()
         return vim.tbl_contains(allowed_filetypes, vim.bo.filetype)
       end,
-      -- Formatting to distinguish AI suggestions
       formatting = {
         format = function(entry, vim_item)
           local kind_icons = {
@@ -92,7 +85,6 @@ return {
             TypeParameter = "",
           }
 
-          -- Add source name to the completion item
           local menu_map = {
             buffer = "[Buffer]",
             nvim_lsp = "[LSP]",
@@ -151,17 +143,15 @@ return {
         { name = 'path', priority = 700 },
         { name = 'buffer', priority = 600, max_item_count = 5 },
       }),
-      -- Configure how many items to show from each source
       window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
       },
       experimental = {
-        ghost_text = true, -- Show preview of the completion
+        ghost_text = true,
       },
     })
 
-    -- Set up highlight group for AI completions
     vim.api.nvim_set_hl(0, 'CmpItemKindAI', { fg = '#00ff00', bold = true })
   end,
 }

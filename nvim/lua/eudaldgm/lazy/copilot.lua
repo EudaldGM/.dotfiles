@@ -27,7 +27,7 @@ return {
         desc = "Trigger Copilot suggestion"
       })
 	  vim.keymap.set("n", "<leader>cop", "<cmd>Copilot enable<cr>", {
-		desc = "Enable Copilot"
+		desc = "Enable Copilot", silent = true
 	  })
 	  --disabled by default
       vim.g.copilot_enabled = false

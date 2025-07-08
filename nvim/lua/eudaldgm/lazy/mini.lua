@@ -9,18 +9,10 @@ return {
 		require('mini.pairs').setup()
 		require('mini.statusline').setup()
 		require("mini.git").setup()
-
-		--miniSurround
-		require('mini.surround').setup({
-			mappings = {
-				add = '<leader>sa',
-				delete = '<leader>sd',
-				replace = '<leader>sr',
-				find = '<leader>sf',
-				highlight = '<leader>sh',
-			}
-		})
-
+		require("mini.align").setup()
+		require("mini.ai").setup()
+		require('mini.surround').setup()
+		require("mini.snippets").setup()
 		--miniFiles Config
 		require('mini.files').setup({
 			options = {use_as_default_explorer = true,},
