@@ -1,3 +1,6 @@
+#klarrio
+alias ktunnel="devutil ktunnel --name"
+
 #k8s
 alias k="kubectl"
 alias kns="kubens"
@@ -47,9 +50,6 @@ mkdir $1
 cd $1
 }
 
-ktunnel(){
-    ~/repos/dsh-k8s-work/scripts/kubectx-tunnel.sh -n $1
-}
 
 klogs(){
     kgp -A | grep $1 | awk '{print $2, $1}' | xargs -l bash -c 'kubectl logs $0 --namespace $1'

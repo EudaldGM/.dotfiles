@@ -32,8 +32,6 @@ return {
 	vim.api.nvim_set_keymap('n', '<leader>t', ':below 15split | terminal<CR> i', { noremap = true, silent = true }),
 	vim.keymap.set('t', '<Esc>', '<C-\\><C-n>'),
 
-
-
 	--miscSrtcts
 	vim.keymap.set('n', '<leader>q', function() vim.fn.setreg( '+', vim.fn.expand('%:p')) end, {desc = "get path for current file"}),
 	vim.keymap.set('n', '<leader>Q', function()
@@ -45,6 +43,11 @@ return {
   		else
     		print('Not in mini.files or no entry selected')
   		end
-	end, {desc = "copy selected file path in mini.files"})
+	end, {desc = "copy selected file path in mini.files"}),
 
+	--Spectre shortcuts
+	vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {desc = "Toggle Spectre"}),
+	vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {desc = "Search current word"}),
+	vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {desc = "Search on current file"}),
+	vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {desc = "Search current word"}),
 }
