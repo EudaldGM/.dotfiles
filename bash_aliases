@@ -44,6 +44,15 @@ alias gcm="git commit -m"
 #typos
 alias nivm="nvim"
 
+#git
+alias gcm="git checkout main"
+alias gcb="git checkout -b"
+alias gaa="git add *"
+alias ga="git add"
+alias gc="git commit"
+
+
+
 #functions
 mdcd(){
 mkdir $1
