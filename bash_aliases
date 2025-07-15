@@ -37,10 +37,6 @@ alias s="switch"
 alias z="zed"
 alias nv="nvim"
 
-#git
-alias gcm="git commit -m"
-
-
 #typos
 alias nivm="nvim"
 

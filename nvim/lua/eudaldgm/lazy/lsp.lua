@@ -41,7 +41,6 @@ return {
 			'pylyzer',
 			'pyrefly',
 			'bacon',
-			'harper-ls',
           },
           auto_update = true,
         },

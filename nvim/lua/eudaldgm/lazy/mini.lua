@@ -4,6 +4,7 @@ return {
     config = function()
 
         require('mini.icons').setup()
+		require("mini.ai").setup()
 	  	require('mini.comment').setup()
 		require('mini.indentscope').setup()
 		require('mini.pairs').setup()
@@ -13,6 +14,7 @@ return {
 		require("mini.ai").setup()
 		require('mini.surround').setup()
 		require("mini.snippets").setup()
+		require("mini.extra").setup()
 		--miniFiles Config
 		require('mini.files').setup({
 			options = {use_as_default_explorer = true,},
@@ -25,7 +27,14 @@ return {
 
 
 		-- miniPickConfig	
-   		require('mini.pick').setup()
+   		require('mini.pick').setup({
+			mappings = 	{
+				choose_marked = '<C-m>'
+			},
+			options = {
+				use_cache = true,
+			}
+		})
 
 		--vim.ui.select = vim.schedule_wrap(MiniPick.ui_select)
 		--miniTabline

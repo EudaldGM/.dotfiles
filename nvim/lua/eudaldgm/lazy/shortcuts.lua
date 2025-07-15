@@ -29,7 +29,7 @@ return {
 	-- vim.keymap.set('n', '<leader>th', ':tabprevious<CR>', { desc = 'Previous tab' }),
 
 	--Terminal
-	vim.api.nvim_set_keymap('n', '<leader>t', ':below 15split | terminal<CR> i', { noremap = true, silent = true }),
+	vim.api.nvim_set_keymap('n', '<leader>t', ':lcd %:p:h | belowright 15split | terminal<CR> i', { noremap = true, silent = true }),
 	vim.keymap.set('t', '<Esc>', '<C-\\><C-n>'),
 
 	--miscSrtcts
@@ -50,4 +50,7 @@ return {
 	vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {desc = "Search current word"}),
 	vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {desc = "Search on current file"}),
 	vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {desc = "Search current word"}),
+
+	--Gitsigns shortcuts
+	vim.keymap.set('n', '<leader>Gb', ':Gitsigns blame<CR>', {silent = true, desc = "Open gitsigns gitblame"})
 }
