@@ -43,9 +43,10 @@ alias nivm="nvim"
 #git
 alias gcm="git checkout main"
 alias gcb="git checkout -b"
-alias gaa="git add *"
 alias ga="git add"
-alias gc="git commit"
+alias gC="git commit"
+alias gCa="git commit -a"
+alias gp="git pull"
 
 
 

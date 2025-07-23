@@ -155,3 +155,6 @@ KUBE_PS1_SYMBOL_ENABLE=false
 KUBE_PS1_HIDE_IF_NOCONTEXT=true
 KUBE_PS1_CTX_COLOR=blue
 
+#krew
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
