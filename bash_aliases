@@ -47,7 +47,8 @@ alias ga="git add"
 alias gC="git commit"
 alias gCa="git commit -a"
 alias gp="git pull"
-
+alias gP="git push"
+alias gst="git status"
 
 
 #functions
