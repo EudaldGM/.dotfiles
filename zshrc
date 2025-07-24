@@ -158,3 +158,5 @@ KUBE_PS1_CTX_COLOR=blue
 #krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
+#caps as esc
+setxkbmap -option caps:escape
