@@ -72,8 +72,7 @@ ZSH_THEME="af-magic-custom"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git 
-    zellij
-	kube-ps1
+    kube-ps1
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -130,8 +129,6 @@ source <(kubectl completion zsh)
 complete -o default -F __start_kubectl k
 command -v flux >/dev/null && . <(flux completion zsh)
 
-#switcher
-source <(switcher init zsh)
 
 #fzf
 eval "$(fzf --zsh)"

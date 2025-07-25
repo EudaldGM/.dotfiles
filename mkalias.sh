@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #dotfiles
-ln -s ~/.dotfiles/bash_aliases ~/.bash_aliases
-ln -s ~/.dotfiles/zshrc ~/.zshrc      
-ln -s ~/.dotfiles/nvimrc ~/.nvimrc
+ln -fs ~/.dotfiles/bash_aliases ~/.bash_aliases
+ln -fs ~/.dotfiles/zshrc ~/.zshrc      
+ln -fs ~/.dotfiles/nvimrc ~/.nvimrc
 
 #.conf files
-ln -sr ~/.dotfiles/nvim .config/nvim
+ln -fsr ~/.dotfiles/nvim ~/.config/nvim
 
 #ohmyzsh theme
-cp .dotfiles/af-magic-custom.zsh-theme .oh-my-zsh/themes
+cp ~/.dotfiles/af-magic-custom.zsh-theme ~/.oh-my-zsh/themes
