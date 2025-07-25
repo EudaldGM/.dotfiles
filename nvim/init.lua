@@ -1,1 +1,1 @@
-require("eudaldgm")
+/home/eudald/.dotfiles/init.lua
