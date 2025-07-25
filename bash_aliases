@@ -66,7 +66,7 @@ bkk(){
 	cp $1 $1".bak"
 }
 
-firstCommit(){
+gP1(){
 	brunch=$(git branch --show-current)
-
+	git push --set-upstream origin $brunch
 }

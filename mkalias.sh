@@ -9,4 +9,4 @@ ln -s ~/.dotfiles/nvimrc ~/.nvimrc
 ln -sr ~/.dotfiles/nvim .config/nvim
 
 #ohmyzsh theme
-ln -s af-magic-custom.zsh-theme ~/.oh-my-zsh/themes/af-magic-custom.zsh-theme
+cp .dotfiles/af-magic-custom.zsh-theme .oh-my-zsh/themes
