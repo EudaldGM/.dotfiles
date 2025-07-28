@@ -115,10 +115,11 @@ export PATH="$HOME/Go/bin:$PATH"
 export EDITOR=nvim
 
 #misssssse
+export PATH=$PATH:~/.local/bin
 eval "$($(which mise) activate zsh)"
 export MISE_SHELL=bash
 export __MISE_ORIG_PATH="$PATH"
-export PATH="/home/eudald/.local/share/mise/shims:$PATH"
+export PATH="~/.local/share/mise/shims:$PATH"
 # source ~/.dotfiles/mise_completion.sh
 #aws
 complete -C '/usr/local/bin/aws_completer' aws
@@ -156,4 +157,4 @@ KUBE_PS1_CTX_COLOR=blue
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 #caps as esc
-setxkbmap -option caps:escape
+#setxkbmap -option caps:escape

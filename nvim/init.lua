@@ -1,1 +1,1 @@
-/home/eudald/.dotfiles/init.lua
+/home/yudal/.dotfiles/init.lua

@@ -1,0 +1,77 @@
+[
+  {
+    "layer": "bottom",
+    "height": 32,
+    "spacing": 5,
+	"modules-left": [
+		"tray",
+		"hyprland/workspaces"
+	],
+    "modules-center": [
+	  "custom/spotify"
+    ],
+    "modules-right": [
+	  "cpu",
+	  "memory",
+      "network",
+      "battery",
+      "clock"
+    ],
+	"custom/spotify": {
+       "interval": 1,
+       "return-type": "json",
+       "exec": "waybar_media_display",
+       "exec-if": "pgrep spotify",
+       "on-click":"playerctl --player=spotify play-pause",
+       "escape": true
+	},
+    "clock": {
+      "format": "{:%A %d %B %H:%M %p}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+	"cpu": {
+      "format": "  {usage}%",
+	},
+	"memory": {
+      "format": "  {percentage}%",
+	},
+    "battery": {
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-alt": "{icon} {time}",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "network": {
+      "format-wifi": "{essid} ({signalStrength}%) ",
+      "format-ethernet": " {ifname}",
+      "tooltip-format": " {ifname} via {gwaddr}",
+      "format-linked": " {ifname} (No IP)",
+      "format-disconnected": "Disconnected ⚠ {ifname}",
+      "format-alt": " {ifname}: {ipaddr}/{cidr}"
+    },
+	"hyprland/workspaces": {
+	  "disable-scroll": false,
+	  "on-scroll-up": "hyprctl dispatch workspace -1",
+	  "on-scroll-down": "hyprctl dispatch workspace +1",
+		"format": "{icon}",
+		"format-icons": {
+			"active": "",
+			"default": "",
+		},
+		   "persistent_workspaces": {
+				 "*": 10
+		   }
+	},
+  }
+]

@@ -27,14 +27,7 @@ return {
 
 
 		-- miniPickConfig	
-   		require('mini.pick').setup({
-			mappings = 	{
-				choose_marked = '<C-m>'
-			},
-			options = {
-				use_cache = true,
-			}
-		})
+   		require('mini.pick').setup()
 
 		--vim.ui.select = vim.schedule_wrap(MiniPick.ui_select)
 		--miniTabline
