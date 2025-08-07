@@ -20,6 +20,9 @@ ln -fsr ~/.dotfiles/hypr ~/.config/
 #waybar
 ln -fsr ~/.dotfiles/waybar ~/.config/
 
+#wofi
+ln -fsr ~/.dotfiles/wofi ~/.config/
+#[pending] setuo fzf and fzf tooling
 #[pending] install mise
 #[pending] install fzf
 #[pending] install kubectl
@@ -27,4 +30,6 @@ ln -fsr ~/.dotfiles/waybar ~/.config/
 #[pending] install cargo
 #[pending] install go
 #[pending] install python
+#[pending] install btop
+#[pending] install nerdfonts
 #[pending] install 

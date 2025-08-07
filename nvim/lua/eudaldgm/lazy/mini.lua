@@ -5,6 +5,8 @@ return {
 
         require('mini.icons').setup()
 		require("mini.ai").setup()
+		require("mini.jump").setup()
+		require("mini.jump2d").setup()
 	  	require('mini.comment').setup()
 		require('mini.indentscope').setup()
 		require('mini.pairs').setup()
@@ -14,6 +16,7 @@ return {
 		require("mini.ai").setup()
 		require('mini.surround').setup()
 		require("mini.snippets").setup()
+		require("mini.operators").setup()
 		require("mini.extra").setup()
 		--miniFiles Config
 		require('mini.files').setup({

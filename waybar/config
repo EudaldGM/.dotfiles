@@ -4,7 +4,6 @@
     "height": 32,
     "spacing": 5,
 	"modules-left": [
-		"tray",
 		"hyprland/workspaces"
 	],
     "modules-center": [
@@ -12,8 +11,8 @@
     ],
     "modules-right": [
 	  "cpu",
-	  "memory",
       "network",
+	  "bluetooth",
       "battery",
       "clock"
     ],
@@ -26,14 +25,11 @@
        "escape": true
 	},
     "clock": {
-      "format": "{:%A %d %B %H:%M %p}",
+      "format": "{:%d %B %H:%M %p}",
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
 	"cpu": {
       "format": "  {usage}%",
-	},
-	"memory": {
-      "format": "  {percentage}%",
 	},
     "battery": {
       "states": {
@@ -59,6 +55,20 @@
       "format-linked": " {ifname} (No IP)",
       "format-disconnected": "Disconnected ⚠ {ifname}",
       "format-alt": " {ifname}: {ipaddr}/{cidr}"
+    },
+"bluetooth": {
+        "format": "󰂯 {status}",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-on": "󰂯",
+        "format-connected": "󰂱 {device_alias}",
+        "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "blueman-manager",
+        "on-click-right": "blueman-applet"
     },
 	"hyprland/workspaces": {
 	  "disable-scroll": false,

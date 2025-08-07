@@ -1,26 +1,26 @@
 * {
   font-size: 16px;
+  color: lightgray;
   min-height: 0;
-  border-radius: 1rem;
   padding: 0.1rem;
 }
 
 window#waybar {
-  background: rgba(255, 255, 255, 0.5);
-  color: rgb(0, 0, 0);
+  background: rgba(25, 25, 25, 0.5);
+  color: rgb(125, 125, 125);
 }
 
 tooltip {
   background: #000000;
 }
 tooltip label {
-  color: white;
+  color: gray;
 }
 
 #workspaces button {
   padding: 0 5px;
   background: transparent;
-  color: white;
+  color: gray;
   border-bottom: 3px solid transparent;
 }
 
@@ -32,12 +32,16 @@ tooltip label {
 #mode,
 #clock,
 #battery {
-  padding: 0 10px;
+  padding: 0;
 }
 
 #mode {
   background: #64727d;
   border-bottom: 3px solid white;
+}
+
+#bluetooth {
+  margin: 5px;
 }
 
 #clock,
@@ -55,12 +59,7 @@ tooltip label {
 #mode,
 #idle_inhibitor,
 #scratchpad,
-#mpd {
-  margin: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  color: #000000;
-}
+#spotify,
 
 .modules-left > widget:first-child > #workspaces {
   margin-left: 0;
@@ -81,7 +80,6 @@ tooltip label {
 #battery.charging,
 #battery.plugged {
   color: #ffffff;
-  background-color: #26a65b;
 }
 
 @keyframes blink {
@@ -112,7 +110,7 @@ tooltip label {
 }
 
 label:focus {
-  background-color: #000000;
+  background-color: gray;
 }
 
 #network.disconnected {
@@ -143,5 +141,5 @@ label:focus {
 }
 #custom-os_button:hover {
   background: white;
-  color: black;
+  color: gray;
 }

@@ -57,6 +57,12 @@ mkdir $1
 cd $1
 }
 
+#eza-ls
+alias ls="eza --long --color=always --icons=alway --icons=always --no-user"
+
+
+
+###functions###
 
 klogs(){
     kgp -A | grep $1 | awk '{print $2, $1}' | xargs -l bash -c 'kubectl logs $0 --namespace $1'
