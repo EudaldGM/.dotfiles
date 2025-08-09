@@ -15,7 +15,7 @@ return {
     local luasnip = require('luasnip')
     --local cmp_ai = require('cmp_ai.config')
 
-    local allowed_filetypes = { 'go', 'python', 'lua', 'yaml', 'terraform', 'tf', 'zig', 'sql' }
+    local allowed_filetypes = { 'go', 'python', 'lua', 'yaml', 'terraform', 'tf', 'zig', 'sql', 'rust' }
 
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup({})
