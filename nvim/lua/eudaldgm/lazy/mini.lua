@@ -23,15 +23,6 @@ return {
 		require("mini.operators").setup()
 		require("mini.extra").setup()
 		--miniFiles Config
-		require('mini.files').setup({
-			options = {use_as_default_explorer = true,},
-		})
-
-		vim.keymap.set('n', '<leader>o',function()
-			require('mini.files').open()
-			end,
-			{desc = 'Open miniFiles'})
-
 
 	end,
 }

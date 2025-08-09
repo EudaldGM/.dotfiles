@@ -3,5 +3,7 @@ return{
 	config = function()
 		require('gitsigns').setup({
 		})
-	end
+	end,
+	vim.keymap.set('n', '<leader>Gb', ':Gitsigns blame<CR>', {silent = true, desc = "Open gitsigns gitblame"}),
+
 }
