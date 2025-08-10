@@ -4,7 +4,7 @@ return {
     config = function()
 
         require('mini.icons').setup()
-		require("mini.ai").setup()
+		require("mini.ai").setup({})
 		require("mini.jump").setup()
 		require("mini.jump2d").setup({
 			allowed_lines = {
