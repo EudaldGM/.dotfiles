@@ -1,1 +1,1 @@
-/home/yudal/.dotfiles/init.lua
+require("eudaldgm")

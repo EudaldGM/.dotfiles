@@ -8,11 +8,12 @@ ln -fs ~/.dotfiles/nvimrc ~/.nvimrc
 
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/
-ln -fs ~/.dotfiles/init.lua ~/.config/nvim
 
 #ohmyzsh theme
 cp ~/.dotfiles/af-magic-custom.zsh-theme ~/.oh-my-zsh/themes
 
+#kitty
+ln -fsr ~/.dotfiles/kitty ~/.config/
 
 #hyprland
 ln -fsr ~/.dotfiles/hypr ~/.config/

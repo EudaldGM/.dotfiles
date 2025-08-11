@@ -72,6 +72,7 @@ return {
           [vim.diagnostic.severity.INFO] = " ",
         },
       },
+	  virtual_text = true
     })
 
     vim.lsp.config("*", {
