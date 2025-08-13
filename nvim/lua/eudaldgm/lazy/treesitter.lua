@@ -28,7 +28,6 @@ return {
         "dockerfile",
         "gitignore",
         "vimdoc",
-        "c",
 		"python",
 		"toml",
 		"go",

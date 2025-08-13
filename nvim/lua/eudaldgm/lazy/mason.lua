@@ -33,6 +33,9 @@ return {
         "pyright",
 		"bashls",
 		"gopls",
+		"helm-ls",
+		"json-lsp",
+		"yaml-language-server",
       },
     })
 
