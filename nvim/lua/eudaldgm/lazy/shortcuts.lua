@@ -11,5 +11,5 @@ return {
 	--miscSrtcts
 	vim.keymap.set('n', '<leader>q', function() vim.fn.setreg( '+', vim.fn.expand('%:p')) end, {desc = "get path for current file"}),
 	vim.keymap.set('n', '<leader>ww', '<cmd>set wrap!<CR>', {desc = "Toggle wrap", silent = true, noremap = true}),
-
+	vim.keymap.set('i', 'ppp', '<Esc>', {desc = "Escape insert mode", noremap = true})
 }
