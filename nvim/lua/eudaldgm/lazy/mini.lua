@@ -9,7 +9,8 @@ return {
 		require("mini.jump2d").setup({
 			allowed_lines = {
 				blank = false,
-			}
+
+			},
 		})
 	  	require('mini.comment').setup()
 		require('mini.indentscope').setup()
