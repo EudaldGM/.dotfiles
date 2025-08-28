@@ -1,6 +1,6 @@
 return {
 	--travel between buffers
-	vim.keymap.set('n', '<leader><C-w>', ':bdelete!<CR>', {silent = true, desc = "Close Current Tab"}),
+	vim.keymap.set('n', '<C-x>', ':bdelete!<CR>', {silent = true, desc = "Close Current Tab"}),
 	vim.keymap.set('n', '<leader><tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"}),
 	vim.keymap.set('n', '<S-tab>', ':bprevious<CR>', {silent = true, desc = "Previous Tab"}),
 
