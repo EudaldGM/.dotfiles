@@ -36,6 +36,7 @@ return {
 		"helm_ls",
 		"jsonls",
 		"yamlls",
+		"zls",
       },
     })
 

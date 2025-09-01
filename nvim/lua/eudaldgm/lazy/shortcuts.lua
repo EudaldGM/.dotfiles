@@ -3,7 +3,7 @@ return {
 	vim.keymap.set('n', '<C-x>', ':bdelete!<CR>', {silent = true, desc = "Close Current Tab"}),
 	vim.keymap.set('n', '<leader><tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"}),
 	vim.keymap.set('n', '<S-tab>', ':bprevious<CR>', {silent = true, desc = "Previous Tab"}),
-
+	vim.keymap.set('n', '<tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"}),
 	--Terminal
 	vim.api.nvim_set_keymap('n', '<leader>t', ':lcd %:p:h | belowright 15split | terminal<CR> i', { noremap = true, silent = true }),
 	vim.keymap.set('t', '<Esc>', '<C-\\><C-n>'),
