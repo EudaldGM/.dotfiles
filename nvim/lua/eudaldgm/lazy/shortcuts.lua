@@ -5,11 +5,12 @@ return {
 	vim.keymap.set('n', '<S-tab>', ':bprevious<CR>', {silent = true, desc = "Previous Tab"}),
 	vim.keymap.set('n', '<tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"}),
 	--Terminal
-	vim.api.nvim_set_keymap('n', '<leader>t', ':lcd %:p:h | belowright 15split | terminal<CR> i', { noremap = true, silent = true }),
+	vim.api.nvim_set_keymap('n', '<leader>t', ':belowright 15split | terminal<CR> i', { noremap = true, silent = true }),
 	vim.keymap.set('t', '<Esc>', '<C-\\><C-n>'),
 
 	--miscSrtcts
 	vim.keymap.set('n', '<leader>q', function() vim.fn.setreg( '+', vim.fn.expand('%:p')) end, {desc = "get path for current file"}),
 	vim.keymap.set('n', '<leader>ww', '<cmd>set wrap!<CR>', {desc = "Toggle wrap", silent = true, noremap = true}),
-	vim.keymap.set('i', 'ppp', '<Esc>', {desc = "Escape insert mode", noremap = true})
+	vim.keymap.set('i', 'ppp', '<Esc>', {desc = "Escape insert mode", noremap = true}),
+	vim.keymap.set('n', 'C-l', ':nohup<CR>', {silent = true})
 }

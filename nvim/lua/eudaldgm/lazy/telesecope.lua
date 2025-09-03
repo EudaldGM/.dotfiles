@@ -23,6 +23,11 @@ return {
     })
 
     telescope.setup({
+	  pickers = {
+		find_files = {
+		  hidden = true
+		}
+	  },
       defaults = {
         path_display = { "smart" },
         mappings = {
