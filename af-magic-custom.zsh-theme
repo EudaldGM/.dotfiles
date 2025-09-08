@@ -28,7 +28,7 @@ fi
 if (( $+functions[kube_ps1] )); then
   RPS1+='$(kube_ps1)'
 fi
-RPS1+=" ${FG[237]}%n@%m%{$reset_color%}"
+# RPS1+=" ${FG[237]}%n@%m%{$reset_color%}"
 
 # git settings
 ZSH_THEME_GIT_PROMPT_PREFIX=" ${FG[075]}(${FG[078]}"

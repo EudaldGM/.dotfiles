@@ -40,8 +40,6 @@ return {
 
             ["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
             ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
-
-			["axf"] = { query = "@next.function.outer",},
           },
         },
         swap = {

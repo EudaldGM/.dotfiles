@@ -9,6 +9,9 @@ ln -fs ~/.dotfiles/nvimrc ~/.nvimrc
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/
 
+#tmux
+ln -fsr ~/.dotfiles/tmux ~/.config/
+
 #ohmyzsh theme
 cp ~/.dotfiles/af-magic-custom.zsh-theme ~/.oh-my-zsh/themes
 
