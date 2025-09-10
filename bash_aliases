@@ -33,8 +33,6 @@ alias frhr="flux resume hr"
 alias frk="flux resume kustomization"
 
 #productivity
-alias s="switch"
-alias z="zed"
 alias nv="nvim"
 
 #typos
