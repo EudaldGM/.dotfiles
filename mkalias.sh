@@ -12,20 +12,6 @@ ln -fsr ~/.dotfiles/nvim ~/.config/
 #tmux
 ln -fsr ~/.dotfiles/tmux ~/.config/
 
-#ohmyzsh theme
-cp ~/.dotfiles/af-magic-custom.zsh-theme ~/.oh-my-zsh/themes
-
-#kitty
-ln -fsr ~/.dotfiles/kitty ~/.config/
-
-#hyprland
-ln -fsr ~/.dotfiles/hypr ~/.config/
-
-#waybar
-ln -fsr ~/.dotfiles/waybar ~/.config/
-
-#wofi
-ln -fsr ~/.dotfiles/wofi ~/.config/
 #[pending] setuo fzf and fzf tooling
 #[pending] install mise
 #[pending] install fzf
