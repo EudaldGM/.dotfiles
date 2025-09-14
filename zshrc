@@ -110,7 +110,7 @@ export PATH="$HOME/Go/bin:$PATH"
 
 #Bash stuff
 . ~/.bash_prompt
-. ~/.bash_aliases
+. ~/.dotfiles/bash_aliases
 
 export EDITOR=nvim
 
