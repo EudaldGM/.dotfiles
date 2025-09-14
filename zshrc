@@ -114,6 +114,9 @@ export PATH="$HOME/Go/bin:$PATH"
 
 export EDITOR=nvim
 
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
+
 #misssssse
 export PATH=$PATH:~/.local/bin
 eval "$($(which mise) activate zsh)"
@@ -156,5 +159,4 @@ KUBE_PS1_CTX_COLOR=blue
 #krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-#caps as esc
-#setxkbmap -option caps:escape
+
