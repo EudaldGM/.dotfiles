@@ -47,7 +47,7 @@ alias gCa="git commit -a"
 alias gp="git pull"
 alias gP="git push"
 alias gst="git status"
-
+alias gsu="git checkout main && git pull"
 
 #functions
 mdcd(){
