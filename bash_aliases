@@ -21,6 +21,7 @@ alias krrd="kubectl rollout restart deployment"
 alias keit="kubectl exec -it"
 alias ked="kubectl edit deployment"
 alias kl="kubectl logs"
+alias klf="kubectl logs -f"
 alias kgpg="kubectl get pods | grep"
 
 #flux
