@@ -11,7 +11,7 @@ return{
 		-- REQUIRED
 
 		vim.keymap.set("n", "<leader>ta", function() harpoon:list():add() end)
-		-- vim.keymap.set("n", "<leader>te", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+		vim.keymap.set("n", "<leader>te", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 		vim.keymap.set("n", "<leader>t1", function() harpoon:list():select(1) end)
 		vim.keymap.set("n", "<leader>t2", function() harpoon:list():select(2) end)
