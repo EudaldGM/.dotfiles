@@ -27,13 +27,10 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
-        "html",
-        "cssls",
         "lua_ls",
         "pyright",
 		"bashls",
 		"gopls",
-		"helm_ls",
 		"jsonls",
 		"yamlls",
 		"zls",
@@ -48,7 +45,6 @@ return {
         "black", -- python formatter
         "pylint",
         "eslint_d",
-		"gofumpt",
 		"goimports",
 		"gotests",
       },
