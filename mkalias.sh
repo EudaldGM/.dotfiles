@@ -19,3 +19,8 @@ echo "source ~/.dotfiles/hyprland.conf" >> ~/.config/hypr/hyprland.conf
 #[pending] install kubectl
 #[pending] install go
 #[pending] install npm
+#[pending] install ripgrep
+#[pending] install fzf
+#[pending] install eza
+#[pending] install mise usage
+#[pending] install and configure zoxide

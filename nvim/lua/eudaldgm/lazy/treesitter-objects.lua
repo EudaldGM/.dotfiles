@@ -17,12 +17,6 @@ return {
             ["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
             ["r="] = { query = "@assignment.rhs", desc = "Select right hand side of an assignment" },
 
-            -- works for javascript/typescript files (custom capture I created in after/queries/ecma/textobjects.scm)
-            ["a:"] = { query = "@property.outer", desc = "Select outer part of an object property" },
-            ["i:"] = { query = "@property.inner", desc = "Select inner part of an object property" },
-            ["l:"] = { query = "@property.lhs", desc = "Select left part of an object property" },
-            ["r:"] = { query = "@property.rhs", desc = "Select right part of an object property" },
-
             ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a parameter/argument" },
             ["ia"] = { query = "@parameter.inner", desc = "Select inner part of a parameter/argument" },
 
@@ -40,19 +34,19 @@ return {
 
             ["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
             ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
+
+			["ag"] = { query = "@comment.outer", desc = "Select outer part of a comment" },
           },
         },
         swap = {
           enable = true,
           swap_next = {
             ["<leader>na"] = "@parameter.inner", -- swap parameters/argument with next
-            ["<leader>n:"] = "@property.outer", -- swap object property with next
-            ["<leader>nm"] = "@function.outer", -- swap function with next
+            ["<leader>nf"] = "@function.outer", -- swap function with next
           },
           swap_previous = {
             ["<leader>pa"] = "@parameter.inner", -- swap parameters/argument with prev
-            ["<leader>p:"] = "@property.outer", -- swap object property with prev
-            ["<leader>pm"] = "@function.outer", -- swap function with previous
+            ["<leader>pf"] = "@function.outer", -- swap function with previous
           },
         },
         move = {
@@ -64,6 +58,7 @@ return {
             ["+c"] = { query = "@class.outer", desc = "Next class start" },
             ["+i"] = { query = "@conditional.outer", desc = "Next conditional start" },
             ["+l"] = { query = "@loop.outer", desc = "Next loop start" },
+			["+r"] = { query = "@return.outer", desc = "Next return start" },
 
             -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
             -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
@@ -76,6 +71,7 @@ return {
             ["+C"] = { query = "@class.outer", desc = "Next class end" },
             ["+I"] = { query = "@conditional.outer", desc = "Next conditional end" },
             ["+L"] = { query = "@loop.outer", desc = "Next loop end" },
+			["+R"] = { query = "@return.outer", desc = "Next return end" },
           },
           goto_previous_start = {
             ["*m"] = { query = "@call.outer", desc = "Prev function call start" },
@@ -83,6 +79,7 @@ return {
             ["*c"] = { query = "@class.outer", desc = "Prev class start" },
             ["*i"] = { query = "@conditional.outer", desc = "Prev conditional start" },
             ["*l"] = { query = "@loop.outer", desc = "Prev loop start" },
+			["*r"] = { query = "@return.outer", desc = "Prev return start" },
           },
           goto_previous_end = {
             ["*M"] = { query = "@call.outer", desc = "Prev function call end" },
@@ -90,6 +87,7 @@ return {
             ["*C"] = { query = "@class.outer", desc = "Prev class end" },
             ["*I"] = { query = "@conditional.outer", desc = "Prev conditional end" },
             ["*L"] = { query = "@loop.outer", desc = "Prev loop end" },
+			["*R"] = { query = "@return.outer", desc = "Prev return end" },
           },
         },
       },
