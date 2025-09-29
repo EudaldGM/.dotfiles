@@ -138,6 +138,9 @@ command -v flux >/dev/null && . <(flux completion zsh)
 #fzf
 eval "$(fzf --zsh)"
 
+#zoxide
+eval "$(zoxide init zsh)"
+
 #just
 _just_completion() {
     if [[ -f "justfile" ]]; then
