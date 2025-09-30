@@ -11,6 +11,5 @@ return {
 		require('mini.statusline').setup() --change
 		require("mini.align").setup()
 		require('mini.surround').setup()
-		require("mini.extra").setup()
 	end,
 }
