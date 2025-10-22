@@ -32,6 +32,8 @@ return {
 		"toml",
 		"go",
 		"rust",
+		"hcl",
+		"terraform",
       },
       incremental_selection = {
         enable = true,

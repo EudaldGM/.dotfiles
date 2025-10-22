@@ -79,6 +79,14 @@ return {
       capabilities = capabilities,
     })
 
+ ---@class PluginLspOpts
+	opts = {
+	  servers = {
+		terraformls = {},
+		tflint = {},
+	  },
+	}
+
     vim.lsp.config("lua_ls", {
       settings = {
         Lua = {

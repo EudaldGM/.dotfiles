@@ -34,6 +34,7 @@ return {
 		"jsonls",
 		"yamlls",
 		"zls",
+		"tflint",
       },
     })
 

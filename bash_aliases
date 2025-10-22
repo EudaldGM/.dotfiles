@@ -57,7 +57,7 @@ cd $1
 }
 
 #eza-ls
-alias ls="eza --long --color=always --icons=alway --icons=always --no-user"
+alias ts="eza --long --color=always --icons=alway --icons=always --no-user"
 
 
 
