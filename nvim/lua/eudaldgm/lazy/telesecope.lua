@@ -26,7 +26,13 @@ return {
 	  pickers = {
 		find_files = {
 			hidden = true,
-		}
+		},
+		live_grep = {
+			hidden = true,
+		},
+		grep_string = {
+			hidden = true,
+		},
 	  },
       defaults = {
         path_display = { "smart" },
