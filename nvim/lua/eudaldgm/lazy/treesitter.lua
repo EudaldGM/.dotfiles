@@ -34,6 +34,7 @@ return {
 		"rust",
 		"hcl",
 		"terraform",
+		"zig"
       },
       incremental_selection = {
         enable = true,
