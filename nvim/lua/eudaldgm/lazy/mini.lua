@@ -9,7 +9,14 @@ return {
 		require('mini.tabline').setup() --change
 		require('mini.pairs').setup()
 		require('mini.statusline').setup() --change
-		require("mini.align").setup()
+		require('mini.align').setup()
 		require('mini.surround').setup()
+		require('mini.starter').setup()
+		-- require('mini.sessions').setup(
+		-- 	{
+		-- 		autoread = true,
+		-- 		file = '.session.vim',
+		-- 	}
+		-- )
 	end,
 }
