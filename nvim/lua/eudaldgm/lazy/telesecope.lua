@@ -23,17 +23,17 @@ return {
     })
 
     telescope.setup({
-	  pickers = {
-		find_files = {
-			hidden = true,
-		},
-		live_grep = {
-			hidden = true,
-		},
-		grep_string = {
-			hidden = true,
-		},
-	  },
+		--  pickers = {
+		-- find_files = {
+		-- 	hidden = true,
+		-- },
+		-- live_grep = {
+		-- 	hidden = true,
+		-- },
+		-- grep_string = {
+		-- 	hidden = true,
+		-- },
+		--  },
       defaults = {
         path_display = { "smart" },
         mappings = {
@@ -58,5 +58,8 @@ return {
     keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
     keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
     keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find todos" })
+	keymap.set("n", "<leader>hf", function() require("telescope.builtin").find_files { hidden = true } end, { desc = "Find hidden files" })
+	keymap.set("n", "<leader>hg", function() require("telescope.builtin").live_grep { hidden = true } end, { desc = "Find hidden files" })
+
   end,
 }
