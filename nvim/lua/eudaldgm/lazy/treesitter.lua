@@ -23,6 +23,7 @@ return {
         "html",
         "css",
         "bash",
+		"helm",
         "lua",
         "vim",
         "dockerfile",

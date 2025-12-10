@@ -32,9 +32,10 @@ return {
 		"bashls",
 		"gopls",
 		"jsonls",
-		"yamlls",
 		"zls",
 		"tflint",
+		"terraform",
+		"terraform-ls",
       },
     })
 
@@ -45,7 +46,6 @@ return {
         "isort", -- python formatter
         "black", -- python formatter
         "pylint",
-        "eslint_d",
 		"goimports",
 		"gotests",
       },

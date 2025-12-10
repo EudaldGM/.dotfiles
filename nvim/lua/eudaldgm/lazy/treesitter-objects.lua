@@ -36,6 +36,12 @@ return {
             ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
 
 			["ag"] = { query = "@comment.outer", desc = "Select outer part of a comment" },
+
+			["ap"] = { query = "@parameter_list.outer", desc = "Select outer part of a parameter" },
+			["ip"] = { query = "@parameter.inner", desc = "Select inner part of a parameter" },
+
+			["aw"] = { query = "@receiver.outer", desc = "Select outer part of a method receiver" },
+			["iw"] = { query = "@receiver.inner", desc = "Select inner part of a method receiver" },
           },
         },
         swap = {
@@ -59,6 +65,8 @@ return {
             ["+i"] = { query = "@conditional.outer", desc = "Next conditional start" },
             ["+l"] = { query = "@loop.outer", desc = "Next loop start" },
 			["+r"] = { query = "@return.outer", desc = "Next return start" },
+			["+p"] = { query = "@parameter.outer", desc = "Next paramter" },
+			["+w"] = { query = "@receiver.outer", desc = "Next method receiver" },
 
             -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
             -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
@@ -72,6 +80,9 @@ return {
             ["+I"] = { query = "@conditional.outer", desc = "Next conditional end" },
             ["+L"] = { query = "@loop.outer", desc = "Next loop end" },
 			["+R"] = { query = "@return.outer", desc = "Next return end" },
+			["+P"] = { query = "@parameter.outer", desc = "Next paramter end" },
+			["+W"] = { query = "@receiver.outer", desc = "Next method receiver end" },
+
           },
           goto_previous_start = {
             ["*m"] = { query = "@call.outer", desc = "Prev function call start" },
@@ -80,6 +91,8 @@ return {
             ["*i"] = { query = "@conditional.outer", desc = "Prev conditional start" },
             ["*l"] = { query = "@loop.outer", desc = "Prev loop start" },
 			["*r"] = { query = "@return.outer", desc = "Prev return start" },
+			["*p"] = { query = "@parameter.inner", desc = "Prev paramter" },
+			["*w"] = { query = "@receiver.outer", desc = "Prev method receiver" },
           },
           goto_previous_end = {
             ["*M"] = { query = "@call.outer", desc = "Prev function call end" },
@@ -88,6 +101,8 @@ return {
             ["*I"] = { query = "@conditional.outer", desc = "Prev conditional end" },
             ["*L"] = { query = "@loop.outer", desc = "Prev loop end" },
 			["*R"] = { query = "@return.outer", desc = "Prev return end" },
+			["*P"] = { query = "@parameter.inner", desc = "Prev paramter end" },
+			["*W"] = { query = "@receiver.outer", desc = "Prev method receiver end" },
           },
         },
       },

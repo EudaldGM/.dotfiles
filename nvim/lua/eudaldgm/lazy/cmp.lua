@@ -34,10 +34,10 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
+	  
       mapping = cmp.mapping.preset.insert({
         ["<S-Tab>"] = cmp.mapping.select_prev_item(), -- previous suggestion
         ["<Tab>"] = cmp.mapping.select_next_item(), -- next suggestion
-        ["<C-¡>"] = cmp.mapping.complete(), -- show completion suggestions
         ["<C-q>"] = cmp.mapping.abort(), -- close completion window
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
       }),
