@@ -23,17 +23,6 @@ return {
     })
 
     telescope.setup({
-		--  pickers = {
-		-- find_files = {
-		-- 	hidden = true,
-		-- },
-		-- live_grep = {
-		-- 	hidden = true,
-		-- },
-		-- grep_string = {
-		-- 	hidden = true,
-		-- },
-		--  },
       defaults = {
         path_display = { "smart" },
         mappings = {
@@ -49,9 +38,33 @@ return {
 
     telescope.load_extension("fzf")
 
+	-- Telescope live_grep in folder under cursor
+	local function live_grep_in_folder()
+	  local api = require("nvim-tree.api")
+	  local node = api.tree.get_node_under_cursor()
+
+	  if not node then
+		print("No node under cursor")
+		return
+	  end
+
+	  -- Determine target directory
+	  local directory = node.absolute_path
+	  if node.type ~= "directory" then
+		directory = vim.fn.fnamemodify(node.absolute_path, ":h")
+	  end
+
+	  require("telescope.builtin").live_grep({
+		cwd = directory,
+		prompt_title = "Live Grep: " .. directory,
+	  })
+	end
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 
+	keymap.set("n", "<leader>eg", live_grep_in_folder, {
+	  desc = "Live grep in selected nvim-tree folder",
+	})
     keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
     keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
     keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
