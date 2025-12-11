@@ -44,9 +44,37 @@ return {
         ignore = false,
       },
     })
+	
+
+	-- Telescope live_grep in folder under cursor
+	local function live_grep_in_folder()
+	  local api = require("nvim-tree.api")
+	  local node = api.tree.get_node_under_cursor()
+
+	  if not node then
+		print("No node under cursor")
+		return
+	  end
+
+	  -- Determine target directory
+	  local directory = node.absolute_path
+	  if node.type ~= "directory" then
+		directory = vim.fn.fnamemodify(node.absolute_path, ":h")
+	  end
+
+	  require("telescope.builtin").live_grep({
+		cwd = directory,
+		prompt_title = "Live Grep: " .. directory,
+	  })
+	end
+
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
+
+	keymap.set("n", "<leader>eg", live_grep_in_folder, {
+	  desc = "Live grep in selected nvim-tree folder",
+	})
 
     keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
     keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
