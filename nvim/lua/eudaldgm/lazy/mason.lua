@@ -36,6 +36,7 @@ return {
 		"tflint",
 		"terraform",
 		"terraform-ls",
+		"llm-ls"
       },
     })
 
