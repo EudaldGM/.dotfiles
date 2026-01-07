@@ -35,6 +35,7 @@ alias frk="flux resume kustomization"
 
 #productivity
 alias nv="nvim"
+alias yy="yazi"
 
 #typos
 alias nivm="nvim"

@@ -27,5 +27,5 @@ if ! command -v <the_command> >/dev/null 2>&1
 then
 	curl https://mise.run | sh
 fi
-mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit
+mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit yazi
 
