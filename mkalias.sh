@@ -2,7 +2,6 @@
 
 #install wl-clipboard
 #install zsh
-#install ohmyzsh
 #install tmux
 
 touch ~/.bash_prompt

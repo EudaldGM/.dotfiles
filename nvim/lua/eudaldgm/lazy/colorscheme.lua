@@ -12,7 +12,11 @@ return {
 		local lightblue = "#00ffff"
 
 		require('onedark').setup {
+			transparent = true,
 			style = 'darker',
+			code_style = {
+				comments = 'italic'
+			},
 			highlights = {
 				MiniTablineCurrent = { fg = white, fmt = "bold" },
 				MiniTablineFill = { fg = gray, bg = black },
