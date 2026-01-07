@@ -17,6 +17,9 @@ ln -fsr ~/.dotfiles/nvim ~/.config/
 ln -fsr ~/.dotfiles/tmux ~/.config/
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+#kitty
+ln -fsr ~/.dotfiles/kitty/ ~/.config/
+
 #Custom theme
 cp ~/.dotfiles/af-magic-custom.zsh-theme ~/.oh-my-zsh/custom/themes/
 
