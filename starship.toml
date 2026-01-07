@@ -5,6 +5,7 @@ format = """
 $directory\
 $git_branch\
 $git_status\
+$kubernetes\
 """
 
 # Disable the blank line at the start of the prompt
@@ -13,26 +14,20 @@ $git_status\
 
 [directory]
 format = "[ $path ]($style)"
-truncation_length = 1
+truncation_length = 3
 truncation_symbol = "…/"
-
-# Here is how you can shorten some long paths by text replacement
-# similar to mapped_locations in Oh My Posh:
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
+style = 'blue'
 
 [git_branch]
-symbol = ""
-format = '[ $symbol $branch ]($style)'
+symbol = "⎇"
+format = 'on[ $symbol $branch ]($style)'
+style = 'green'
 
 [git_status]
 format = '[$all_status$ahead_behind ]($style)'
-modified = "!"
+style = 'green'
+modified = "*"
 staged   = "+"
 untracked = "?"
 ahead = "⇡"
 behind = "⇣"
-
