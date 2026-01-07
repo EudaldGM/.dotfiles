@@ -31,3 +31,5 @@ then
 fi
 mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit yazi
 
+#starship
+ln -fsr ~/.dotfiles/starship ~/.config
