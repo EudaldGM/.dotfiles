@@ -34,9 +34,6 @@ return {
 		"jsonls",
 		"zls",
 		"tflint",
-		"terraform",
-		"terraform-ls",
-		"llm-ls"
       },
     })
 
@@ -49,6 +46,9 @@ return {
         "pylint",
 		"goimports",
 		"gotests",
+		"terraform",
+		"terraform-ls",
+		"llm-ls"
       },
     })
   end,

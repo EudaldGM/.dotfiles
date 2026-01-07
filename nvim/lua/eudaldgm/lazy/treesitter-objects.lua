@@ -41,11 +41,13 @@ return {
 			["ap"] = { query = "@parameter.outer", desc = "Select outer part of a parameter" },
 			["ip"] = { query = "@parameter.inner", desc = "Select inner part of a parameter" },
 
-			["aw"] = { query = "@receiver.outer", desc = "Select outer part of a method receiver" },
-			["iw"] = { query = "@receiver.inner", desc = "Select inner part of a method receiver" },
+			["an"] = { query = "@receiver.outer", desc = "Select outer part of a method receiver" },
+			-- ["in"] = { query = "@receiver.inner", desc = "Select inner part of a method receiver" },
 
 			["ar"] = { query = "@return.outer", desc = "Select outer part of a method return" },
 			["ir"] = { query = "@return.inner", desc = "Select inner part of a method return" },
+
+			["at"] = { query = "@result.outer", desc = "Select outer part of a result"}
           },
         },
         swap = {
@@ -93,6 +95,7 @@ return {
 			["*r"] = { query = "@return.outer", desc = "Prev return start" },
 			["*p"] = { query = "@parameter.inner", desc = "Prev function parameter" },
 			["*w"] = { query = "@receiver.outer", desc = "Prev method receiver" },
+			["*t"] = { query = "@result.outer", desc = "Prev result"}
           },
           goto_previous_end = {
             ["*M"] = { query = "@call.outer", desc = "Prev function call end" },
