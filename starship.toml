@@ -5,8 +5,11 @@ format = """
 $directory\
 $git_branch\
 $git_status\
-$kubernetes\
 $character\
+"""
+
+right_format = """
+$kubernetes\
 """
 
 # Disable the blank line at the start of the prompt
@@ -21,7 +24,7 @@ style = 'blue'
 
 [git_branch]
 symbol = "⎇"
-format = 'on[ $symbol $branch ]($style)'
+format = 'on[ $symbol $branch]($style)'
 style = 'green'
 
 [git_status]
@@ -35,7 +38,7 @@ behind = "⇣"
 
 [kubernetes]
 disabled = false
-format = '--[ $context( \($namespace\)) ]($style)'
+format = '[$context( \($namespace\)) ]($style)'
 style = 'cyan'
 
 [[kubernetes.contexts]]

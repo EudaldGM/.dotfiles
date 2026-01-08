@@ -9,6 +9,13 @@ echo "source ~/.bash_aliases" >> ~/.bashrc
 ln -fs ~/.dotfiles/zshrc ~/.zshrc      
 ln -fs ~/.dotfiles/nvimrc ~/.nvimrc
 
+#Mise
+if ! command -v mise >/dev/null 2>&1
+then
+	curl -fsSL https://mise.run | sh
+fi
+mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit nvim
+
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/
 
@@ -25,11 +32,11 @@ cp ~/.dotfiles/af-magic-custom.zsh-theme ~/.oh-my-zsh/custom/themes/
 #hyprland to omarchy
 echo "source ~/.dotfiles/hyprland.conf" >> ~/.config/hypr/hyprland.conf
 
-if ! command -v <the_command> >/dev/null 2>&1
+if ! command -v mise >/dev/null 2>&1
 then
-	curl https://mise.run | sh
+	curl -fsSL https://mise.run | sh
 fi
-mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit yazi
+mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit
 
 #starship
 ln -fsr ~/.dotfiles/starship ~/.config
