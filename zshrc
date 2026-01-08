@@ -72,7 +72,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git 
-    kube-ps1
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -150,12 +149,6 @@ _just_completion() {
     fi
 }
 compctl -K _just_completion just
-
-#kube_ps1
-KUBE_PS1_SYMBOL_CUSTOM=k8s
-KUBE_PS1_SYMBOL_ENABLE=false
-KUBE_PS1_HIDE_IF_NOCONTEXT=true
-KUBE_PS1_CTX_COLOR=blue
 
 #krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
