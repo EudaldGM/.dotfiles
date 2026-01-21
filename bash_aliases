@@ -2,6 +2,8 @@
 alias ktunnel="devutil ktunnel --name"
 
 #k8s
+alias s="switcher"
+
 alias k="kubectl"
 alias kns="kubens"
 alias kctx="kubectx"

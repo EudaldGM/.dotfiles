@@ -7,7 +7,6 @@
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
 ln -fs ~/.dotfiles/zshrc ~/.zshrc      
-ln -fs ~/.dotfiles/nvimrc ~/.nvimrc
 
 #Mise
 if ! command -v mise >/dev/null 2>&1
