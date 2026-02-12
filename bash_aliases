@@ -6,7 +6,7 @@ alias s="switcher"
 
 alias k="kubectl"
 alias kns="kubens"
-alias kctx="kubectx"
+alias ktx="kubectx"
 alias kg="kubectl get"
 alias kd="kubectl describe"
 alias kgp="kubectl get pods"

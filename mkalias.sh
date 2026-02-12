@@ -3,6 +3,9 @@
 #install wl-clipboard
 #install zsh
 #install tmux
+#install gtklock
+#install waybar
+#install vicinae
 
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
@@ -13,7 +16,7 @@ if ! command -v mise >/dev/null 2>&1
 then
 	curl -fsSL https://mise.run | sh
 fi
-mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit nvim
+mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit nvim
 
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/
@@ -22,14 +25,11 @@ ln -fsr ~/.dotfiles/nvim ~/.config/
 ln -fsr ~/.dotfiles/tmux ~/.config/
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-#kitty
-ln -fsr ~/.dotfiles/kitty/ ~/.config/
+#alacritty
+ln -fsr ~/.dotfiles/alacritty/ ~/.config/
 
-#Custom theme
-cp ~/.dotfiles/af-magic-custom.zsh-theme ~/.oh-my-zsh/custom/themes/
-
-#hyprland to omarchy
-echo "source ~/.dotfiles/hyprland.conf" >> ~/.config/hypr/hyprland.conf
+# #hyprland to omarchy
+# echo "source ~/.dotfiles/hyprland.conf" >> ~/.config/hypr/hyprland.conf
 
 if ! command -v mise >/dev/null 2>&1
 then
@@ -39,3 +39,9 @@ mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit
 
 #starship
 ln -fsr ~/.dotfiles/starship ~/.config
+
+#waybar
+ln -fsr ~/.dotfiles/waybar ~/.config
+
+#vicinae
+ln -fsr ~/.dotfiles/vicinae ~/.config

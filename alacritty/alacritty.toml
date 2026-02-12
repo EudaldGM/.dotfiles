@@ -1,0 +1,23 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/kanagawa_wave.toml"
+]
+
+[window]
+
+opacity = 0.9
+decorations = "None"
+padding.x = 10
+padding.y = 10
+
+[font]
+size = 13
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+

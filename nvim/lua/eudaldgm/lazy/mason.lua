@@ -34,6 +34,7 @@ return {
 		"jsonls",
 		"zls",
 		"tflint",
+		"rust_analyzer"
       },
     })
 
@@ -48,7 +49,7 @@ return {
 		"gotests",
 		"terraform",
 		"terraform-ls",
-		"llm-ls"
+		"llm-ls",
       },
     })
   end,
