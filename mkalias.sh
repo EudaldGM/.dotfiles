@@ -6,8 +6,6 @@
 #install gtklock
 #install waybar
 #install vicinae
-#install swaybg
-#install mako
 
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
@@ -47,8 +45,3 @@ ln -fsr ~/.dotfiles/waybar ~/.config
 
 #vicinae
 ln -fsr ~/.dotfiles/vicinae ~/.config
-
-#mako
-ln -fsr ~/.dotfiles/mako ~/.config
-systemctl --user add-wants niri.service mako.service
-systemctl --user add-wants niri.service waybar.service
