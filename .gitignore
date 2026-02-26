@@ -1,3 +1,4 @@
 nvim/pack
 tmux/plugins
 vicinae/settings.json
+*.json
