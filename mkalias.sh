@@ -10,13 +10,15 @@
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
 ln -fs ~/.dotfiles/zshrc ~/.zshrc      
+ln -fs ~/.dotfiles/bash_aliases ~/.bash_aliases
 
 #Mise
 if ! command -v mise >/dev/null 2>&1
 then
 	curl -fsSL https://mise.run | sh
 fi
-mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit nvim
+
+mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit nvim zls zig
 
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/
@@ -28,14 +30,6 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 #alacritty
 ln -fsr ~/.dotfiles/alacritty/ ~/.config/
 
-# #hyprland to omarchy
-# echo "source ~/.dotfiles/hyprland.conf" >> ~/.config/hypr/hyprland.conf
-
-if ! command -v mise >/dev/null 2>&1
-then
-	curl -fsSL https://mise.run | sh
-fi
-mise use -g go node ripgrep fzf eza usage zoxide kubectl lazygit
 
 #starship
 ln -fsr ~/.dotfiles/starship ~/.config
