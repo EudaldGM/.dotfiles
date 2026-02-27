@@ -1,10 +1,6 @@
 [general]
-import = [
-    "~/.config/alacritty/themes/themes/kanagawa_wave.toml"
-]
 
 [window]
-
 opacity = 0.9
 decorations = "None"
 startup_mode = "Maximized"
@@ -20,3 +16,5 @@ style = "Regular"
 family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
+[colors.primary]
+background = "#1E1E2E"
