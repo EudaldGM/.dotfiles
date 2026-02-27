@@ -1,25 +1,16 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-<<<<<<< HEAD
-  lazy = false,
-=======
   event = { "BufReadPre", "BufNewFile"},
->>>>>>> parent of a2d434e (fixes)
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
   config = function()
-<<<<<<< HEAD
-    local treesitter = require("nvim-treesitter.config")
-    treesitter.setup({
-=======
     -- import nvim-treesitter plugin
     local treesitter = require("nvim-treesitter.configs")
 
     -- configure treesitter
     treesitter.setup({ -- enable syntax highlighting
->>>>>>> parent of a2d434e (fixes)
       highlight = {
         enable = true,
       },
