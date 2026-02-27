@@ -1,9 +1,7 @@
 #klarrio
-alias ktunnel="devutil ktunnel --name"
+alias dtunnel="devutil tunnel --name"
 
 #k8s
-alias s="switcher"
-
 alias k="kubectl"
 alias kns="kubens"
 alias ktx="kubectx"
@@ -53,6 +51,9 @@ alias gp="git pull"
 alias gP="git push"
 alias gst="git status"
 alias gsu="git checkout main && git pull"
+
+#bash
+alias cl="clear"
 
 #functions
 mdcd(){
