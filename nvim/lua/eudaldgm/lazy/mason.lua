@@ -49,7 +49,6 @@ return {
 		"gotests",
 		"terraform",
 		"terraform-ls",
-		"llm-ls",
       },
     })
   end,
