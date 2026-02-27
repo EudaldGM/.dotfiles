@@ -18,7 +18,7 @@ fg_prefix=$(get_tmux_option "@tmux-dotbar-fg-prefix" '#95E6CB')
 #Opts
 bold_status=$(get_tmux_option "@tmux-dotbar-bold-status" false)
 bold_current_window=$(get_tmux_option "@tmux-dotbar-bold-current-window" false)
-status=$(get_tmux_option "@tmux-dotbar-position" "bottom")
+status=$(get_tmux_option "@tmux-dotbar-position" "top")
 justify=$(get_tmux_option "@tmux-dotbar-justify" "absolute-centre")
 left_state=$(get_tmux_option "@tmux-dotbar-left" true)
 right_state=$(get_tmux_option "@tmux-dotbar-right" false)
