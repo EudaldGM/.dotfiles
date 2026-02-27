@@ -2,7 +2,7 @@ return {
   "nvim-treesitter/nvim-treesitter-textobjects",
   lazy = false,
   config = function()
-    require("nvim-treesitter.config").setup({
+    require("nvim-treesitter.configs").setup({
       textobjects = {
         select = {
           enable = true,
