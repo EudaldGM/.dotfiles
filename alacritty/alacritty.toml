@@ -7,8 +7,6 @@ import = [
 
 opacity = 0.9
 decorations = "None"
-padding.x = 10
-padding.y = 10
 
 [font]
 size = 13
