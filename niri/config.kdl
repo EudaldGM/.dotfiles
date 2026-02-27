@@ -1,5 +1,8 @@
 // Startup Applications
 spawn-at-startup "sh" "-c" "vicinae server &"
+spawn-at-startup "sh" "-c" "swaybg -i \"$(find ~/Pictures/Wallpapers -type f | shuf -n 1)\" -m fill &"
+
+
 
 prefer-no-csd
 
@@ -21,7 +24,7 @@ input {
         natural-scroll
     }
 
-    focus-follows-mouse
+    // focus-follows-mouse
     workspace-auto-back-and-forth
 }
 
@@ -46,12 +49,11 @@ binds {
 
     // Application Shortcuts
     MOD+RETURN                          hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "alacritty -e tmux"; }
-    MOD+ALT+RETURN                      hotkey-overlay-title="Open Terminal: kitty" { spawn-sh "kitty"; }
     MOD+B                         		hotkey-overlay-title="Open Browser: chrome" { spawn-sh "google-chrome-stable"; }
     MOD+ALT+L                           hotkey-overlay-title="Lock Screen: gtklock" { spawn-sh "gtklock"; }
 	MOD+ALT+Q 							hotkey-overlay-title="Logout/Shutdown Menu: wlogout" { spawn-sh "wlogout"; }
     MOD+A                               hotkey-overlay-title="Open App Launcher: vicinae" { spawn-sh "vicinae toggle"; }
-    MOD+E                           hotkey-overlay-title="File Manager: Yazi" { spawn-sh "yazi"; }
+    MOD+E                           	hotkey-overlay-title="File Manager: Yazi" { spawn-sh "yazi"; }
 
     // Media Keys
 	//check if wpctl ... are installed
@@ -62,8 +64,7 @@ binds {
     XF86AudioMute                       allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute                    allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
     XF86AudioNext                       allow-when-locked=true { spawn-sh "playerctl pnext"; }
-    XF86AudioPause                      allow-when-locked=true { spawn-sh "playerctl pause"; }
-    XF86AudioPlay                       allow-when-locked=true { spawn-sh "playerctl play"; }
+    XF86AudioPlay                       allow-when-locked=true { spawn-sh "playerctl play-pause"; }
     XF86AudioPrev                       allow-when-locked=true { spawn-sh "playerctl previous"; }
 
     // Window Management
@@ -188,8 +189,9 @@ binds {
 }
 
 layout {
-    gaps 0
+    gaps 5
     center-focused-column "on-overflow"
+	always-center-single-column
     background-color "transparent"
 
     preset-column-widths {
@@ -198,17 +200,11 @@ layout {
         proportion 0.66667
     }
 
+	// default-column-width { proportion 0.66667; }
+
     focus-ring {
         width 0
-        active-color "#1E1E2E"
     }
-
-    insert-hint {
-        off
-        color "#1E1E2E"
-    }
-
-    struts {}
 
 }
 
@@ -246,13 +242,12 @@ animations {
     }
 }
 
-// Window Rules
 // Application-specific rules
 
-window-rule {
-    match app-id=r#"google-chrome"#
-    open-maximized true
-}
+// window-rule {
+//     match app-id=r#"google-chrome"#
+//     open-maximized true
+// }
 
 // File dialogs - Open/Save/Select
 window-rule {
@@ -279,8 +274,9 @@ window-rule {
 
 // Global window appearance
 window-rule {
-    geometry-corner-radius 0
+    geometry-corner-radius 10
     clip-to-geometry true
+	draw-border-with-background false
 }
 
 // Inactive window transparency
