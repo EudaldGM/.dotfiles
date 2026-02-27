@@ -7,6 +7,7 @@ import = [
 
 opacity = 0.9
 decorations = "None"
+startup_mode = "Maximized"
 
 [font]
 size = 13
