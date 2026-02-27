@@ -45,10 +45,10 @@ return {
         "isort", -- python formatter
         "black", -- python formatter
         "pylint",
-		"goimports",
-		"gotests",
-		"terraform",
-		"terraform-ls",
+        "goimports",
+        "gotests",
+        "terraform",
+        "terraform-ls",
       },
     })
   end,
