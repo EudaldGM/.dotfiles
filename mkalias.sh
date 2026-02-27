@@ -18,7 +18,7 @@ then
 	curl -fsSL https://mise.run | sh
 fi
 
-mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit nvim zls zig
+mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit nvim zls zig yazi
 
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/
