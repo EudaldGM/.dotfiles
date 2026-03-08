@@ -34,7 +34,7 @@ ln -fsr ~/.dotfiles/alacritty/ ~/.config/
 
 
 #starship
-ln -fsr ~/.dotfiles/starship ~/.config
+ln -fsr ~/.dotfiles/starship.toml ~/.config
 
 #waybar
 ln -fsr ~/.dotfiles/waybar ~/.config
