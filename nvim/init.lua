@@ -220,8 +220,8 @@ local function setup_dynamic_statusline()
 	})
 end
 
-vim.api.nvim_set_hl(0, "StatusLine",   { bg = "#1f203d" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#1f203d" })
+vim.api.nvim_set_hl(0, "StatusLine",   { bg = "#000000" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#000000" })
 
 setup_dynamic_statusline()
 
