@@ -49,14 +49,14 @@ binds {
 
     // Application Shortcuts
     MOD+RETURN                          hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "alacritty -e tmux"; }
-    MOD+B                         		hotkey-overlay-title="Open Browser: chrome" { spawn-sh "google-chrome-stable"; }
+    MOD+B                         		  hotkey-overlay-title="Open Browser: chrome" { spawn-sh "google-chrome-stable"; }
     MOD+ALT+L                           hotkey-overlay-title="Lock Screen: gtklock" { spawn-sh "gtklock"; }
-	MOD+ALT+Q 							hotkey-overlay-title="Logout/Shutdown Menu: wlogout" { spawn-sh "wlogout"; }
+    MOD+ALT+Q                           hotkey-overlay-title="Logout/Shutdown Menu: wlogout" { spawn-sh "wlogout"; }
     MOD+A                               hotkey-overlay-title="Open App Launcher: vicinae" { spawn-sh "vicinae toggle"; }
-    MOD+E                           	hotkey-overlay-title="File Manager: Yazi" { spawn-sh "yazi"; }
+    MOD+E                           	  hotkey-overlay-title="File Manager: Yazi" { spawn-sh "yazi"; }
 
     // Media Keys
-	//check if wpctl ... are installed
+    //check if wpctl ... are installed
     XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"; }
     XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"; }
     XF86MonBrightnessUp                 allow-when-locked=true { spawn-sh "brightnessctl set 10%+"; }
@@ -191,7 +191,7 @@ binds {
 layout {
     gaps 5
     center-focused-column "on-overflow"
-	always-center-single-column
+    always-center-single-column
     background-color "transparent"
 
     preset-column-widths {
