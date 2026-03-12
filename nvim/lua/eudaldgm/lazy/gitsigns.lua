@@ -16,5 +16,8 @@ return {
 
     -- Keymap to trigger Gitsigns blame command
     vim.keymap.set('n', '<leader>Gb', ':Gitsigns blame<CR>', { silent = true, desc = "Open Gitsigns gitblame" })
+    vim.keymap.set("n", "<leader>o", function()
+      vim.cmd("!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\\#L" .. vim.fn.line(".") .. " | xargs open")
+    end, { silent = true })
   end
 }

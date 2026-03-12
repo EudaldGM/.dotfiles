@@ -46,3 +46,9 @@ ln -fsr ~/.dotfiles/vicinae ~/.config
 ln -fsr ~/.dotfiles/mako ~/.config
 systemctl --user add-wants niri.service mako.service
 systemctl --user add-wants niri.service waybar.service
+
+
+#misc
+echo "[alias]
+  url = !bash -c 'git config --get remote.origin.url | sed -E \"s/.+:\\(.+\\)\\.git$/https:\\/\\/github\\.com\\/\\1/g\"'
+" >> ~/.gitconfig
