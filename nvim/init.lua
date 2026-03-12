@@ -3,14 +3,11 @@ require("eudaldgm")
 vim.opt.termguicolors = true
 vim.cmd.colorscheme("habamax")
 
-local function set_transparent() 
+local function set_transparent()
 	local groups = {
 		"Normal",
 		"NormalNC",
 		"EndOfBuffer",
-		"NormalFloat",
-		"FloatBorder",
-		"SignColumn",
 		"StatusLine",
 		"StatusLineNC",
 		"TabLine",
@@ -27,86 +24,93 @@ end
 set_transparent()
 
 -- ============================================================================
+-- COLORINES
+-- ============================================================================
+
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1c1a30" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#111111"})
+
+-- ============================================================================
 -- OPTIONS
 -- ============================================================================
 
-vim.opt.number = true 
-vim.opt.relativenumber = true 
-vim.opt.cursorline = true 
-vim.opt.wrap = false
-vim.opt.scrolloff = 10 
-vim.opt.sidescrolloff = 10 
+vim.opt.number         = true
+vim.opt.relativenumber = true
+vim.opt.cursorline     = true
+vim.opt.wrap           = false
+vim.opt.scrolloff      = 10
+vim.opt.sidescrolloff  = 10
 
-vim.opt.tabstop = 2 
-vim.opt.shiftwidth = 2 
-vim.opt.softtabstop = 2 
-vim.opt.expandtab = true 
-vim.opt.smartindent = true 
-vim.opt.autoindent = true 
+vim.opt.tabstop     = 2
+vim.opt.shiftwidth  = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab   = true
+vim.opt.smartindent = true
+vim.opt.autoindent  = true
 
-vim.opt.ignorecase = true 
-vim.opt.smartcase = true 
-vim.opt.hlsearch = true 
-vim.opt.incsearch = true 
+vim.opt.ignorecase = true
+vim.opt.smartcase  = true
+vim.opt.hlsearch   = true
+vim.opt.incsearch  = true
 
-vim.opt.signcolumn = "yes" 
-vim.opt.colorcolumn = "100" 
-vim.opt.showmatch = true 
-vim.opt.cmdheight = 1 
-vim.opt.completeopt = "menuone,noinsert,noselect" 
-vim.opt.showmode = false 
-vim.opt.pumheight = 10 
-vim.opt.pumblend = 10 
-vim.opt.winblend = 0 
-vim.opt.conceallevel = 0 
-vim.opt.concealcursor = "" 
-vim.opt.lazyredraw = true 
-vim.opt.synmaxcol = 300 
-vim.opt.fillchars = { eob = " " } 
+vim.opt.signcolumn    = "yes"
+vim.opt.colorcolumn   = "100"
+vim.opt.showmatch     = true
+vim.opt.cmdheight     = 1
+vim.opt.completeopt   = "menuone,noinsert,noselect"
+vim.opt.showmode      = false
+vim.opt.pumheight     = 10
+vim.opt.pumblend      = 10
+vim.opt.winblend      = 0
+vim.opt.conceallevel  = 0
+vim.opt.concealcursor = ""
+vim.opt.lazyredraw    = true
+vim.opt.synmaxcol     = 300
+vim.opt.fillchars     = { eob = " " }
 
 local undodir = vim.fn.expand("~/.vim/undodir")
 if
-	vim.fn.isdirectory(undodir) == 0 
+	vim.fn.isdirectory(undodir) == 0
 then
 	vim.fn.mkdir(undodir, "p")
 end
 
-vim.opt.backup = false 
-vim.opt.writebackup = false 
-vim.opt.swapfile = false 
-vim.opt.undofile = true 
-vim.opt.undodir = undodir 
-vim.opt.updatetime = 300 
-vim.opt.timeoutlen = 500 
-vim.opt.ttimeoutlen = 0 
-vim.opt.autoread = true 
-vim.opt.autowrite = false 
+vim.opt.backup      = false
+vim.opt.writebackup = false
+vim.opt.swapfile    = false
+vim.opt.undofile    = true
+vim.opt.undodir     = undodir
+vim.opt.updatetime  = 300
+vim.opt.timeoutlen  = 500
+vim.opt.ttimeoutlen = 0
+vim.opt.autoread    = true
+vim.opt.autowrite   = false
 
-vim.opt.hidden = true 
-vim.opt.errorbells = false 
-vim.opt.backspace = "indent,eol,start" 
-vim.opt.autochdir = false 
-vim.opt.iskeyword:append("-") 
-vim.opt.path:append("**") 
-vim.opt.selection = "inclusive" 
-vim.opt.mouse = "a" 
-vim.opt.clipboard:append("unnamedplus") 
-vim.opt.modifiable = true 
-vim.opt.encoding = "utf-8" 
+vim.opt.hidden     = true
+vim.opt.errorbells = false
+vim.opt.backspace  = "indent,eol,start"
+vim.opt.autochdir  = false
+vim.opt.iskeyword:append("-")
+vim.opt.path:append("**")
+vim.opt.selection  = "inclusive"
+vim.opt.mouse      = "a"
+vim.opt.clipboard:append("unnamedplus")
+vim.opt.modifiable = true
+vim.opt.encoding   = "utf-8"
 
 
-vim.opt.foldmethod = "expr" 
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" 
-vim.opt.foldlevel = 99 
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr   = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel  = 99
 
-vim.opt.splitbelow = true 
-vim.opt.splitright = true 
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
-vim.opt.wildmenu = true 
-vim.opt.wildmode = "longest:full,full" 
-vim.opt.diffopt:append("linematch:60") 
-vim.opt.redrawtime = 10000 
-vim.opt.maxmempattern = 20000 
+vim.opt.wildmenu      = true
+vim.opt.wildmode      = "longest:full,full"
+vim.opt.diffopt:append("linematch:60")
+vim.opt.redrawtime    = 10000
+vim.opt.maxmempattern = 20000
 
 -- ============================================================================
 -- STATUSLINE
@@ -116,12 +120,12 @@ local cached_branch = ""
 local last_check = 0
 local function git_branch()
 	local now = vim.loop.now()
-	if now - last_check > 5000 then 
+	if now - last_check > 5000 then
 		cached_branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
 		last_check = now
 	end
 	if cached_branch ~= "" then
-		return " \u{e725} " .. cached_branch .. " " 
+		return " \u{e725} " .. cached_branch .. " "
 	end
 	return ""
 end
@@ -130,37 +134,37 @@ end
 local function file_type()
 	local ft = vim.bo.filetype
 	local icons = {
-		lua = "\u{e620} ", 
-		python = "\u{e73c} ", 
-		javascript = "\u{e74e} ", 
-		typescript = "\u{e628} ", 
-		html = "\u{e736} ", 
-		css = "\u{e749} ", 
-		json = "\u{e60b} ", 
-		markdown = "\u{e73e} ", 
-		vim = "\u{e62b} ", 
-		sh = "\u{f489} ", 
+		lua = "\u{e620} ",
+		python = "\u{e73c} ",
+		javascript = "\u{e74e} ",
+		typescript = "\u{e628} ",
+		html = "\u{e736} ",
+		css = "\u{e749} ",
+		json = "\u{e60b} ",
+		markdown = "\u{e73e} ",
+		vim = "\u{e62b} ",
+		sh = "\u{f489} ",
 		bash = "\u{f489} ",
 		zsh = "\u{f489} ",
-		rust = "\u{e7a8} ", 
-		go = "\u{e724} ", 
-		c = "\u{e61e} ", 
-		cpp = "\u{e61d} ", 
+		rust = "\u{e7a8} ",
+		go = "\u{e724} ",
+		c = "\u{e61e} ",
+		cpp = "\u{e61d} ",
 		sql = "\u{e706} ",
 		yaml = "\u{f481} ",
 		toml = "\u{e615} ",
 		xml = "\u{f05c} ",
-		dockerfile = "\u{f308} ", 
-		gitcommit = "\u{f418} ", 
-		gitconfig = "\u{f1d3} ", 
+		dockerfile = "\u{f308} ",
+		gitcommit = "\u{f418} ",
+		gitconfig = "\u{f1d3} ",
 	}
 
 	if ft == "" then
-		return " \u{f15b} " 
+		return " \u{f15b} "
 	end
 
-    local icon = icons[ft] or "\u{f15b}" 
-    return icon .. "" 
+    local icon = icons[ft] or "\u{f15b}"
+    return icon .. ""
 end
 
 
@@ -202,12 +206,12 @@ local function setup_dynamic_statusline()
 				"%#StatusLineBold#",
 				"%{v:lua.mode_icon()}",
 				"%#StatusLine#",
-				" \u{e0b1} ", 
+				" \u{e0b1} ",
 				"%{v:lua.file_type()} %f %h%m%r",
-				"\u{e0b1}", 
+				"\u{e0b1}",
 				"%{v:lua.git_branch()}",
-				"%=", 
-				"%l:%c  %P ", 
+				"%=",
+				"%l:%c  %P ",
 			})
 		end,
 	})
@@ -228,8 +232,7 @@ setup_dynamic_statusline()
 -- ============================================================================
 -- KEYMAPS
 -- ============================================================================
-vim.g.mapleader = " " 
--- vim.g.maplocalleader = " " 
+vim.g.mapleader = " "
 
 vim.keymap.set("n", "j", function()
 	return vim.v.count == 0 and "gj" or "j"
@@ -239,8 +242,8 @@ vim.keymap.set("n", "k", function()
 end, { expr = true, silent = true, desc = "Up (wrap-aware)" })
 
 --miscSrtcts
-vim.keymap.set('n', '<leader>q', function() 
-    vim.fn.setreg( '+', vim.fn.expand('%:p')) 
+vim.keymap.set('n', '<leader>q', function()
+    vim.fn.setreg( '+', vim.fn.expand('%:p'))
     vim.notify("Copied path to clipboard!")
 end, {desc = "get path for current file"})
 
