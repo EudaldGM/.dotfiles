@@ -17,6 +17,8 @@ input {
             layout "es"
             options "caps:super"
         }
+        repeat-delay 250
+        repeat-rate  30
     }
 
     touchpad {

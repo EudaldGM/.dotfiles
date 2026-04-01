@@ -81,8 +81,8 @@ vim.opt.undodir     = undodir
 vim.opt.updatetime  = 300
 vim.opt.timeoutlen  = 500
 vim.opt.ttimeoutlen = 0
-vim.opt.autoread    = true
-vim.opt.autowrite   = false
+vim.opt.autoread    = false
+vim.opt.autowrite   = true
 
 vim.opt.hidden     = true
 vim.opt.errorbells = false
@@ -206,7 +206,7 @@ local function setup_dynamic_statusline()
 				"%#StatusLineBold#",
 				"%{v:lua.mode_icon()}",
 				"%#StatusLine#",
-				" \u{e0b1} ",
+				" \u{e0b1}",
 				"%{v:lua.file_type()} %f %h%m%r",
 				"\u{e0b1}",
 				"%{v:lua.git_branch()}",
