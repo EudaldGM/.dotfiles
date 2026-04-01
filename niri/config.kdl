@@ -25,7 +25,7 @@ input {
     }
 
     // focus-follows-mouse
-    workspace-auto-back-and-forth
+    // workspace-auto-back-and-forth
 }
 
 hotkey-overlay {
