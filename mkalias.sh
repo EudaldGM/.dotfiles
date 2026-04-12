@@ -3,11 +3,14 @@
 #install wl-clipboard
 #install zsh
 #install tmux
+#install make
+#install starship
 #install gtklock
 #install waybar
 #install vicinae
 #install swaybg
 #install mako
+#install git
 
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
@@ -20,7 +23,11 @@ then
 	curl -fsSL https://mise.run | sh
 fi
 
-mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit nvim zls zig yazi
+#git
+git config --global user.email "eudaldguillen@gmail.com"
+git config --global user.name "EudaldGM"
+
+mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit neovim@0.11.6 zls zig yazi python
 
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/
