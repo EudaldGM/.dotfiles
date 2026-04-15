@@ -52,8 +52,8 @@ binds {
     // Application Shortcuts
     MOD+RETURN                          hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "alacritty -e tmux"; }
     MOD+B                         		  hotkey-overlay-title="Open Browser: chrome" { spawn-sh "google-chrome-stable"; }
-    MOD+ALT+L                           hotkey-overlay-title="Lock Screen: gtklock" { spawn-sh "gtklock"; }
-    MOD+ALT+Q                           hotkey-overlay-title="Logout/Shutdown Menu: wlogout" { spawn-sh "wlogout"; }
+    MOD+ALT+Q                           hotkey-overlay-title="Lock Screen: gtklock" { spawn-sh "gtklock"; }
+    MOD+ALT+T                           hotkey-overlay-title="Logout/Shutdown Menu: wlogout" { spawn-sh "wlogout"; }
     MOD+A                               hotkey-overlay-title="Open App Launcher: vicinae" { spawn-sh "vicinae toggle"; }
     MOD+E                           	  hotkey-overlay-title="File Manager: Yazi" { spawn-sh "yazi"; }
 
@@ -162,12 +162,12 @@ binds {
     MOD+TAB                             { focus-workspace-previous; }
 
     // Layout Controls
-    MOD+C                               { center-column; }
+    MOD+C                               { center-column;          }
     MOD+CTRL+C                          { center-visible-columns; }
-    MOD+BRACKETLEFT                     { set-column-width "-10%"; }
-    MOD+BRACKETRIGHT                    { set-column-width "+10%"; }
-    MOD+SHIFT+BRACKETLEFT               { set-window-height "-10%"; }
-    MOD+SHIFT+BRACKETRIGHT              { set-window-height "+10%"; }
+    MOD+ALT+H                           { set-column-width        "-10%"; }
+    MOD+ALT+L                           { set-column-width        "+10%"; }
+    MOD+ALT+K                           { set-window-height       "-10%"; }
+    MOD+ALT+J                           { set-window-height       "+10%"; }
 
     // Window resizing with mouse
     MOD+CTRL+WHEELSCROLLDOWN            { set-window-height "-5%"; }
@@ -175,9 +175,12 @@ binds {
 
     // Window Modes
     MOD+T                               { toggle-window-floating; }
-    MOD+F                               { fullscreen-window; }
     MOD+M                               { maximize-column; }
-    // MOD+W                               { toggle-column-tabbed-display; }
+    MOD+W                               { toggle-column-tabbed-display; }
+    MOD+F                               { maximize-window-to-edges; }
+
+    // Floating Movement
+    MOD+SHIFT+F { switch-focus-between-floating-and-tiling; }
 
     // Utils
     MOD+S                               { screenshot; }
@@ -185,7 +188,7 @@ binds {
     MOD+CTRL+S                          { screenshot-window write-to-disk=true; }
 
     // Application Restarts
-    MOD+ALT+W                           { spawn "sh" "-c" "pgrep -x waybar >/dev/null && killall waybar || waybar &"; }
+    // MOD+ALT+W                           { spawn "sh" "-c" "pgrep -x waybar >/dev/null && killall waybar || waybar &"; }
     // use with toggle in waybar (doens't restart if not running)
     // MOD+ALT+W                           { spawn "killall" "-SIGUSR1" "waybar"; }
 }
@@ -258,6 +261,11 @@ window-rule {
     default-column-width { proportion 0.0; }
     max-width 800
     max-height 1000
+}
+
+window-rule {
+    match title=r#"Alacritty"#
+    open-maximized true
 }
 
 window-rule {

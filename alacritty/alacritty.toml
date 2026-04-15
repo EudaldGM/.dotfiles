@@ -6,7 +6,7 @@ import = [
 [window]
 opacity = 0.9
 decorations = "None"
-startup_mode = "Maximized"
+# startup_mode = "Maximized"
 
 [font]
 size = 13

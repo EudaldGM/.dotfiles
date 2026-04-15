@@ -2,3 +2,5 @@ nvim/pack
 tmux/plugins
 vicinae/settings.json
 nvim/lazy-lock.json
+nvim/package-lock.json
+nvim/package.json
