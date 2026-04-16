@@ -57,8 +57,8 @@ local plugins = {
   { "lewis6991/gitsigns.nvim" },
 
   -- Treesitter (opt: heavy, loaded on BufReadPre)
-  { "nvim-treesitter/nvim-treesitter",                opt = true, branch = "master" },
-  { "nvim-treesitter/nvim-treesitter-textobjects",    opt = true, branch = "master" },
+  { "nvim-treesitter/nvim-treesitter",                opt = true, },
+  { "nvim-treesitter/nvim-treesitter-textobjects",    opt = true, },
 
   -- LSP
   { "neovim/nvim-lspconfig",                          opt = true },
