@@ -11,6 +11,8 @@
 #install swaybg
 #install mako
 #install git
+#install gh
+#install rustup
 
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
