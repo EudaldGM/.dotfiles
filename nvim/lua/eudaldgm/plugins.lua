@@ -3,9 +3,11 @@
 -- ============================================================================
 vim.pack.add({
 	"https://www.github.com/lewis6991/gitsigns.nvim",
+  "https://github.com/christoomey/vim-tmux-navigator",
 	"https://www.github.com/echasnovski/mini.nvim",
 	"https://www.github.com/ibhagwan/fzf-lua",
 	"https://www.github.com/nvim-tree/nvim-tree.lua",
+  "https://github.com/nvim-tree/nvim-web-devicons",
 	{
 		src = "https://github.com/nvim-treesitter/nvim-treesitter",
 		branch = "main",
@@ -14,45 +16,81 @@ vim.pack.add({
   "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	-- Language Server Protocols
 	"https://www.github.com/neovim/nvim-lspconfig",
+  "https://github.com/hrsh7th/nvim-cmp",
+  "https://github.com/hrsh7th/cmp-nvim-lsp",
 	"https://github.com/mason-org/mason.nvim",
-	"https://github.com/creativenull/efmls-configs-nvim",
-	{
-		src = "https://github.com/saghen/blink.cmp",
-		version = vim.version.range("1.*"),
-	},
-	"https://github.com/L3MON4D3/LuaSnip",
+  {
+    src = 	"https://github.com/L3MON4D3/LuaSnip",
+    version = "v2.5.0",
+    build = "make install_jsregexp",
+  },
   "https://github.com/folke/which-key.nvim",
   {
     src = "https://github.com/theprimeagen/harpoon",
     branch = "harpoon2"
   },
   "https://github.com/karb94/neoscroll.nvim",
+  "https://github.com/hrsh7th/cmp-buffer",
+  "https://github.com/hrsh7th/cmp-path",
+  "https://github.com/saadparwaiz1/cmp_luasnip",
+  "https://github.com/rafamadriz/friendly-snippets",
+  "https://github.com/onsails/lspkind.nvim",
+  "https://github.com/williamboman/mason-lspconfig.nvim",
+  "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 })
 
 local function packadd(name)
 	vim.cmd("packadd " .. name)
 end
+
 packadd("nvim-treesitter")
 packadd("nvim-treesitter-textobjects")
+packadd("nvim-web-devicons")
 packadd("gitsigns.nvim")
 packadd("mini.nvim")
+packadd("vim-tmux-navigator")
 packadd("fzf-lua")
 packadd("nvim-tree.lua")
+packadd("which-key.nvim")
+packadd("harpoon")
+packadd("neoscroll.nvim")
 -- LSP
 packadd("nvim-lspconfig")
 packadd("mason.nvim")
-packadd("efmls-configs-nvim")
-packadd("blink.cmp")
 packadd("LuaSnip")
+packadd("nvim-cmp")
+packadd("cmp-nvim-lsp")
+packadd("cmp-buffer")
+packadd("cmp-path")
+packadd("cmp_luasnip")
+packadd("friendly-snippets")
+packadd("lspkind.nvim")
+packadd("mason-lspconfig.nvim")
+packadd("mason-tool-installer.nvim")
 
 -- ============================================================================
 -- PLUGIN CONFIGS
 -- ============================================================================
 
-local setup_treesitter = function()
-	local treesitter = require("nvim-treesitter")
-	treesitter.setup({})
-	local ensure_installed = {
+--==================================
+-- TMUX NAVIGATOR
+--==================================
+vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
+vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
+vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
+vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
+vim.keymap.set("n", "<C-p>", "<cmd>TmuxNavigatePrevious<CR>")
+
+-- ============================================================================
+-- TREESITTER
+-- ============================================================================
+require('nvim-treesitter').setup {
+  highlight = {
+    enable = true,
+  },
+indent = { enable = true },
+  -- ensure these language parsers are installed
+  ensure_installed = {
     "json",
     "yaml",
     "html",
@@ -71,58 +109,177 @@ local setup_treesitter = function()
     "hcl",
     "terraform",
     "zig"
-	}
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-space>",
+      node_incremental = "<C-space>",
+      scope_incremental = false,
+      node_decremental = "<bs>",
+    },
+  },
 
-	local config = require("nvim-treesitter.config")
+}
 
-	local already_installed = config.get_installed()
-	local parsers_to_install = {}
+require("nvim-treesitter-textobjects").setup {
+  select = {
+    lookahead = true,
+    selection_modes = {
+      ['@parameter.outer'] = 'v', -- charwise
+      ['@function.outer'] = 'V', -- linewise
+      -- ['@class.outer'] = '<c-v>', -- blockwise
+    },
+    include_surrounding_whitespace = false,
+  },
+}
 
-	for _, parser in ipairs(ensure_installed) do
-		if not vim.tbl_contains(already_installed, parser) then
-			table.insert(parsers_to_install, parser)
-		end
-	end
+--==================================
+-- TREESITTER TEXTOBJECTS
+--==================================
+local select  = require("nvim-treesitter-textobjects.select")
+local swap    = require("nvim-treesitter-textobjects.swap")
+local move    = require("nvim-treesitter-textobjects.move")
+local repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
 
-	if #parsers_to_install > 0 then
-		treesitter.install(parsers_to_install)
-	end
+require("nvim-treesitter-textobjects").setup({
+  select = {
+    lookahead = true,
+    include_surrounding_whitespace = false,
+    selection_modes = {
+      ["@parameter.outer"] = "v",
+      ["@function.outer"]  = "V",
+    },
+  },
+  move = { set_jumps = true },
+})
 
-	local group = vim.api.nvim_create_augroup("TreeSitterConfig", { clear = true })
-	vim.api.nvim_create_autocmd("FileType", {
-		group = group,
-		callback = function(args)
-			if vim.list_contains(treesitter.get_installed(), vim.treesitter.language.get_lang(args.match)) then
-				vim.treesitter.start(args.buf)
-			end
-		end,
-	})
-end
+-- Repeatable movements with ; and ,
+vim.keymap.set({ "n", "x", "o" }, ";", repeat_move.repeat_last_move_next)
+vim.keymap.set({ "n", "x", "o" }, ",", repeat_move.repeat_last_move_previous)
+-- Make f/F/t/T repeatable too
+vim.keymap.set({ "n", "x", "o" }, "f", repeat_move.builtin_f_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "F", repeat_move.builtin_F_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "t", repeat_move.builtin_t_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "T", repeat_move.builtin_T_expr, { expr = true })
 
-setup_treesitter()
+-- SELECT
+local function sel(query) return function() select.select_textobject(query, "textobjects") end end
+local xo = { "x", "o" }
+vim.keymap.set(xo, "a=", sel("@assignment.outer"),    { desc = "Outer assignment" })
+vim.keymap.set(xo, "i=", sel("@assignment.inner"),    { desc = "Inner assignment" })
+vim.keymap.set(xo, "l=", sel("@assignment.lhs"),      { desc = "Assignment LHS" })
+vim.keymap.set(xo, "r=", sel("@assignment.rhs"),      { desc = "Assignment RHS" })
+vim.keymap.set(xo, "aa", sel("@parameter.outer"),     { desc = "Outer parameter" })
+vim.keymap.set(xo, "ia", sel("@parameter.inner"),     { desc = "Inner parameter" })
+vim.keymap.set(xo, "ai", sel("@conditional.outer"),   { desc = "Outer conditional" })
+vim.keymap.set(xo, "ii", sel("@conditional.inner"),   { desc = "Inner conditional" })
+vim.keymap.set(xo, "al", sel("@loop.outer"),          { desc = "Outer loop" })
+vim.keymap.set(xo, "il", sel("@loop.inner"),          { desc = "Inner loop" })
+vim.keymap.set(xo, "am", sel("@call.outer"),          { desc = "Outer call" })
+vim.keymap.set(xo, "im", sel("@call.inner"),          { desc = "Inner call" })
+vim.keymap.set(xo, "af", sel("@function.outer"),      { desc = "Outer function" })
+vim.keymap.set(xo, "if", sel("@function.inner"),      { desc = "Inner function" })
+vim.keymap.set(xo, "ac", sel("@class.outer"),         { desc = "Outer class" })
+vim.keymap.set(xo, "ic", sel("@class.inner"),         { desc = "Inner class" })
+vim.keymap.set(xo, "ag", sel("@comment.outer"),       { desc = "Outer comment" })
+vim.keymap.set(xo, "an", sel("@receiver.outer"),      { desc = "Outer receiver" })
+vim.keymap.set(xo, "ar", sel("@return.outer"),        { desc = "Outer return" })
+vim.keymap.set(xo, "ir", sel("@return.inner"),        { desc = "Inner return" })
+vim.keymap.set(xo, "at", sel("@result.outer"),        { desc = "Outer result" })
+
+-- SWAP
+vim.keymap.set("n", "<leader>na", function() swap.swap_next("@parameter.inner") end, { desc = "Swap next parameter" })
+vim.keymap.set("n", "<leader>nf", function() swap.swap_next("@function.outer") end,  { desc = "Swap next function" })
+vim.keymap.set("n", "<leader>pa", function() swap.swap_previous("@parameter.inner") end, { desc = "Swap prev parameter" })
+vim.keymap.set("n", "<leader>pf", function() swap.swap_previous("@function.outer") end,  { desc = "Swap prev function" })
+
+-- MOVE
+local nxo = { "n", "x", "o" }
+local function ns(query) return function() move.goto_next_start(query,     "textobjects") end end
+local function ne(query) return function() move.goto_next_end(query,       "textobjects") end end
+local function ps(query) return function() move.goto_previous_start(query, "textobjects") end end
+local function pe(query) return function() move.goto_previous_end(query,   "textobjects") end end
+
+vim.keymap.set(nxo, "+m", ns("@call.outer"),          { desc = "Next call start" })
+vim.keymap.set(nxo, "+f", ns("@function.outer"),      { desc = "Next function start" })
+vim.keymap.set(nxo, "+c", ns("@class.outer"),         { desc = "Next class start" })
+vim.keymap.set(nxo, "+i", ns("@conditional.outer"),   { desc = "Next conditional start" })
+vim.keymap.set(nxo, "+l", ns("@loop.outer"),          { desc = "Next loop start" })
+vim.keymap.set(nxo, "+r", ns("@return.outer"),        { desc = "Next return start" })
+vim.keymap.set(nxo, "+p", ns("@parameter.inner"),     { desc = "Next parameter" })
+vim.keymap.set(nxo, "+w", ns("@receiver.outer"),      { desc = "Next receiver" })
+vim.keymap.set(nxo, "+t", ns("@result.outer"),        { desc = "Next result" })
+
+vim.keymap.set(nxo, "+M", ne("@call.outer"),          { desc = "Next call end" })
+vim.keymap.set(nxo, "+F", ne("@function.outer"),      { desc = "Next function end" })
+vim.keymap.set(nxo, "+C", ne("@class.outer"),         { desc = "Next class end" })
+vim.keymap.set(nxo, "+I", ne("@conditional.outer"),   { desc = "Next conditional end" })
+vim.keymap.set(nxo, "+L", ne("@loop.outer"),          { desc = "Next loop end" })
+vim.keymap.set(nxo, "+R", ne("@return.outer"),        { desc = "Next return end" })
+vim.keymap.set(nxo, "+P", ne("@parameter.inner"),     { desc = "Next parameter end" })
+vim.keymap.set(nxo, "+W", ne("@receiver.outer"),      { desc = "Next receiver end" })
+
+vim.keymap.set(nxo, "*m", ps("@call.outer"),          { desc = "Prev call start" })
+vim.keymap.set(nxo, "*f", ps("@function.outer"),      { desc = "Prev function start" })
+vim.keymap.set(nxo, "*c", ps("@class.outer"),         { desc = "Prev class start" })
+vim.keymap.set(nxo, "*i", ps("@conditional.outer"),   { desc = "Prev conditional start" })
+vim.keymap.set(nxo, "*l", ps("@loop.outer"),          { desc = "Prev loop start" })
+vim.keymap.set(nxo, "*r", ps("@return.outer"),        { desc = "Prev return start" })
+vim.keymap.set(nxo, "*p", ps("@parameter.inner"),     { desc = "Prev parameter" })
+vim.keymap.set(nxo, "*w", ps("@receiver.outer"),      { desc = "Prev receiver" })
+vim.keymap.set(nxo, "*t", ps("@result.outer"),        { desc = "Prev result" })
+
+vim.keymap.set(nxo, "*M", pe("@call.outer"),          { desc = "Prev call end" })
+vim.keymap.set(nxo, "*F", pe("@function.outer"),      { desc = "Prev function end" })
+vim.keymap.set(nxo, "*C", pe("@class.outer"),         { desc = "Prev class end" })
+vim.keymap.set(nxo, "*I", pe("@conditional.outer"),   { desc = "Prev conditional end" })
+vim.keymap.set(nxo, "*L", pe("@loop.outer"),          { desc = "Prev loop end" })
+vim.keymap.set(nxo, "*R", pe("@return.outer"),        { desc = "Prev return end" })
+vim.keymap.set(nxo, "*P", pe("@parameter.inner"),     { desc = "Prev parameter end" })
+vim.keymap.set(nxo, "*W", pe("@receiver.outer"),      { desc = "Prev receiver end" })
+
+--==================================
+-- NVIM-TREE
+--==================================
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 require("nvim-tree").setup({
-	view = {
-		width = 35,
-	},
-	filters = {
-		dotfiles = false,
-	},
-	renderer = {
-		group_empty = true,
-	},
+  view = {
+    width = 60,
+    relativenumber = true,
+  },
+  renderer = {
+    indent_markers = { enable = true },
+    icons = {
+      glyphs = {
+        folder = {
+          arrow_closed = "",
+          arrow_open  = "",
+        },
+      },
+    },
+  },
+  actions = {
+    open_file = {
+      window_picker = { enable = false },
+    },
+  },
+  filters = {
+    custom = { ".DS_Store" },
+  },
+  git = { ignore = false },
 })
-vim.keymap.set("n", "<leader>e", function()
-	require("nvim-tree.api").tree.toggle()
-end, { desc = "Toggle NvimTree" })
 
-vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { bg = "none" })
-vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-vim.api.nvim_set_hl(0, "NvimTreeSignColumn", { bg = "none" })
-vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { fg = "#2a2a2a", bg = "none" })
-vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = "none" })
+vim.keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>",          { desc = "Toggle file explorer" })
+vim.keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>",  { desc = "Toggle on current file" })
+vim.keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>",        { desc = "Collapse file explorer" })
+vim.keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>",         { desc = "Refresh file explorer" })
 
+-- ============================================================================
+-- FZFLUA
+-- ============================================================================
 require("fzf-lua").setup({})
 
 vim.keymap.set("n", "<leader>ff", function()
@@ -144,294 +301,244 @@ vim.keymap.set("n", "<leader>fX", function()
 	require("fzf-lua").diagnostics_workspace()
 end, { desc = "FZF Diagnostics Workspace" })
 
+
+-- ============================================================================
+-- MINI
+-- ============================================================================
 require("mini.ai").setup({})
 require("mini.comment").setup({})
 require("mini.move").setup({})
 require("mini.surround").setup({})
-require("mini.cursorword").setup({})
 require("mini.indentscope").setup({})
 require("mini.pairs").setup({})
 require("mini.trailspace").setup({})
-require("mini.bufremove").setup({})
 require("mini.notify").setup({})
 require("mini.icons").setup({})
 
-require("gitsigns").setup({
-	signs = {
-		add = { text = "\u{2590}" }, -- ▏
-		change = { text = "\u{2590}" }, -- ▐
-		delete = { text = "\u{2590}" }, -- ◦
-		topdelete = { text = "\u{25e6}" }, -- ◦
-		changedelete = { text = "\u{25cf}" }, -- ●
-		untracked = { text = "\u{25cb}" }, -- ○
-	},
-	signcolumn = true,
-	current_line_blame = false,
+--==================================
+-- NEOSCROLL
+--==================================
+require("neoscroll").setup({})
+
+local neoscroll = require("neoscroll")
+local modes = { "n", "v", "x" }
+
+for key, func in pairs({
+  ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 250 }) end,
+  ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 250 }) end,
+  ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 450 }) end,
+  ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 450 }) end,
+  ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor = true, duration = 100 }) end,
+  ["<C-e>"] = function() neoscroll.scroll(0.1,  { move_cursor = true, duration = 100 }) end,
+  ["zt"]    = function() neoscroll.zt({ half_win_duration = 250 }) end,
+  ["zz"]    = function() neoscroll.zz({ half_win_duration = 250 }) end,
+  ["zb"]    = function() neoscroll.zb({ half_win_duration = 250 }) end,
+}) do
+  vim.keymap.set(modes, key, func)
+end
+
+--==================================
+-- GITSIGNS
+--==================================
+local gitsigns = require("gitsigns")
+
+gitsigns.setup({
+  current_line_blame_opts = {
+    delay = 10,
+  }
 })
 
-require("mason").setup({})
+-- Keymap to show full blame in a floating window
+vim.keymap.set('n', '<leader>Gl', function()
+  gitsigns.toggle_current_line_blame()
+end, { desc = "Toggle inline gitblame" })
 
-vim.keymap.set("n", "]h", function()
-	require("gitsigns").next_hunk()
-end, { desc = "Next git hunk" })
-vim.keymap.set("n", "[h", function()
-	require("gitsigns").prev_hunk()
-end, { desc = "Previous git hunk" })
-vim.keymap.set("n", "<leader>hs", function()
-	require("gitsigns").stage_hunk()
-end, { desc = "Stage hunk" })
-vim.keymap.set("n", "<leader>hr", function()
-	require("gitsigns").reset_hunk()
-end, { desc = "Reset hunk" })
-vim.keymap.set("n", "<leader>hp", function()
-	require("gitsigns").preview_hunk()
-end, { desc = "Preview hunk" })
-vim.keymap.set("n", "<leader>hb", function()
-	require("gitsigns").blame_line({ full = true })
-end, { desc = "Blame line" })
-vim.keymap.set("n", "<leader>hB", function()
-	require("gitsigns").toggle_current_line_blame()
-end, { desc = "Toggle inline blame" })
-vim.keymap.set("n", "<leader>hd", function()
-	require("gitsigns").diffthis()
-end, { desc = "Diff this" })
+-- Keymap to trigger Gitsigns blame command
+vim.keymap.set('n', '<leader>Gb', ':Gitsigns blame<CR>', { silent = true, desc = "Open Gitsigns gitblame" })
+vim.keymap.set("n", "<leader>o", function()
+  vim.cmd("!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\\#L" .. vim.fn.line(".") .. " | xargs open")
+end, { silent = true })
+
+--==================================
+-- MASON
+--==================================
+require("mason").setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
+    },
+  },
+})
+
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "lua_ls",
+    "pyright",
+    "bashls",
+    "gopls",
+    "jsonls",
+    "zls",
+    "tflint",
+    "rust_analyzer",
+  },
+  handlers = {
+    function(server_name)
+      vim.lsp.enable(server_name)
+    end,
+  },
+})
+
+require("mason-tool-installer").setup({
+  ensure_installed = {
+    "prettier",
+    "stylua",
+    "isort",
+    "black",
+    "pylint",
+    "goimports",
+    "gotests",
+    "terraform",
+    "terraform-ls",
+  },
+})
+
 
 -- ============================================================================
--- LSP, Linting, Formatting & Completion
+-- LSP, Linting, Formatting 
 -- ============================================================================
-local diagnostic_signs = {
-	Error = " ",
-	Warn = " ",
-	Hint = "",
-	Info = "",
-}
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local keymap = vim.keymap
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  callback = function(ev)
+    local opts = { buffer = ev.buf, silent = true }
+
+    opts.desc = "Show LSP references"
+    keymap.set("n", "gR", "<cmd>FzfLua lsp_references<CR>", opts)
+
+    opts.desc = "Go to declaration"
+    keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+
+    opts.desc = "Show LSP definitions"
+    keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", opts)
+
+    opts.desc = "Show LSP implementations"
+    keymap.set("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", opts)
+
+    opts.desc = "Show LSP type definitions"
+    keymap.set("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
+
+    opts.desc = "See available code actions"
+    keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+
+    opts.desc = "Smart rename"
+    keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+
+    opts.desc = "Show buffer diagnostics"
+    keymap.set("n", "¡D", "<cmd>FzfLua diagnostics_workspace<CR>", opts) -- fixed: added <CR>
+
+    opts.desc = "Show line diagnostics"
+    keymap.set("n", "¡d", vim.diagnostic.open_float, opts)
+
+    opts.desc = "Go to previous diagnostic"
+    keymap.set("n", "¿¿", vim.diagnostic.goto_prev, opts)
+
+    opts.desc = "Go to next diagnostic"
+    keymap.set("n", "¡¡", vim.diagnostic.goto_next, opts)
+
+    opts.desc = "Show documentation for what is under cursor"
+    keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+    opts.desc = "Restart LSP"
+    keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+  end,
+})
+
+local capabilities = cmp_nvim_lsp.default_capabilities()
 
 vim.diagnostic.config({
-	virtual_text = { prefix = "●", spacing = 4 },
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = diagnostic_signs.Error,
-			[vim.diagnostic.severity.WARN] = diagnostic_signs.Warn,
-			[vim.diagnostic.severity.INFO] = diagnostic_signs.Info,
-			[vim.diagnostic.severity.HINT] = diagnostic_signs.Hint,
-		},
-	},
-	underline = true,
-	update_in_insert = false,
-	severity_sort = true,
-	float = {
-		border = "rounded",
-		source = "always",
-		header = "",
-		prefix = "",
-		focusable = false,
-		style = "minimal",
-	},
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = "󰠠 ",
+      [vim.diagnostic.severity.INFO] = " ",
+    },
+  },
+  virtual_text = true,
 })
 
-do
-	local orig = vim.lsp.util.open_floating_preview
-	function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-		opts = opts or {}
-		opts.border = opts.border or "rounded"
-		return orig(contents, syntax, opts, ...)
-	end
-end
-
-local function lsp_on_attach(ev)
-	local client = vim.lsp.get_client_by_id(ev.data.client_id)
-	if not client then
-		return
-	end
-
-	local bufnr = ev.buf
-	local opts = { noremap = true, silent = true, buffer = bufnr }
-
-	vim.keymap.set("n", "<leader>gd", function()
-		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-	end, opts)
-
-	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
-
-	vim.keymap.set("n", "<leader>gS", function()
-		vim.cmd("vsplit")
-		vim.lsp.buf.definition()
-	end, opts)
-
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-
-	vim.keymap.set("n", "<leader>D", function()
-		vim.diagnostic.open_float({ scope = "line" })
-	end, opts)
-	vim.keymap.set("n", "<leader>d", function()
-		vim.diagnostic.open_float({ scope = "cursor" })
-	end, opts)
-	vim.keymap.set("n", "<leader>nd", function()
-		vim.diagnostic.jump({ count = 1 })
-	end, opts)
-
-	vim.keymap.set("n", "<leader>pd", function()
-		vim.diagnostic.jump({ count = -1 })
-	end, opts)
-
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-	vim.keymap.set("n", "<leader>fd", function()
-		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-	end, opts)
-	vim.keymap.set("n", "<leader>fr", function()
-		require("fzf-lua").lsp_references()
-	end, opts)
-	vim.keymap.set("n", "<leader>ft", function()
-		require("fzf-lua").lsp_typedefs()
-	end, opts)
-	vim.keymap.set("n", "<leader>fs", function()
-		require("fzf-lua").lsp_document_symbols()
-	end, opts)
-	vim.keymap.set("n", "<leader>fw", function()
-		require("fzf-lua").lsp_workspace_symbols()
-	end, opts)
-	vim.keymap.set("n", "<leader>fi", function()
-		require("fzf-lua").lsp_implementations()
-	end, opts)
-
-	if client:supports_method("textDocument/codeAction", bufnr) then
-		vim.keymap.set("n", "<leader>oi", function()
-			vim.lsp.buf.code_action({
-				context = { only = { "source.organizeImports" }, diagnostics = {} },
-				apply = true,
-				bufnr = bufnr,
-			})
-			vim.defer_fn(function()
-				vim.lsp.buf.format({ bufnr = bufnr })
-			end, 50)
-		end, opts)
-	end
-end
-
-vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
-
-vim.keymap.set("n", "<leader>q", function()
-	vim.diagnostic.setloclist({ open = true })
-end, { desc = "Open diagnostic list" })
-vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
-
-require("blink.cmp").setup({
-	keymap = {
-		preset = "none",
-		["<C-Space>"] = { "show", "hide" },
-		["<CR>"] = { "accept", "fallback" },
-		["<C-j>"] = { "select_next", "fallback" },
-		["<C-k>"] = { "select_prev", "fallback" },
-		["<Tab>"] = { "snippet_forward", "fallback" },
-		["<S-Tab>"] = { "snippet_backward", "fallback" },
-	},
-	appearance = { nerd_font_variant = "mono" },
-	completion = { menu = { auto_show = true } },
-	sources = { default = { "lsp", "path", "buffer", "snippets" } },
-	snippets = {
-		expand = function(snippet)
-			require("luasnip").lsp_expand(snippet)
-		end,
-	},
-
-	fuzzy = {
-		implementation = "prefer_rust",
-		prebuilt_binaries = { download = true },
-	},
+vim.lsp.config("*", {
+  capabilities = capabilities,
 })
-
-vim.lsp.config["*"] = {
-	capabilities = require("blink.cmp").get_lsp_capabilities(),
-}
 
 vim.lsp.config("lua_ls", {
-	settings = {
-		Lua = {
-			diagnostics = { globals = { "vim" } },
-			telemetry = { enable = false },
-		},
-	},
+  settings = {
+    Lua = {
+      diagnostics = { globals = { "vim" } },
+      completion = { callSnippet = "Replace" },
+    },
+  },
 })
-vim.lsp.config("pyright", {})
-vim.lsp.config("bashls", {})
-vim.lsp.config("ts_ls", {})
-vim.lsp.config("gopls", {})
-vim.lsp.config("clangd", {})
 
-do
-	local luacheck = require("efmls-configs.linters.luacheck")
-	local stylua = require("efmls-configs.formatters.stylua")
+-- Enable servers (was defined but never applied before)
+vim.lsp.enable({ "terraformls", "tflint", "lua_ls" })
 
-	local flake8 = require("efmls-configs.linters.flake8")
-	local black = require("efmls-configs.formatters.black")
+-- ============================================================================
+-- COMPLETION
+-- ============================================================================
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+local lspkind = require("lspkind")
 
-	local prettier_d = require("efmls-configs.formatters.prettier_d")
-	local eslint_d = require("efmls-configs.linters.eslint_d")
+require("luasnip.loaders.from_vscode").lazy_load()
 
-	local fixjson = require("efmls-configs.formatters.fixjson")
-
-	local shellcheck = require("efmls-configs.linters.shellcheck")
-	local shfmt = require("efmls-configs.formatters.shfmt")
-
-	local cpplint = require("efmls-configs.linters.cpplint")
-	local clangfmt = require("efmls-configs.formatters.clang_format")
-
-	local go_revive = require("efmls-configs.linters.go_revive")
-	local gofumpt = require("efmls-configs.formatters.gofumpt")
-
-	vim.lsp.config("efm", {
-		filetypes = {
-			"c",
-			"cpp",
-			"css",
-			"go",
-			"html",
-			"javascript",
-			"javascriptreact",
-			"json",
-			"jsonc",
-			"lua",
-			"markdown",
-			"python",
-			"sh",
-			"typescript",
-			"typescriptreact",
-			"vue",
-			"svelte",
-		},
-		init_options = { documentFormatting = true },
-		settings = {
-			languages = {
-				c = { clangfmt, cpplint },
-				go = { gofumpt, go_revive },
-				cpp = { clangfmt, cpplint },
-				css = { prettier_d },
-				html = { prettier_d },
-				javascript = { eslint_d, prettier_d },
-				javascriptreact = { eslint_d, prettier_d },
-				json = { eslint_d, fixjson },
-				jsonc = { eslint_d, fixjson },
-				lua = { luacheck, stylua },
-				markdown = { prettier_d },
-				python = { flake8, black },
-				sh = { shellcheck, shfmt },
-				typescript = { eslint_d, prettier_d },
-				typescriptreact = { eslint_d, prettier_d },
-				vue = { eslint_d, prettier_d },
-				svelte = { eslint_d, prettier_d },
-			},
-		},
-	})
-end
-
-vim.lsp.enable({
-	"lua_ls",
-	"pyright",
-	"bashls",
-	"ts_ls",
-	"gopls",
-	"clangd",
-	"efm",
+cmp.setup({
+  completion = {
+    completeopt = "menu,menuone,preview,noselect",
+  },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.locally_jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expandable() then
+        luasnip.expand()
+      elseif luasnip.locally_jumpable(1) then
+        luasnip.jump(1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<C-q>"] = cmp.mapping.abort(),
+    ["<CR>"]  = cmp.mapping.confirm({ select = false }),
+  }),
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "path" },
+  }),
+  formatting = {
+    format = lspkind.cmp_format({
+      maxwidth = 50,
+      ellipsis_char = "...",
+    }),
+  },
 })
