@@ -36,6 +36,11 @@ return {
 		"tflint",
 		"rust_analyzer"
       },
+    handlers = {
+    function(server_name)  -- default handler
+      vim.lsp.enable(server_name)
+    end,
+  },
     })
 
     mason_tool_installer.setup({
