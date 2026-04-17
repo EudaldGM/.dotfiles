@@ -4,3 +4,4 @@ vicinae/settings.json
 nvim/lazy-lock.json
 nvim/package-lock.json
 nvim/package.json
+nvim/nvim-pack-lock.json
