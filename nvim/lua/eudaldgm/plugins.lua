@@ -119,125 +119,91 @@ indent = { enable = true },
       node_decremental = "<bs>",
     },
   },
-
 }
 
+
+--==================================
+-- NVIM-TREE
+--==================================
 require("nvim-treesitter-textobjects").setup {
   select = {
+    -- Automatically jump forward to textobj, similar to targets.vim
     lookahead = true,
+    -- You can choose the select mode (default is charwise 'v')
+    --
+    -- Can also be a function which gets passed a table with the keys
+    -- * query_string: eg '@function.inner'
+    -- * method: eg 'v' or 'o'
+    -- and should return the mode ('v', 'V', or '<c-v>') or a table
+    -- mapping query_strings to modes.
     selection_modes = {
       ['@parameter.outer'] = 'v', -- charwise
       ['@function.outer'] = 'V', -- linewise
       -- ['@class.outer'] = '<c-v>', -- blockwise
     },
+    -- If you set this to `true` (default is `false`) then any textobject is
+    -- extended to include preceding or succeeding whitespace. Succeeding
+    -- whitespace has priority in order to act similarly to eg the built-in
+    -- `ap`.
+    --
+    -- Can also be a function which gets passed a table with the keys
+    -- * query_string: eg '@function.inner'
+    -- * selection_mode: eg 'v'
+    -- and should return true of false
     include_surrounding_whitespace = false,
+  },
+  move = {
+    -- whether to set jumps in the jumplist
+    set_jumps = true,
   },
 }
 
---==================================
--- TREESITTER TEXTOBJECTS
---==================================
-local select  = require("nvim-treesitter-textobjects.select")
-local swap    = require("nvim-treesitter-textobjects.swap")
-local move    = require("nvim-treesitter-textobjects.move")
-local repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
+vim.keymap.set({ "x", "o" }, "af", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "if", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@function.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ac", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@class.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ic", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@class.inner", "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "+f", function()
+  require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "+c", function()
+  require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
+end)
+-- You can also pass a list to group multiple queries.
+vim.keymap.set({ "n", "x", "o" }, "+l", function()
+  require("nvim-treesitter-textobjects.move").goto_next_start({"@loop.inner", "@loop.outer"}, "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "+z", function()
+  require("nvim-treesitter-textobjects.move").goto_next_start("@fold", "folds")
+end)
 
-require("nvim-treesitter-textobjects").setup({
-  select = {
-    lookahead = true,
-    include_surrounding_whitespace = false,
-    selection_modes = {
-      ["@parameter.outer"] = "v",
-      ["@function.outer"]  = "V",
-    },
-  },
-  move = { set_jumps = true },
-})
+vim.keymap.set({ "n", "x", "o" }, "+F", function()
+  require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "+C", function()
+  require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects")
+end)
 
--- Repeatable movements with ; and ,
-vim.keymap.set({ "n", "x", "o" }, ";", repeat_move.repeat_last_move_next)
-vim.keymap.set({ "n", "x", "o" }, ",", repeat_move.repeat_last_move_previous)
--- Make f/F/t/T repeatable too
-vim.keymap.set({ "n", "x", "o" }, "f", repeat_move.builtin_f_expr, { expr = true })
-vim.keymap.set({ "n", "x", "o" }, "F", repeat_move.builtin_F_expr, { expr = true })
-vim.keymap.set({ "n", "x", "o" }, "t", repeat_move.builtin_t_expr, { expr = true })
-vim.keymap.set({ "n", "x", "o" }, "T", repeat_move.builtin_T_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "*f", function()
+  require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "*c", function()
+  require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
+end)
 
--- SELECT
-local function sel(query) return function() select.select_textobject(query, "textobjects") end end
-local xo = { "x", "o" }
-vim.keymap.set(xo, "a=", sel("@assignment.outer"),    { desc = "Outer assignment" })
-vim.keymap.set(xo, "i=", sel("@assignment.inner"),    { desc = "Inner assignment" })
-vim.keymap.set(xo, "l=", sel("@assignment.lhs"),      { desc = "Assignment LHS" })
-vim.keymap.set(xo, "r=", sel("@assignment.rhs"),      { desc = "Assignment RHS" })
-vim.keymap.set(xo, "aa", sel("@parameter.outer"),     { desc = "Outer parameter" })
-vim.keymap.set(xo, "ia", sel("@parameter.inner"),     { desc = "Inner parameter" })
-vim.keymap.set(xo, "ai", sel("@conditional.outer"),   { desc = "Outer conditional" })
-vim.keymap.set(xo, "ii", sel("@conditional.inner"),   { desc = "Inner conditional" })
-vim.keymap.set(xo, "al", sel("@loop.outer"),          { desc = "Outer loop" })
-vim.keymap.set(xo, "il", sel("@loop.inner"),          { desc = "Inner loop" })
-vim.keymap.set(xo, "am", sel("@call.outer"),          { desc = "Outer call" })
-vim.keymap.set(xo, "im", sel("@call.inner"),          { desc = "Inner call" })
-vim.keymap.set(xo, "af", sel("@function.outer"),      { desc = "Outer function" })
-vim.keymap.set(xo, "if", sel("@function.inner"),      { desc = "Inner function" })
-vim.keymap.set(xo, "ac", sel("@class.outer"),         { desc = "Outer class" })
-vim.keymap.set(xo, "ic", sel("@class.inner"),         { desc = "Inner class" })
-vim.keymap.set(xo, "ag", sel("@comment.outer"),       { desc = "Outer comment" })
-vim.keymap.set(xo, "an", sel("@receiver.outer"),      { desc = "Outer receiver" })
-vim.keymap.set(xo, "ar", sel("@return.outer"),        { desc = "Outer return" })
-vim.keymap.set(xo, "ir", sel("@return.inner"),        { desc = "Inner return" })
-vim.keymap.set(xo, "at", sel("@result.outer"),        { desc = "Outer result" })
-
--- SWAP
-vim.keymap.set("n", "<leader>na", function() swap.swap_next("@parameter.inner") end, { desc = "Swap next parameter" })
-vim.keymap.set("n", "<leader>nf", function() swap.swap_next("@function.outer") end,  { desc = "Swap next function" })
-vim.keymap.set("n", "<leader>pa", function() swap.swap_previous("@parameter.inner") end, { desc = "Swap prev parameter" })
-vim.keymap.set("n", "<leader>pf", function() swap.swap_previous("@function.outer") end,  { desc = "Swap prev function" })
-
--- MOVE
-local nxo = { "n", "x", "o" }
-local function ns(query) return function() move.goto_next_start(query,     "textobjects") end end
-local function ne(query) return function() move.goto_next_end(query,       "textobjects") end end
-local function ps(query) return function() move.goto_previous_start(query, "textobjects") end end
-local function pe(query) return function() move.goto_previous_end(query,   "textobjects") end end
-
-vim.keymap.set(nxo, "+m", ns("@call.outer"),          { desc = "Next call start" })
-vim.keymap.set(nxo, "+f", ns("@function.outer"),      { desc = "Next function start" })
-vim.keymap.set(nxo, "+c", ns("@class.outer"),         { desc = "Next class start" })
-vim.keymap.set(nxo, "+i", ns("@conditional.outer"),   { desc = "Next conditional start" })
-vim.keymap.set(nxo, "+l", ns("@loop.outer"),          { desc = "Next loop start" })
-vim.keymap.set(nxo, "+r", ns("@return.outer"),        { desc = "Next return start" })
-vim.keymap.set(nxo, "+p", ns("@parameter.inner"),     { desc = "Next parameter" })
-vim.keymap.set(nxo, "+w", ns("@receiver.outer"),      { desc = "Next receiver" })
-vim.keymap.set(nxo, "+t", ns("@result.outer"),        { desc = "Next result" })
-
-vim.keymap.set(nxo, "+M", ne("@call.outer"),          { desc = "Next call end" })
-vim.keymap.set(nxo, "+F", ne("@function.outer"),      { desc = "Next function end" })
-vim.keymap.set(nxo, "+C", ne("@class.outer"),         { desc = "Next class end" })
-vim.keymap.set(nxo, "+I", ne("@conditional.outer"),   { desc = "Next conditional end" })
-vim.keymap.set(nxo, "+L", ne("@loop.outer"),          { desc = "Next loop end" })
-vim.keymap.set(nxo, "+R", ne("@return.outer"),        { desc = "Next return end" })
-vim.keymap.set(nxo, "+P", ne("@parameter.inner"),     { desc = "Next parameter end" })
-vim.keymap.set(nxo, "+W", ne("@receiver.outer"),      { desc = "Next receiver end" })
-
-vim.keymap.set(nxo, "*m", ps("@call.outer"),          { desc = "Prev call start" })
-vim.keymap.set(nxo, "*f", ps("@function.outer"),      { desc = "Prev function start" })
-vim.keymap.set(nxo, "*c", ps("@class.outer"),         { desc = "Prev class start" })
-vim.keymap.set(nxo, "*i", ps("@conditional.outer"),   { desc = "Prev conditional start" })
-vim.keymap.set(nxo, "*l", ps("@loop.outer"),          { desc = "Prev loop start" })
-vim.keymap.set(nxo, "*r", ps("@return.outer"),        { desc = "Prev return start" })
-vim.keymap.set(nxo, "*p", ps("@parameter.inner"),     { desc = "Prev parameter" })
-vim.keymap.set(nxo, "*w", ps("@receiver.outer"),      { desc = "Prev receiver" })
-vim.keymap.set(nxo, "*t", ps("@result.outer"),        { desc = "Prev result" })
-
-vim.keymap.set(nxo, "*M", pe("@call.outer"),          { desc = "Prev call end" })
-vim.keymap.set(nxo, "*F", pe("@function.outer"),      { desc = "Prev function end" })
-vim.keymap.set(nxo, "*C", pe("@class.outer"),         { desc = "Prev class end" })
-vim.keymap.set(nxo, "*I", pe("@conditional.outer"),   { desc = "Prev conditional end" })
-vim.keymap.set(nxo, "*L", pe("@loop.outer"),          { desc = "Prev loop end" })
-vim.keymap.set(nxo, "*R", pe("@return.outer"),        { desc = "Prev return end" })
-vim.keymap.set(nxo, "*P", pe("@parameter.inner"),     { desc = "Prev parameter end" })
-vim.keymap.set(nxo, "*W", pe("@receiver.outer"),      { desc = "Prev receiver end" })
+vim.keymap.set({ "n", "x", "o" }, "*F", function()
+  require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "*C", function()
+  require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects")
+end)
 
 --==================================
 -- NVIM-TREE
@@ -305,7 +271,6 @@ end, { desc = "FZF Diagnostics Workspace" })
 -- ============================================================================
 -- MINI
 -- ============================================================================
-require("mini.ai").setup({})
 require("mini.comment").setup({})
 require("mini.move").setup({})
 require("mini.surround").setup({})
