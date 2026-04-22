@@ -175,23 +175,28 @@ end, { desc = "FZF Diagnostics Workspace" })
 -- MINI
 -- ============================================================================
 require("mini.ai").setup({
+  mappings = {
+    goto_left = '+',
+  },
   custom_textobjects = {
     f = require("mini.ai").gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
     c = require("mini.ai").gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
     o = require("mini.ai").gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
     l = require("mini.ai").gen_spec.treesitter({ a = '@loop.outer', i = '@loop.inner' }),
     g = require("mini.ai").gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }),
+    m = require("mini.ai").gen_spec.treesitter({ a = '@call.outer', i = '@call.inner' }),
+    p = require("mini.ai").gen_spec.treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),
+    e = require("mini.ai").gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),
   }
 })
-require("mini.comment").setup({})
-require("mini.move").setup({})
-require("mini.surround").setup({})
-require("mini.indentscope").setup({})
-require("mini.pairs").setup({})
-require("mini.trailspace").setup({})
-require("mini.notify").setup({})
-require("mini.icons").setup({})
-require("mini.extra").setup({})
+require("mini.comment").setup()
+require("mini.move").setup()
+require("mini.surround").setup()
+require("mini.pairs").setup()
+require("mini.notify").setup()
+require("mini.icons").setup()
+require("mini.extra").setup()
+require('mini.indentscope').setup()
 
 --==================================
 -- NEOSCROLL
