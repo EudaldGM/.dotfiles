@@ -127,29 +127,29 @@ end
 local function file_type()
 	local ft = vim.bo.filetype
 	local icons = {
-		lua = "\u{e620} ",
-		python = "\u{e73c} ",
-		javascript = "\u{e74e} ",
-		typescript = "\u{e628} ",
-		html = "\u{e736} ",
-		css = "\u{e749} ",
-		json = "\u{e60b} ",
-		markdown = "\u{e73e} ",
-		vim = "\u{e62b} ",
-		sh = "\u{f489} ",
-		bash = "\u{f489} ",
-		zsh = "\u{f489} ",
-		rust = "\u{e7a8} ",
-		go = "\u{e724} ",
-		c = "\u{e61e} ",
-		cpp = "\u{e61d} ",
-		sql = "\u{e706} ",
-		yaml = "\u{f481} ",
-		toml = "\u{e615} ",
-		xml = "\u{f05c} ",
-		dockerfile = "\u{f308} ",
-		gitcommit = "\u{f418} ",
-		gitconfig = "\u{f1d3} ",
+		lua = " \u{e620} ",
+		python = " \u{e73c} ",
+		javascript = " \u{e74e} ",
+		typescript = " \u{e628} ",
+		html = " \u{e736} ",
+		css = " \u{e749} ",
+		json = " \u{e60b} ",
+		markdown = " \u{e73e} ",
+		vim = " \u{e62b} ",
+		sh = " \u{f489} ",
+		bash = " \u{f489} ",
+		zsh = " \u{f489} ",
+		rust = " \u{e7a8} ",
+		go = " \u{e724} ",
+		c = " \u{e61e} ",
+		cpp = " \u{e61d} ",
+		sql = " \u{e706} ",
+		yaml = " \u{f481} ",
+		toml = " \u{e615} ",
+		xml = " \u{f05c} ",
+		dockerfile = " \u{f308} ",
+		gitcommit = " \u{f418} ",
+		gitconfig = " \u{f1d3} ",
 	}
 
 	if ft == "" then
@@ -159,8 +159,6 @@ local function file_type()
     local icon = icons[ft] or "\u{f15b}"
     return icon .. ""
 end
-
-
 
 local function mode_icon()
 	local mode = vim.fn.mode()
@@ -350,3 +348,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function()
+        local save_cursor = vim.fn.getpos(".")
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos(".", save_cursor)
+    end,
+})
