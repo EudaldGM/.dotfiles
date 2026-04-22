@@ -193,10 +193,9 @@ require("mini.comment").setup()
 require("mini.move").setup()
 require("mini.surround").setup()
 require("mini.pairs").setup()
+require('mini.indentscope').setup()
 require("mini.notify").setup()
 require("mini.icons").setup()
-require("mini.extra").setup()
-require('mini.indentscope').setup()
 
 --==================================
 -- NEOSCROLL
@@ -289,7 +288,7 @@ require("mason-tool-installer").setup({
 
 
 -- ============================================================================
--- LSP, Linting, Formatting 
+-- LSP, Linting, Formatting
 -- ============================================================================
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local keymap = vim.keymap
