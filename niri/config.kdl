@@ -30,6 +30,11 @@ input {
     // workspace-auto-back-and-forth
 }
 
+gestures {
+  hot-corners {
+    off
+  }
+}
 hotkey-overlay {
     skip-at-startup
 }
