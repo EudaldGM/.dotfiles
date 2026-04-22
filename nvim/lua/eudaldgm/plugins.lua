@@ -32,6 +32,7 @@ vim.pack.add({
   "https://github.com/williamboman/mason-lspconfig.nvim",
   "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
   "https://github.com/nvim-treesitter/nvim-treesitter",
+  "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 })
 
 local function packadd(name)
@@ -61,19 +62,43 @@ packadd("lspkind.nvim")
 packadd("mason-lspconfig.nvim")
 packadd("mason-tool-installer.nvim")
 packadd("nvim-treesitter")
+packadd("nvim-treesitter-textobjects")
 
 -- ============================================================================
 -- PLUGIN CONFIGS
 -- ============================================================================
 
 --==================================
--- TMUX NAVIGATOR
+-- TREESITTER
 --==================================
 require('nvim-treesitter').setup {
   install_dir = vim.fn.stdpath('data') .. '/site'
 }
-require('nvim-treesitter').install { 'rust', 'zig', 'go', 'bash', 'python', 'lua' }
+require('nvim-treesitter').install {
+  'json',
+  'yaml',
+  'html',
+  'css',
+  'bash',
+  'lua',
+  'vim',
+  'dockerfile',
+  'gitignore',
+  'vimdoc',
+  'python',
+  'toml',
+  'go',
+  'rust',
+  'hcl',
+  'terraform',
+  'zig'
+}
 
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})
 --==================================
 -- TMUX NAVIGATOR
 --==================================
@@ -149,6 +174,15 @@ end, { desc = "FZF Diagnostics Workspace" })
 -- ============================================================================
 -- MINI
 -- ============================================================================
+require("mini.ai").setup({
+  custom_textobjects = {
+    f = require("mini.ai").gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+    c = require("mini.ai").gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
+    o = require("mini.ai").gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
+    l = require("mini.ai").gen_spec.treesitter({ a = '@loop.outer', i = '@loop.inner' }),
+    g = require("mini.ai").gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }),
+  }
+})
 require("mini.comment").setup({})
 require("mini.move").setup({})
 require("mini.surround").setup({})
@@ -157,6 +191,7 @@ require("mini.pairs").setup({})
 require("mini.trailspace").setup({})
 require("mini.notify").setup({})
 require("mini.icons").setup({})
+require("mini.extra").setup({})
 
 --==================================
 -- NEOSCROLL
