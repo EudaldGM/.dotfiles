@@ -56,6 +56,7 @@ binds {
 
     // Application Shortcuts
     MOD+RETURN                          hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "alacritty -e tmux"; }
+    MOD+P                               hotkey-overlay-title="Open Terminal: kitty" {spawn-sh "kitty -e tmux"; }
     MOD+B                         		  hotkey-overlay-title="Open Browser: chrome" { spawn-sh "google-chrome-stable"; }
     MOD+ALT+Q                           hotkey-overlay-title="Lock Screen: gtklock" { spawn-sh "gtklock"; }
     MOD+ALT+T                           hotkey-overlay-title="Logout/Shutdown Menu: wlogout" { spawn-sh "wlogout"; }
