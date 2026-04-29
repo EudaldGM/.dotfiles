@@ -238,7 +238,7 @@ vim.keymap.set('n', '<leader>q', function()
     vim.notify("Copied path to clipboard!")
 end, {desc = "get path for current file"})
 
-vim.keymap.set('n', '<leader>ww', '<cmd>set wrap!<CR>', {desc = "Toggle wrap", silent = true, noremap = true})
+vim.keymap.set('n', '<leader>ww', '<cmd>set wrap!<CR>', {desc = "Toggle wrap", noremap = true})
 vim.keymap.set('i', 'pp', '<Esc>', {desc = "Escape insert mode", noremap = true})
 vim.keymap.set('n', '<C-c>', ':nohlsearch<CR>', {silent = true, desc = "Clear search highlights"})
 vim.keymap.set('n', '<leader>fN', ':e %:p:h/', {desc = "Edit new file in current directory"})
@@ -252,7 +252,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 --travel between buffers
 vim.keymap.set('n', '<C-x>', ':bdelete!<CR>', {silent = true, desc = "Close Current Tab"})
-vim.keymap.set('n', '<leader><tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"})
 vim.keymap.set('n', '<S-tab>', ':bprevious<CR>', {silent = true, desc = "Previous Tab"})
 vim.keymap.set('n', '<tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"})
 
@@ -266,6 +265,9 @@ vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" 
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 
+-- ============================================================================
+-- AUTOCMDs
+-- ============================================================================
 local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
 
 -- Format on save (ONLY real file buffers, ONLY when efm is attached)
@@ -285,6 +287,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		"*.zsh",
 		"*.c",
 		"*.cpp",
+		"*.rs",
+		"*.zig",
 	},
 	callback = function(args)
 		-- avoid formatting non-file buffers (helps prevent weird write prompts)
