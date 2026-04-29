@@ -124,8 +124,8 @@ require("nvim-tree").setup({
     icons = {
       glyphs = {
         folder = {
-          arrow_closed = "",
-          arrow_open  = "",
+          arrow_closed = "", -- arrow when folder is closed
+          arrow_open = "", -- arrow when folder is open
         },
       },
     },
@@ -149,7 +149,7 @@ vim.keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>",         { desc = "
 -- ============================================================================
 -- FZFLUA
 -- ============================================================================
-require("fzf-lua").setup({})
+require("fzf-lua").setup()
 
 vim.keymap.set("n", "<leader>ff", function()
 	require("fzf-lua").files()
