@@ -196,6 +196,7 @@ require("mini.pairs").setup()
 require('mini.indentscope').setup()
 require("mini.notify").setup()
 require("mini.icons").setup()
+require('mini.align').setup()
 
 --==================================
 -- NEOSCROLL
