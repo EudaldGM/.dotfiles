@@ -237,7 +237,7 @@ vim.keymap.set('n', '<leader>Gl', function()
 end, { desc = "Toggle inline gitblame" })
 
 -- Keymap to trigger Gitsigns blame command
-vim.keymap.set('n', '<leader>Gb', ':Gitsigns blame<CR>', { silent = true, desc = "Open Gitsigns gitblame" })
+vim.keymap.set('n', '<leader>Gb', ':Gitsigns toggle_current_line_blame<CR>', { silent = true, desc = "Open Gitsigns gitblame" })
 vim.keymap.set("n", "<leader>o", function()
   vim.cmd("!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\\#L" .. vim.fn.line(".") .. " | xargs open")
 end, { silent = true })
@@ -327,10 +327,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     keymap.set("n", "¡d", vim.diagnostic.open_float, opts)
 
     opts.desc = "Go to previous diagnostic"
-    keymap.set("n", "¿¿", vim.diagnostic.goto_prev, opts)
+    keymap.set("n", "¿¿", function() vim.diagnostic.jump({ count = -1 }) end, opts)
 
     opts.desc = "Go to next diagnostic"
-    keymap.set("n", "¡¡", vim.diagnostic.goto_next, opts)
+    keymap.set("n", "¡¡", function() vim.diagnostic.jump({ count = 1 }) end, opts)
 
     opts.desc = "Show documentation for what is under cursor"
     keymap.set("n", "K", vim.lsp.buf.hover, opts)

@@ -215,6 +215,8 @@ local function setup_dynamic_statusline()
 	})
 end
 
+vim.opt.laststatus = 3
+
 vim.api.nvim_set_hl(0, "StatusLine",   { bg = "#000000" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#000000" })
 

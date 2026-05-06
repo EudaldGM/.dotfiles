@@ -71,7 +71,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git 
+    git
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -153,4 +153,4 @@ compctl -K _just_completion just
 #krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-
+. "$HOME/.cargo/env"
