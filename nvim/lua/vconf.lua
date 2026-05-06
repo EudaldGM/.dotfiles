@@ -243,7 +243,6 @@ end, {desc = "get path for current file"})
 vim.keymap.set('n', '<leader>ww', '<cmd>set wrap!<CR>', {desc = "Toggle wrap", noremap = true})
 vim.keymap.set('i', 'qq', '<Esc>', {desc = "Escape insert mode", noremap = true})
 vim.keymap.set('n', '<C-c>', ':nohlsearch<CR>', {silent = true, desc = "Clear search highlights"})
-vim.keymap.set('n', '<leader>fN', ':e %:p:h/', {desc = "Edit new file in current directory"})
 vim.keymap.set('n', '<C-s>', ':w<CR>', {desc = "Save file"})
 
 --movement

@@ -10,6 +10,7 @@ vim.pack.add({
   "https://github.com/nvim-tree/nvim-web-devicons",
   -- DAP
   "https://github.com/mfussenegger/nvim-dap",
+  "https://github.com/leoluz/nvim-dap-go",
 	-- Language Server Protocols
 	"https://www.github.com/neovim/nvim-lspconfig",
   "https://github.com/hrsh7th/nvim-cmp",
@@ -52,6 +53,7 @@ packadd("harpoon")
 packadd("neoscroll.nvim")
 -- DAP
 packadd("nvim-dap")
+packadd("nvim-dap-go")
 -- LSP
 packadd("nvim-lspconfig")
 packadd("mason.nvim")
@@ -173,7 +175,7 @@ end, { desc = "FZF Diagnostics Document" })
 vim.keymap.set("n", "<leader>fX", function()
 	require("fzf-lua").diagnostics_workspace()
 end, { desc = "FZF Diagnostics Workspace" })
-
+vim.keymap.set('n', '<leader>fN', ':e %:p:h/', {desc = "Edit new file in current directory"})
 
 -- ============================================================================
 -- MINI
@@ -428,5 +430,21 @@ cmp.setup({
       maxwidth = 50,
       ellipsis_char = "...",
     }),
+  },
+})
+
+-- ============================================================================
+-- DAP
+-- ============================================================================
+
+
+require('dap-go').setup({
+  dap_configurations = {
+    {
+      type = "go",
+      name = "Attach remote",
+      mode = "remote",
+      request = "attach",
+    },
   },
 })
