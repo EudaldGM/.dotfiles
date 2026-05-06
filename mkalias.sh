@@ -16,7 +16,7 @@
 
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
-ln -fs ~/.dotfiles/zshrc ~/.zshrc      
+ln -fs ~/.dotfiles/zshrc ~/.zshrc
 ln -fs ~/.dotfiles/bash_aliases ~/.bash_aliases
 
 #Mise

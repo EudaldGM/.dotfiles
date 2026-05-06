@@ -8,6 +8,8 @@ vim.pack.add({
 	"https://www.github.com/ibhagwan/fzf-lua",
 	"https://www.github.com/nvim-tree/nvim-tree.lua",
   "https://github.com/nvim-tree/nvim-web-devicons",
+  -- DAP
+  "https://github.com/mfussenegger/nvim-dap",
 	-- Language Server Protocols
 	"https://www.github.com/neovim/nvim-lspconfig",
   "https://github.com/hrsh7th/nvim-cmp",
@@ -48,6 +50,8 @@ packadd("nvim-tree.lua")
 packadd("which-key.nvim")
 packadd("harpoon")
 packadd("neoscroll.nvim")
+-- DAP
+packadd("nvim-dap")
 -- LSP
 packadd("nvim-lspconfig")
 packadd("mason.nvim")
@@ -238,9 +242,10 @@ end, { desc = "Toggle inline gitblame" })
 
 -- Keymap to trigger Gitsigns blame command
 vim.keymap.set('n', '<leader>Gb', ':Gitsigns toggle_current_line_blame<CR>', { silent = true, desc = "Open Gitsigns gitblame" })
-vim.keymap.set("n", "<leader>o", function()
+vim.keymap.set("n", "<leader>Go", function()
   vim.cmd("!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\\#L" .. vim.fn.line(".") .. " | xargs open")
 end, { silent = true })
+vim.keymap.set('n', '<leader>Gd', ':Gitsigns diffthis', {silent = true, desc = "Diffs this file before changes"})
 
 --==================================
 -- MASON
