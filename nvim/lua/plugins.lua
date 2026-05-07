@@ -8,6 +8,8 @@ vim.pack.add({
 	"https://www.github.com/ibhagwan/fzf-lua",
 	"https://www.github.com/nvim-tree/nvim-tree.lua",
   "https://github.com/nvim-tree/nvim-web-devicons",
+  -- -- LLM
+  -- "https://github.com/huggingface/llm.nvim",
   -- DAP
   "https://github.com/mfussenegger/nvim-dap",
   "https://github.com/leoluz/nvim-dap-go",
@@ -51,6 +53,8 @@ packadd("nvim-tree.lua")
 packadd("which-key.nvim")
 packadd("harpoon")
 packadd("neoscroll.nvim")
+-- -- LLM
+-- packadd("llm.nvim")
 -- DAP
 packadd("nvim-dap")
 packadd("nvim-dap-go")
@@ -437,7 +441,6 @@ cmp.setup({
 -- DAP
 -- ============================================================================
 
-
 require('dap-go').setup({
   dap_configurations = {
     {
@@ -448,3 +451,35 @@ require('dap-go').setup({
     },
   },
 })
+
+-- ============================================================================
+-- LLM
+-- ============================================================================
+
+-- vim.keymap.set('i', '<c-j>', function()
+--   require('llm.completion').complete()
+-- end, { desc = 'complete' })
+--
+-- require('llm').setup({
+--   lsp_timeout = 10000,
+--   lsp = {
+--     bin_path = '/etc/profiles/per-user/s1n7ax/bin/llm-ls',
+--     cmd_env = { LLM_LOG_LEVEL = 'DEBUG' },
+--   },
+--   backend = 'ollama',
+--   model = 'deepseek-coder:1.3b-base',
+--   url = 'http://localhost:11434',
+--   fim = {
+--     enabled = true,
+--     prefix = '<｜fim▁begin｜>',
+--     suffix = '<｜fim▁hole｜>',
+--     middle = '<｜fim▁end｜>',
+--   },
+--   request_body = {
+--     options = {
+--       temperature = 0.2,
+--       top_p = 0.95,
+--     },
+--     stream = false,
+--   },
+-- })
