@@ -1,86 +1,62 @@
 -- ============================================================================
 -- PLUGINS (vim.pack)
 -- ============================================================================
-vim.pack.add({
-	"https://www.github.com/lewis6991/gitsigns.nvim",
-  "https://github.com/christoomey/vim-tmux-navigator",
-	"https://www.github.com/echasnovski/mini.nvim",
-	"https://www.github.com/ibhagwan/fzf-lua",
-	"https://www.github.com/nvim-tree/nvim-tree.lua",
+
+local plugins = {
+  -- UI
   "https://github.com/nvim-tree/nvim-web-devicons",
-  -- -- LLM
-  -- "https://github.com/huggingface/llm.nvim",
-  -- DAP
-  "https://github.com/mfussenegger/nvim-dap",
-  "https://github.com/leoluz/nvim-dap-go",
-  "https://github.com/rcarriga/nvim-dap-ui",
-  "https://github.com/nvim-neotest/nvim-nio",
-  "https://github.com/mfussenegger/nvim-dap-python",
-  "https://github.com/mrcjkb/rustaceanvim",
-	-- Language Server Protocols
-	"https://www.github.com/neovim/nvim-lspconfig",
+  "https://github.com/nvim-tree/nvim-tree.lua",
+  "https://github.com/lewis6991/gitsigns.nvim",
+  "https://github.com/echasnovski/mini.nvim",
+  "https://github.com/karb94/neoscroll.nvim",
+  "https://github.com/folke/which-key.nvim",
+
+  -- Navigation
+  "https://github.com/christoomey/vim-tmux-navigator",
+  "https://github.com/ibhagwan/fzf-lua",
+  { src = "https://github.com/theprimeagen/harpoon", branch = "harpoon2" },
+
+  -- LSP
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/mason-org/mason.nvim",
+  "https://github.com/williamboman/mason-lspconfig.nvim",
+  "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+
+  -- Completion
   "https://github.com/hrsh7th/nvim-cmp",
   "https://github.com/hrsh7th/cmp-nvim-lsp",
-	"https://github.com/mason-org/mason.nvim",
-  {
-    src = 	"https://github.com/L3MON4D3/LuaSnip",
-    version = "v2.5.0",
-    build = "make install_jsregexp",
-  },
-  "https://github.com/folke/which-key.nvim",
-  {
-    src = "https://github.com/theprimeagen/harpoon",
-    branch = "harpoon2"
-  },
-  "https://github.com/karb94/neoscroll.nvim",
   "https://github.com/hrsh7th/cmp-buffer",
   "https://github.com/hrsh7th/cmp-path",
   "https://github.com/saadparwaiz1/cmp_luasnip",
-  "https://github.com/rafamadriz/friendly-snippets",
   "https://github.com/onsails/lspkind.nvim",
-  "https://github.com/williamboman/mason-lspconfig.nvim",
-  "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+
+  -- Snippets
+  { src = "https://github.com/L3MON4D3/LuaSnip", version = "v2.5.0", build = "make install_jsregexp" },
+  "https://github.com/rafamadriz/friendly-snippets",
+
+  -- Treesitter
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-})
 
-local function packadd(name)
-	vim.cmd("packadd " .. name)
+  -- DAP
+  "https://github.com/mfussenegger/nvim-dap",
+  "https://github.com/rcarriga/nvim-dap-ui",
+  "https://github.com/nvim-neotest/nvim-nio",
+  "https://github.com/leoluz/nvim-dap-go",
+  "https://github.com/mfussenegger/nvim-dap-python",
+  "https://github.com/mrcjkb/rustaceanvim",
+  -- -- LLM
+  -- "https://github.com/huggingface/llm.nvim",
+}
+
+vim.pack.add(plugins)
+
+-- Derive package names and load them
+for _, plugin in ipairs(plugins) do
+  local src = type(plugin) == "string" and plugin or plugin.src
+  local name = src:match("/([^/]+)$")
+  vim.cmd("packadd " .. name)
 end
-
-packadd("nvim-web-devicons")
-packadd("gitsigns.nvim")
-packadd("mini.nvim")
-packadd("vim-tmux-navigator")
-packadd("fzf-lua")
-packadd("nvim-tree.lua")
-packadd("which-key.nvim")
-packadd("harpoon")
-packadd("neoscroll.nvim")
--- -- LLM
--- packadd("llm.nvim")
--- DAP
-packadd("nvim-dap")
-packadd("nvim-dap-ui")
-packadd("nvim-nio")
-packadd("nvim-dap-go")
-packadd("nvim-dap-python")
-packadd("rustaceanvim")
--- LSP
-packadd("nvim-lspconfig")
-packadd("mason.nvim")
-packadd("LuaSnip")
-packadd("nvim-cmp")
-packadd("cmp-nvim-lsp")
-packadd("cmp-buffer")
-packadd("cmp-path")
-packadd("cmp_luasnip")
-packadd("friendly-snippets")
-packadd("lspkind.nvim")
-packadd("mason-lspconfig.nvim")
-packadd("mason-tool-installer.nvim")
-packadd("nvim-treesitter")
-packadd("nvim-treesitter-textobjects")
 
 -- ============================================================================
 -- PLUGIN CONFIGS
