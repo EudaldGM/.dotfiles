@@ -13,6 +13,10 @@ vim.pack.add({
   -- DAP
   "https://github.com/mfussenegger/nvim-dap",
   "https://github.com/leoluz/nvim-dap-go",
+  "https://github.com/rcarriga/nvim-dap-ui",
+  "https://github.com/nvim-neotest/nvim-nio",
+  "https://github.com/mfussenegger/nvim-dap-python",
+  "https://github.com/mrcjkb/rustaceanvim",
 	-- Language Server Protocols
 	"https://www.github.com/neovim/nvim-lspconfig",
   "https://github.com/hrsh7th/nvim-cmp",
@@ -57,7 +61,11 @@ packadd("neoscroll.nvim")
 -- packadd("llm.nvim")
 -- DAP
 packadd("nvim-dap")
+packadd("nvim-dap-ui")
+packadd("nvim-nio")
 packadd("nvim-dap-go")
+packadd("nvim-dap-python")
+packadd("rustaceanvim")
 -- LSP
 packadd("nvim-lspconfig")
 packadd("mason.nvim")
@@ -276,6 +284,7 @@ require("mason-lspconfig").setup({
     "zls",
     "tflint",
     "rust_analyzer",
+    -- "codelldb",
   },
   handlers = {
     function(server_name)
@@ -440,7 +449,34 @@ cmp.setup({
 -- ============================================================================
 -- DAP
 -- ============================================================================
+-- Dap configs and keymaps
+local dap, dapui = require('dap'), require('dapui')
 
+dapui.setup()
+
+dap.listeners.before.attach.dapui_config = function()
+ dapui.open()
+end
+
+dap.listeners.before.launch.dapui_config = function()
+ dapui.open()
+end
+
+vim.keymap.set('n', '<leader>dw', function() dapui.close()           end, { desc = "Close  dap  ui"})
+vim.keymap.set('n', '<leader>t',  function() dap.toggle_breakpoint() end, { desc = "Toggle breakpoint"})
+vim.keymap.set('n', '<leader>5',  function() dap.continue()          end, { desc = "Dap  Cont"})
+vim.keymap.set('n', '<leader>8',  function() dap.step_over()         end, { desc = "Dap  Step Over"})
+vim.keymap.set('n', '<leader>9',  function() dap.step_into()         end, { desc = "Dap  Step Into"})
+vim.keymap.set('n', '<leader>0',  function() dap.step_out()          end, { desc = "Dap  Step Out"})
+vim.keymap.set('n', '<leader>dt', function() dap.terminate()         end, { desc = "Dap  Terminate"})
+vim.keymap.set('n', '<Leader>dr', function() dap.repl.open()         end, { desc = "Open Dap  repl"})
+vim.keymap.set('n', '<Leader>dl', function() dap.run_last()          end, { desc = "Run  last command"})
+
+
+vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, { desc = "Log point message"})
+
+-- Language debug prots
+-- Go: requires delve
 require('dap-go').setup({
   dap_configurations = {
     {
@@ -451,6 +487,59 @@ require('dap-go').setup({
     },
   },
 })
+
+-- Python: requires debugpy
+-- ###
+-- python3 -m venv ~/debugpy
+-- ~/debugpy/bin/python -m pip install debugpy
+require("dap-python").setup("~/debugpy/bin/python")
+
+-- Rust
+local codelldb_path = vim.fn.stdpath('data') .. '/mason/bin/codelldb'
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = '${port}',
+  executable = {
+    command = codelldb_path,
+    args = { '--port', '${port}' },
+  },
+}
+
+dap.configurations.rust = {
+  {
+    name    = 'Launch binary',
+    type    = 'codelldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+    end,
+    cwd            = '${workspaceFolder}',
+    stopOnEntry    = false,
+    args           = {},
+  },
+  {
+    name    = 'Launch binary (with args)',
+    type    = 'codelldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+    end,
+    cwd            = '${workspaceFolder}',
+    stopOnEntry    = false,
+    args           = function()
+      local args = vim.fn.input('Arguments: ')
+      return vim.split(args, ' ')
+    end,
+  },
+  {
+    name    = 'Attach to process',
+    type    = 'codelldb',
+    request = 'attach',
+    pid     = require('dap.utils').pick_process,
+    args    = {},
+  },
+}
 
 -- ============================================================================
 -- LLM
