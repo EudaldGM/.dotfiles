@@ -430,6 +430,12 @@ local dap, dapui = require('dap'), require('dapui')
 
 dapui.setup()
 
+require('dap.ext.vscode').load_launchjs(nil, {
+  codelldb    = { 'rust' },
+  python      = { 'python' },
+  go          = { 'go' },
+})
+
 dap.listeners.before.attach.dapui_config = function()
  dapui.open()
 end
@@ -450,6 +456,15 @@ vim.keymap.set('n', '<Leader>dl', function() dap.run_last()          end, { desc
 
 
 vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, { desc = "Log point message"})
+
+vim.keymap.set('n', '<leader>dL', function()
+  require('dap.ext.vscode').load_launchjs(nil, {
+    codelldb    = { 'rust' },
+    python      = { 'python' },
+    go          = { 'go' },
+  })
+  vim.notify('launch.json reloaded', vim.log.levels.INFO)
+end, { desc = "Reload launch.json" })
 
 -- Language debug prots
 -- Go: requires delve
