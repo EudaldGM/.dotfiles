@@ -260,7 +260,6 @@ require("mason-lspconfig").setup({
     "zls",
     "tflint",
     "rust_analyzer",
-    -- "codelldb",
   },
   handlers = {
     function(server_name)
@@ -280,9 +279,10 @@ require("mason-tool-installer").setup({
     "gotests",
     "terraform",
     "terraform-ls",
+    "codelldb",
+    "delve",
   },
 })
-
 
 -- ============================================================================
 -- LSP, Linting, Formatting
@@ -429,12 +429,6 @@ cmp.setup({
 local dap, dapui = require('dap'), require('dapui')
 
 dapui.setup()
-
-require('dap.ext.vscode').load_launchjs(nil, {
-  codelldb    = { 'rust' },
-  python      = { 'python' },
-  go          = { 'go' },
-})
 
 dap.listeners.before.attach.dapui_config = function()
  dapui.open()
