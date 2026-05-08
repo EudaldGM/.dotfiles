@@ -281,6 +281,7 @@ require("mason-tool-installer").setup({
     "terraform-ls",
     "codelldb",
     "delve",
+    "debugpy",
   },
 })
 
