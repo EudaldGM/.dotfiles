@@ -434,6 +434,8 @@ cmp.setup({
 -- DAP
 -- ============================================================================
 -- Dap configs and keymaps
+vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+
 local dap, dapui = require('dap'), require('dapui')
 
 dapui.setup()
