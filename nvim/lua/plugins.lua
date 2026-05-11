@@ -10,6 +10,7 @@ local plugins = {
   "https://github.com/echasnovski/mini.nvim",
   "https://github.com/karb94/neoscroll.nvim",
   "https://github.com/folke/which-key.nvim",
+  "https://github.com/rebelot/kanagawa.nvim",
 
   -- Navigation
   "https://github.com/christoomey/vim-tmux-navigator",
@@ -62,9 +63,15 @@ end
 -- PLUGIN CONFIGS
 -- ============================================================================
 
+require('kanagawa').setup({
+  transparent = true,
+})
+vim.cmd("colorscheme kanagawa")
+
 --==================================
 -- TREESITTER
 --==================================
+
 require('nvim-treesitter').setup {
   install_dir = vim.fn.stdpath('data') .. '/site'
 }

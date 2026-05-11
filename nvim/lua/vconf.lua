@@ -1,32 +1,4 @@
 vim.opt.termguicolors = true
-vim.cmd.colorscheme("habamax")
-
-local function set_transparent()
-	local groups = {
-		"Normal",
-		"NormalNC",
-		"EndOfBuffer",
-		"StatusLine",
-		"StatusLineNC",
-		"TabLine",
-		"TabLineFill",
-		"TabLineSel",
-		"ColorColumn",
-	}
-	for _, g in ipairs(groups) do
-		vim.api.nvim_set_hl(0, g, { bg = "none" })
-	end
-	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none", fg = "#767676" })
-end
-
-set_transparent()
-
--- ============================================================================
--- COLORINES
--- ============================================================================
-
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1c1a30" })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1c1a30" })
 
 -- ============================================================================
 -- OPTIONS
@@ -218,8 +190,6 @@ end
 
 vim.opt.laststatus = 3
 
-vim.api.nvim_set_hl(0, "StatusLine",   { bg = "#000000" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#000000" })
 
 setup_dynamic_statusline()
 
