@@ -52,7 +52,6 @@ local plugins = {
 
 vim.pack.add(plugins)
 
--- Derive package names and load them
 for _, plugin in ipairs(plugins) do
   local src = type(plugin) == "string" and plugin or plugin.src
   local name = src:match("/([^/]+)$")
@@ -64,7 +63,7 @@ end
 -- ============================================================================
 
 require('kanagawa').setup({
-  transparent = true,
+  -- transparent = true,
 })
 vim.cmd("colorscheme kanagawa")
 
@@ -182,8 +181,8 @@ require("mini.ai").setup({
   custom_textobjects = {
     f = require("mini.ai").gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
     c = require("mini.ai").gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
-    o = require("mini.ai").gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
-    l = require("mini.ai").gen_spec.treesitter({ a = '@loop.outer', i = '@loop.inner' }),
+    y = require("mini.ai").gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
+    o = require("mini.ai").gen_spec.treesitter({ a = '@loop.outer', i = '@loop.inner' }),
     g = require("mini.ai").gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }),
     m = require("mini.ai").gen_spec.treesitter({ a = '@call.outer', i = '@call.inner' }),
     p = require("mini.ai").gen_spec.treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),

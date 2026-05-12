@@ -4,7 +4,7 @@ import = [
 ]
 
 [window]
-opacity = 0.9
+# opacity = 0.9
 decorations = "None"
 # startup_mode = "Maximized"
 
