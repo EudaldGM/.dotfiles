@@ -63,7 +63,13 @@ end
 -- ============================================================================
 
 require('kanagawa').setup({
-  -- transparent = true,
+  overrides = function(colors)
+    return {
+      DiagnosticError            = { fg = "#ed4040" },
+      DiagnosticVirtualTextError = { fg = "#ed4040", bg = "#2D1414" },
+      DiagnosticUnderlineError   = { sp = "#ed4040", undercurl = true },
+    }
+  end,
 })
 vim.cmd("colorscheme kanagawa")
 
