@@ -68,6 +68,7 @@ require('kanagawa').setup({
       DiagnosticError            = { fg = "#ed4040" },
       DiagnosticVirtualTextError = { fg = "#ed4040", bg = "#2D1414" },
       DiagnosticUnderlineError   = { sp = "#ed4040", undercurl = true },
+      ErrorMsg                   = { fg = "#ed4040" },
     }
   end,
 })
