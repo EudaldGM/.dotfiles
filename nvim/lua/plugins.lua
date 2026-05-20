@@ -211,8 +211,7 @@ end, { desc = "List snippets" })
 -- ============================================================================
 require("mini.ai").setup({
   mappings = {
-    goto_left = '*',
-    goto_right = '+'
+    goto_left = '+',
   },
   custom_textobjects = {
     f = require("mini.ai").gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
@@ -225,12 +224,21 @@ require("mini.ai").setup({
     e = require("mini.ai").gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),
   }
 })
+vim.keymap.set({ 'n', 'x', 'o' }, '*', function()
+  require('mini.ai').move_cursor('left', 'a', vim.fn.getcharstr(), { search_method = 'prev' })
+end, { desc = 'Goto start of previous textobject' })
+
 require("mini.comment").setup()
 require("mini.move").setup()
 require("mini.surround").setup()
 require("mini.pairs").setup()
 require('mini.indentscope').setup()
-require("mini.notify").setup()
+require("mini.notify").setup({
+  lsp_progress = {
+    level = 'WARN',
+    duration = 2000,
+  }
+})
 require("mini.icons").setup()
 require('mini.align').setup()
 
