@@ -15,7 +15,6 @@ local plugins = {
   -- Navigation
   "https://github.com/christoomey/vim-tmux-navigator",
   "https://github.com/ibhagwan/fzf-lua",
-  { src = "https://github.com/theprimeagen/harpoon", branch = "harpoon2" },
 
   -- LSP
   "https://github.com/neovim/nvim-lspconfig",
