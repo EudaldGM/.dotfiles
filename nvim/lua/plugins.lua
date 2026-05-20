@@ -175,14 +175,44 @@ end, { desc = "FZF Diagnostics Document" })
 vim.keymap.set("n", "<leader>fX", function()
 	require("fzf-lua").diagnostics_workspace()
 end, { desc = "FZF Diagnostics Workspace" })
+
 vim.keymap.set('n', '<leader>fN', ':e %:p:h/', {desc = "Edit new file in current directory"})
 
+vim.keymap.set("n", "<leader>fs", function()
+  local ls = require("luasnip")
+  local ft = vim.bo.filetype
+  local snippets = ls.get_snippets(ft) or {}
+  local all = ls.get_snippets("all") or {}
+  vim.list_extend(snippets, all)
+
+  local entries = {}
+  for _, snip in ipairs(snippets) do
+    table.insert(entries, string.format("%-20s %s", snip.trigger, snip.name or ""))
+  end
+
+  if #entries == 0 then
+    vim.notify("No snippets for filetype: " .. ft, vim.log.levels.WARN)
+    return
+  end
+
+  require("fzf-lua").fzf_exec(entries, {
+    prompt = "Snippets> ",
+    winopts = { height = 0.5, width = 0.5 },
+    actions = {
+      ["default"] = function(selected)
+        local trigger = selected[1]:match("^(%S+)")
+        vim.api.nvim_feedkeys("i" .. trigger, "n", false)
+      end,
+    },
+  })
+end, { desc = "List snippets" })
 -- ============================================================================
 -- MINI
 -- ============================================================================
 require("mini.ai").setup({
   mappings = {
-    goto_left = '+',
+    goto_left = '*',
+    goto_right = '+'
   },
   custom_textobjects = {
     f = require("mini.ai").gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
