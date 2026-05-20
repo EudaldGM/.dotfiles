@@ -223,7 +223,33 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 --travel between buffers
-vim.keymap.set('n', '<C-x>', ':bdelete!<CR>', {silent = true, desc = "Close Current Tab"})
+-- vim.keymap.set('n', '<C-x>', ':bdelete!<CR>', {silent = true, desc = "Close Current Tab"})
+vim.keymap.set('n', '<C-x>', function()
+  local buf = vim.api.nvim_get_current_buf()
+  local wins = vim.fn.win_findbuf(buf)
+
+  -- If this buffer is shown in multiple windows, just close this window
+  if #wins > 1 then
+    vim.cmd('close')
+    return
+  end
+
+  -- Try to switch to an alternate buffer before deleting
+  local bufs = vim.tbl_filter(function(b)
+    return vim.api.nvim_buf_is_valid(b)
+      and vim.bo[b].buflisted
+      and b ~= buf
+  end, vim.api.nvim_list_bufs())
+
+  if #bufs > 0 then
+    vim.api.nvim_set_current_buf(bufs[#bufs])
+  else
+    vim.cmd('enew') -- open empty buffer if none left
+  end
+
+  vim.cmd('bdelete! ' .. buf)
+end, { silent = true, desc = "Close Current Buffer" })
+
 vim.keymap.set('n', '<S-tab>', ':bprevious<CR>', {silent = true, desc = "Previous Tab"})
 vim.keymap.set('n', '<tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"})
 
