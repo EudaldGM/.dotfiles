@@ -206,13 +206,19 @@ vim.keymap.set("n", "<leader>fs", function()
     },
   })
 end, { desc = "List snippets" })
+
+vim.keymap.set('n', '<leader>eg', function()
+  local node = require('nvim-tree.api').tree.get_node_under_cursor()
+  local path = node.absolute_path
+  if node.type == 'file' then
+    path = vim.fn.fnamemodify(path, ':h')
+  end
+  require('fzf-lua').live_grep({ cwd = path })  -- string, not { path }
+end, { buffer = bufnr, desc = 'Live grep in folder' })
 -- ============================================================================
 -- MINI
 -- ============================================================================
 require("mini.ai").setup({
-  mappings = {
-    goto_left = '+',
-  },
   custom_textobjects = {
     f = require("mini.ai").gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
     c = require("mini.ai").gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
@@ -224,8 +230,11 @@ require("mini.ai").setup({
     e = require("mini.ai").gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),
   }
 })
+vim.keymap.set({ 'n', 'x', 'o' }, '+', function()
+  require('mini.ai').move_cursor('left', 'i', vim.fn.getcharstr(), { search_method = 'next' })
+end, { desc = 'Goto start of previous textobject' })
 vim.keymap.set({ 'n', 'x', 'o' }, '*', function()
-  require('mini.ai').move_cursor('left', 'a', vim.fn.getcharstr(), { search_method = 'prev' })
+  require('mini.ai').move_cursor('left', 'i', vim.fn.getcharstr(), { search_method = 'prev' })
 end, { desc = 'Goto start of previous textobject' })
 
 require("mini.comment").setup()
