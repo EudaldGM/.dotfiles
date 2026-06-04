@@ -1,7 +1,7 @@
 {
   "imports": [],
   "popToRootOnClose": true,
-  "closeOnFocusLoss": false,
+  "closeOnFocusLoss": true,
   "faviconService": "google",
   "keybinding": "default",
   "window": {
