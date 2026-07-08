@@ -1,23 +1,25 @@
 {
-    "closeOnFocusLoss": true,
-    "considerPreedit": false,
-    "faviconService": "google",
-    "font": {
-        "size": 11
-    },
-    "keybinding": "default",
-    "keybinds": {
-    },
-    "popToRootOnClose": true,
-    "rootSearch": {
-        "searchFiles": true
-    },
-    "theme": {
-        "name": "wallust"
-    },
-    "window": {
-        "csd": true,
-        "opacity": 1,
-        "rounding": 0
-    }
+  "imports": [],
+  "popToRootOnClose": true,
+  "closeOnFocusLoss": true,
+  "faviconService": "google",
+  "keybinding": "default",
+  "window": {
+    "rounding": 10,
+    "opacity": 0.98,
+    "csd": true,
+    "layerShellLayer": "top"
+  },
+  "font": {
+    "normal": "Inter",
+    "baseSize": 10.5
+  },
+  "theme": {
+    "name": "vicinae-inkwell",
+    "iconTheme": "Papirus-Dark"
+  },
+  "rootSearch": {
+    "searchFiles": true
+  }
+
 }

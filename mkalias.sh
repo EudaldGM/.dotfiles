@@ -16,7 +16,7 @@
 
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
-ln -fs ~/.dotfiles/zshrc ~/.zshrc      
+ln -fs ~/.dotfiles/zshrc ~/.zshrc
 ln -fs ~/.dotfiles/bash_aliases ~/.bash_aliases
 
 #Mise
@@ -29,7 +29,7 @@ fi
 git config --global user.email "eudaldguillen@gmail.com"
 git config --global user.name "EudaldGM"
 
-mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit neovim@0.11.6 zls zig yazi python
+mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit neovim zls zig yazi python
 
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/

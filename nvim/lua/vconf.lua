@@ -1,32 +1,4 @@
 vim.opt.termguicolors = true
-vim.cmd.colorscheme("habamax")
-
-local function set_transparent()
-	local groups = {
-		"Normal",
-		"NormalNC",
-		"EndOfBuffer",
-		"StatusLine",
-		"StatusLineNC",
-		"TabLine",
-		"TabLineFill",
-		"TabLineSel",
-		"ColorColumn",
-	}
-	for _, g in ipairs(groups) do
-		vim.api.nvim_set_hl(0, g, { bg = "none" })
-	end
-	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none", fg = "#767676" })
-end
-
-set_transparent()
-
--- ============================================================================
--- COLORINES
--- ============================================================================
-
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1c1a30" })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1c1a30" })
 
 -- ============================================================================
 -- OPTIONS
@@ -44,15 +16,11 @@ vim.opt.shiftwidth  = 2
 vim.opt.softtabstop = 2
 vim.opt.expandtab   = true
 vim.opt.smartindent = true
-vim.opt.autoindent  = true
 
-vim.opt.ignorecase = false
-vim.opt.smartcase  = true
 vim.opt.hlsearch   = true
 vim.opt.incsearch  = true
 
 vim.opt.signcolumn    = "yes"
-vim.opt.colorcolumn   = "100"
 vim.opt.showmatch     = true
 vim.opt.cmdheight     = 1
 vim.opt.completeopt   = "menuone,noinsert,noselect"
@@ -62,7 +30,6 @@ vim.opt.pumblend      = 10
 vim.opt.winblend      = 0
 vim.opt.conceallevel  = 0
 vim.opt.concealcursor = ""
-vim.opt.lazyredraw    = true
 vim.opt.synmaxcol     = 300
 vim.opt.fillchars     = { eob = " " }
 
@@ -93,8 +60,6 @@ vim.opt.path:append("**")
 vim.opt.selection  = "inclusive"
 vim.opt.mouse      = "a"
 vim.opt.clipboard:append("unnamedplus")
-vim.opt.modifiable = true
-vim.opt.encoding   = "utf-8"
 
 
 vim.opt.foldmethod = "expr"
@@ -112,6 +77,7 @@ vim.opt.maxmempattern = 20000
 
 vim.o.winborder = "single"
 
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3d3b55", bg = "NONE" })
 -- ============================================================================
 -- STATUSLINE
 -- ============================================================================
@@ -134,29 +100,29 @@ end
 local function file_type()
 	local ft = vim.bo.filetype
 	local icons = {
-		lua = "\u{e620} ",
-		python = "\u{e73c} ",
-		javascript = "\u{e74e} ",
-		typescript = "\u{e628} ",
-		html = "\u{e736} ",
-		css = "\u{e749} ",
-		json = "\u{e60b} ",
-		markdown = "\u{e73e} ",
-		vim = "\u{e62b} ",
-		sh = "\u{f489} ",
-		bash = "\u{f489} ",
-		zsh = "\u{f489} ",
-		rust = "\u{e7a8} ",
-		go = "\u{e724} ",
-		c = "\u{e61e} ",
-		cpp = "\u{e61d} ",
-		sql = "\u{e706} ",
-		yaml = "\u{f481} ",
-		toml = "\u{e615} ",
-		xml = "\u{f05c} ",
-		dockerfile = "\u{f308} ",
-		gitcommit = "\u{f418} ",
-		gitconfig = "\u{f1d3} ",
+		lua = " \u{e620} ",
+		python = " \u{e73c} ",
+		javascript = " \u{e74e} ",
+		typescript = " \u{e628} ",
+		html = " \u{e736} ",
+		css = " \u{e749} ",
+		json = " \u{e60b} ",
+		markdown = " \u{e73e} ",
+		vim = " \u{e62b} ",
+		sh = " \u{f489} ",
+		bash = " \u{f489} ",
+		zsh = " \u{f489} ",
+		rust = " \u{e7a8} ",
+		go = " \u{e724} ",
+		c = " \u{e61e} ",
+		cpp = " \u{e61d} ",
+		sql = " \u{e706} ",
+		yaml = " \u{f481} ",
+		toml = " \u{e615} ",
+		xml = " \u{f05c} ",
+		dockerfile = " \u{f308} ",
+		gitcommit = " \u{f418} ",
+		gitconfig = " \u{f1d3} ",
 	}
 
 	if ft == "" then
@@ -166,8 +132,6 @@ local function file_type()
     local icon = icons[ft] or "\u{f15b}"
     return icon .. ""
 end
-
-
 
 local function mode_icon()
 	local mode = vim.fn.mode()
@@ -224,8 +188,8 @@ local function setup_dynamic_statusline()
 	})
 end
 
-vim.api.nvim_set_hl(0, "StatusLine",   { bg = "#000000" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#000000" })
+vim.opt.laststatus = 3
+
 
 setup_dynamic_statusline()
 
@@ -247,10 +211,9 @@ vim.keymap.set('n', '<leader>q', function()
     vim.notify("Copied path to clipboard!")
 end, {desc = "get path for current file"})
 
-vim.keymap.set('n', '<leader>ww', '<cmd>set wrap!<CR>', {desc = "Toggle wrap", silent = true, noremap = true})
-vim.keymap.set('i', 'pp', '<Esc>', {desc = "Escape insert mode", noremap = true})
+vim.keymap.set('n', '<leader>ww', '<cmd>set wrap!<CR>', {desc = "Toggle wrap", noremap = true})
+vim.keymap.set('i', 'qq', '<Esc>', {desc = "Escape insert mode", noremap = true})
 vim.keymap.set('n', '<C-c>', ':nohlsearch<CR>', {silent = true, desc = "Clear search highlights"})
-vim.keymap.set('n', '<leader>fN', ':e %:p:h/', {desc = "Edit new file in current directory"})
 vim.keymap.set('n', '<C-s>', ':w<CR>', {desc = "Save file"})
 
 --movement
@@ -260,8 +223,33 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 --travel between buffers
-vim.keymap.set('n', '<C-x>', ':bdelete!<CR>', {silent = true, desc = "Close Current Tab"})
-vim.keymap.set('n', '<leader><tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"})
+-- vim.keymap.set('n', '<C-x>', ':bdelete!<CR>', {silent = true, desc = "Close Current Tab"})
+vim.keymap.set('n', '<C-x>', function()
+  local buf = vim.api.nvim_get_current_buf()
+  local wins = vim.fn.win_findbuf(buf)
+
+  -- If this buffer is shown in multiple windows, just close this window
+  if #wins > 1 then
+    vim.cmd('close')
+    return
+  end
+
+  -- Try to switch to an alternate buffer before deleting
+  local bufs = vim.tbl_filter(function(b)
+    return vim.api.nvim_buf_is_valid(b)
+      and vim.bo[b].buflisted
+      and b ~= buf
+  end, vim.api.nvim_list_bufs())
+
+  if #bufs > 0 then
+    vim.api.nvim_set_current_buf(bufs[#bufs])
+  else
+    vim.cmd('enew') -- open empty buffer if none left
+  end
+
+  vim.cmd('bdelete! ' .. buf)
+end, { silent = true, desc = "Close Current Buffer" })
+
 vim.keymap.set('n', '<S-tab>', ':bprevious<CR>', {silent = true, desc = "Previous Tab"})
 vim.keymap.set('n', '<tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"})
 
@@ -269,12 +257,9 @@ vim.keymap.set('n', '<tab>', ':bnext<CR>', {silent = true, desc = "Next Tab"})
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
-
-
+-- ============================================================================
+-- AUTOCMDs
+-- ============================================================================
 local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
 
 -- Format on save (ONLY real file buffers, ONLY when efm is attached)
@@ -294,6 +279,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		"*.zsh",
 		"*.c",
 		"*.cpp",
+		"*.rs",
+		"*.zig",
 	},
 	callback = function(args)
 		-- avoid formatting non-file buffers (helps prevent weird write prompts)
@@ -357,3 +344,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function()
+        local save_cursor = vim.fn.getpos(".")
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos(".", save_cursor)
+    end,
+})
