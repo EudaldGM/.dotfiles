@@ -64,17 +64,17 @@ binds {
     MOD+A                               hotkey-overlay-title="Open App Launcher: vicinae" { spawn-sh "vicinae toggle"; }
     MOD+E                           	  hotkey-overlay-title="File Manager: Yazi" { spawn-sh "yazi"; }
 
-    // Media Keys
+// Media Keys
     //check if wpctl ... are installed
-    XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"; }
-    XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"; }
-    XF86MonBrightnessUp                 allow-when-locked=true { spawn-sh "brightnessctl set 10%+"; }
-    XF86MonBrightnessDown               allow-when-locked=true { spawn-sh "brightnessctl set 10%-"; }
-    XF86AudioMute                       allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute                    allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-    XF86AudioNext                       allow-when-locked=true { spawn-sh "playerctl next"; }
-    XF86AudioPlay                       allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-    XF86AudioPrev                       allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioRaiseVolume                allow-when-locked=true cooldown-ms=100 { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0; vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'); notify-send -a Volume -r 91190 -h int:value:$vol -h string:x-canonical-private-synchronous:volume \"🔊 ${vol}%\""; }
+    XF86AudioLowerVolume                allow-when-locked=true cooldown-ms=100 { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'); notify-send -a Volume -r 91190 -h int:value:$vol -h string:x-canonical-private-synchronous:volume \"🔉 ${vol}%\""; }
+    XF86MonBrightnessUp                 allow-when-locked=true cooldown-ms=100 { spawn-sh "brightnessctl set 10%+; cur=$(brightnessctl get); max=$(brightnessctl max); pct=$((cur*100/max)); notify-send -a Brightness -r 91192 -h int:value:$pct -h string:x-canonical-private-synchronous:brightness \"☀️ ${pct}%\""; }
+    XF86MonBrightnessDown               allow-when-locked=true cooldown-ms=100 { spawn-sh "brightnessctl set 10%-; cur=$(brightnessctl get); max=$(brightnessctl max); pct=$((cur*100/max)); notify-send -a Brightness -r 91192 -h int:value:$pct -h string:x-canonical-private-synchronous:brightness \"☀️ ${pct}%\""; }
+    XF86AudioMute                       allow-when-locked=true cooldown-ms=200 { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 1 || echo 0); if [ \"$muted\" = \"1\" ]; then notify-send -a 'Volume Mute' -r 91190 -h string:x-canonical-private-synchronous:volume '🔇 Muted'; else vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'); notify-send -a Volume -r 91190 -h int:value:$vol -h string:x-canonical-private-synchronous:volume \"🔊 ${vol}%\"; fi"; }
+    XF86AudioMicMute                    allow-when-locked=true cooldown-ms=200 { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; muted=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo 1 || echo 0); if [ \"$muted\" = \"1\" ]; then notify-send -a Microphone -r 91191 -h string:x-canonical-private-synchronous:mic '🎙️ Muted'; else notify-send -a Microphone -r 91191 -h string:x-canonical-private-synchronous:mic '🎙️ Unmuted'; fi"; }
+    XF86AudioNext                       allow-when-locked=true { spawn-sh "playerctl next 2>/dev/null; sleep 0.3; playerctl status >/dev/null 2>&1 && notify-send -a spotify-player -r 91193 -h string:x-canonical-private-synchronous:media \"$(playerctl metadata title 2>/dev/null)\" \"$(playerctl metadata artist 2>/dev/null)\""; }
+    XF86AudioPlay                       allow-when-locked=true { spawn-sh "playerctl play-pause 2>/dev/null; sleep 0.2; status=$(playerctl status 2>/dev/null); if [ -n \"$status\" ]; then icon='⏸️'; [ \"$status\" = 'Paused' ] && icon='▶️'; notify-send -a spotify-player -r 91193 -h string:x-canonical-private-synchronous:media \"$icon $(playerctl metadata title 2>/dev/null)\" \"$(playerctl metadata artist 2>/dev/null)\"; fi"; }
+    XF86AudioPrev                       allow-when-locked=true { spawn-sh "playerctl previous 2>/dev/null; sleep 0.3; playerctl status >/dev/null 2>&1 && notify-send -a spotify-player -r 91193 -h string:x-canonical-private-synchronous:media \"$(playerctl metadata title 2>/dev/null)\" \"$(playerctl metadata artist 2>/dev/null)\""; }
 
     // Window Management
     MOD+Q                               { close-window; }

@@ -37,7 +37,7 @@ max-visible=5
 layer=overlay
 anchor=top-right
 
-default-timeout=5000
+default-timeout=4000
 ignore-timeout=0
 
 [app-name=Volume]
@@ -55,7 +55,7 @@ margin=10
 padding=2
 layer=overlay
 ignore-timeout=1
-default-timeout=1000
+default-timeout=500
 format=<b>%s</b>
 
 [app-name="Volume Mute"]
@@ -73,11 +73,18 @@ margin=10
 padding=2
 layer=overlay
 ignore-timeout=1
-default-timeout=1000
+default-timeout=500
 format=<b>%s</b>
 
 [app-name="spotify-player"]
+anchor=top-center
 max-icon-size=128
+text-alignment=center
+ignore-timeout=1
+margin=10
+layer=overlay
+ignore-timeout=1
+default-timeout=1000
 
 [app-name=Microphone]
 anchor=bottom-center
@@ -114,13 +121,6 @@ layer=overlay
 ignore-timeout=1
 default-timeout=1000
 format=<b>%s</b>
-
-# Music
-[app-name="Music Player"]
-text-alignment=center
-ignore-timeout=1
-margin=10
-layer=overlay
 
 # Critical
 [urgency=critical]
