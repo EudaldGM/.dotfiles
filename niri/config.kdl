@@ -1,11 +1,4 @@
-// Startup Applications
-spawn-at-startup "sh" "-c" "vicinae server &"
-spawn-at-startup "sh" "-c" "swaybg -i \"$(find ~/Pictures/Wallpapers -type f | shuf -n 1)\" -m fill &"
-spawn-at-startup "lxqt-policykit-agent"
-
-
-
-prefer-no-csd
+spawn-at-startup "dms" "run"
 
 output "eDP-1" {
     mode "1920x1080@60.024"
@@ -44,39 +37,13 @@ cursor {
     hide-when-typing
     hide-after-inactive-ms 5000
 }
-overview {
-    backdrop-color "#1E1E2E"
-    workspace-shadow {
-        off
-    }
-}
-
 binds {
-    // Shortcuts Panel
     MOD+SHIFT+ESCAPE                    { show-hotkey-overlay; }
 
     // Application Shortcuts
     MOD+RETURN                          hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "alacritty -e tmux"; }
-    MOD+P                               hotkey-overlay-title="Open Terminal: kitty" {spawn-sh "kitty -e tmux"; }
     MOD+B                         		  hotkey-overlay-title="Open Browser: chrome" { spawn-sh "google-chrome-stable"; }
-    MOD+ALT+Q                           hotkey-overlay-title="Lock Screen: gtklock" { spawn-sh "gtklock"; }
-    MOD+ALT+T                           hotkey-overlay-title="Logout/Shutdown Menu: wlogout" { spawn-sh "wlogout"; }
-    MOD+A                               hotkey-overlay-title="Open App Launcher: vicinae" { spawn-sh "vicinae toggle"; }
-    MOD+E                           	  hotkey-overlay-title="File Manager: Yazi" { spawn-sh "yazi"; }
 
-// Media Keys
-    //check if wpctl ... are installed
-    XF86AudioRaiseVolume                allow-when-locked=true cooldown-ms=100 { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0; vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'); notify-send -a Volume -r 91190 -h int:value:$vol -h string:x-canonical-private-synchronous:volume \"🔊 ${vol}%\""; }
-    XF86AudioLowerVolume                allow-when-locked=true cooldown-ms=100 { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'); notify-send -a Volume -r 91190 -h int:value:$vol -h string:x-canonical-private-synchronous:volume \"🔉 ${vol}%\""; }
-    XF86MonBrightnessUp                 allow-when-locked=true cooldown-ms=100 { spawn-sh "brightnessctl set 10%+; cur=$(brightnessctl get); max=$(brightnessctl max); pct=$((cur*100/max)); notify-send -a Brightness -r 91192 -h int:value:$pct -h string:x-canonical-private-synchronous:brightness \"☀️ ${pct}%\""; }
-    XF86MonBrightnessDown               allow-when-locked=true cooldown-ms=100 { spawn-sh "brightnessctl set 10%-; cur=$(brightnessctl get); max=$(brightnessctl max); pct=$((cur*100/max)); notify-send -a Brightness -r 91192 -h int:value:$pct -h string:x-canonical-private-synchronous:brightness \"☀️ ${pct}%\""; }
-    XF86AudioMute                       allow-when-locked=true cooldown-ms=200 { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 1 || echo 0); if [ \"$muted\" = \"1\" ]; then notify-send -a 'Volume Mute' -r 91190 -h string:x-canonical-private-synchronous:volume '🔇 Muted'; else vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'); notify-send -a Volume -r 91190 -h int:value:$vol -h string:x-canonical-private-synchronous:volume \"🔊 ${vol}%\"; fi"; }
-    XF86AudioMicMute                    allow-when-locked=true cooldown-ms=200 { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; muted=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo 1 || echo 0); if [ \"$muted\" = \"1\" ]; then notify-send -a Microphone -r 91191 -h string:x-canonical-private-synchronous:mic '🎙️ Muted'; else notify-send -a Microphone -r 91191 -h string:x-canonical-private-synchronous:mic '🎙️ Unmuted'; fi"; }
-    XF86AudioNext                       allow-when-locked=true { spawn-sh "playerctl next 2>/dev/null; sleep 0.3; playerctl status >/dev/null 2>&1 && notify-send -a spotify-player -r 91193 -h string:x-canonical-private-synchronous:media \"$(playerctl metadata title 2>/dev/null)\" \"$(playerctl metadata artist 2>/dev/null)\""; }
-    XF86AudioPlay                       allow-when-locked=true { spawn-sh "playerctl play-pause 2>/dev/null; sleep 0.2; status=$(playerctl status 2>/dev/null); if [ -n \"$status\" ]; then icon='⏸️'; [ \"$status\" = 'Paused' ] && icon='▶️'; notify-send -a spotify-player -r 91193 -h string:x-canonical-private-synchronous:media \"$icon $(playerctl metadata title 2>/dev/null)\" \"$(playerctl metadata artist 2>/dev/null)\"; fi"; }
-    XF86AudioPrev                       allow-when-locked=true { spawn-sh "playerctl previous 2>/dev/null; sleep 0.3; playerctl status >/dev/null 2>&1 && notify-send -a spotify-player -r 91193 -h string:x-canonical-private-synchronous:media \"$(playerctl metadata title 2>/dev/null)\" \"$(playerctl metadata artist 2>/dev/null)\""; }
-
-    // Window Management
     MOD+Q                               { close-window; }
 
     MOD+H                               { focus-column-left; }
@@ -172,7 +139,6 @@ binds {
     MOD+C                               { center-column;          }
     MOD+CTRL+C                          { center-visible-columns; }
     MOD+ALT+H                           { set-column-width        "-10%"; }
-    MOD+ALT+L                           { set-column-width        "+10%"; }
     MOD+ALT+K                           { set-window-height       "-10%"; }
     MOD+ALT+J                           { set-window-height       "+10%"; }
 
@@ -193,112 +159,97 @@ binds {
     MOD+S                               { screenshot; }
     MOD+SHIFT+S                         { screenshot-screen write-to-disk=true; }
     MOD+CTRL+S                          { screenshot-window write-to-disk=true; }
-
-    // Application Restarts
-    // MOD+ALT+W                           { spawn "sh" "-c" "pgrep -x waybar >/dev/null && killall waybar || waybar &"; }
-    // use with toggle in waybar (doens't restart if not running)
-    // MOD+ALT+W                           { spawn "killall" "-SIGUSR1" "waybar"; }
-}
-
-layout {
-    gaps 5
-    center-focused-column "on-overflow"
-    always-center-single-column
-    background-color "transparent"
-
-    preset-column-widths {
-        proportion 0.33333
-        proportion 0.5
-        proportion 0.66667
+    // Application Launchers
+    Mod+A hotkey-overlay-title="Application Launcher" {
+        spawn "dms" "ipc" "call" "spotlight" "toggle";
+    }
+    Mod+V hotkey-overlay-title="Clipboard Manager" {
+        spawn "dms" "ipc" "call" "clipboard" "toggle";
+    }
+    Mod+Z hotkey-overlay-title="Task Manager" {
+        spawn "dms" "ipc" "call" "processlist" "focusOrToggle";
+    }
+    Mod+Comma hotkey-overlay-title="Settings" {
+        spawn "dms" "ipc" "call" "settings" "focusOrToggle";
+    }
+    Mod+N hotkey-overlay-title="Notification Center" {
+        spawn "dms" "ipc" "call" "notifications" "toggle";
+    }
+    Mod+Y hotkey-overlay-title="Browse Wallpapers" {
+        spawn "dms" "ipc" "call" "dankdash" "wallpaper";
     }
 
-	// default-column-width { proportion 0.66667; }
-
-    focus-ring {
-        width 0
+    // Security
+    Mod+Alt+L hotkey-overlay-title="Lock Screen" {
+        spawn "dms" "ipc" "call" "lock" "lock";
     }
 
-}
+    // Audio Controls
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn "dms" "ipc" "call" "audio" "increment" "3";
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn "dms" "ipc" "call" "audio" "decrement" "3";
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn "dms" "ipc" "call" "audio" "mute";
+    }
 
-// Animation Settings
-animations {
-    workspace-switch {
-        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    // Brightness Controls
+    XF86MonBrightnessUp allow-when-locked=true {
+       spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
     }
-    window-open {
-        duration-ms 200
-        curve "ease-out-quad"
-    }
-    window-close {
-        duration-ms 200
-        curve "ease-out-cubic"
-    }
-    horizontal-view-movement {
-        spring damping-ratio=1.0 stiffness=900 epsilon=0.0001
-    }
-    window-movement {
-        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
-    }
-    window-resize {
-        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
-    }
-    config-notification-open-close {
-        spring damping-ratio=0.6 stiffness=1200 epsilon=0.001
-    }
-    screenshot-ui-open {
-        duration-ms 300
-        curve "ease-out-quad"
-    }
-    overview-open-close {
-        spring damping-ratio=1.0 stiffness=900 epsilon=0.0001
+    XF86MonBrightnessDown allow-when-locked=true {
+       spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
     }
 }
-
-// Application-specific rules
-
-// window-rule {
-//     match app-id=r#"google-chrome"#
-//     open-maximized true
-// }
-
-// File dialogs - Open/Save/Select
 window-rule {
-    match title=r#".*(Open|Save|Select).*"#
-    open-floating true
-    default-column-width { proportion 0.0; }
-    max-width 800
-    max-height 1000
-}
-
-window-rule {
-    match title=r#"Alacritty"#
-    open-maximized true
-}
-
-window-rule {
-    match title=r#".*File.*"#
-    open-floating true
-    default-column-width { proportion 0.0; }
-    max-width 800
-    max-height 1000
-}
-
-// System dialogs
-window-rule {
-    match title=r#".*(Dialog|Properties|Preferences|Settings|Rename).*"#
-    open-floating true
-}
-
-// Global window appearance
-window-rule {
-    geometry-corner-radius 10
+    match app-id=r#"^org\.gnome\."#
+    draw-border-with-background false
+    geometry-corner-radius 12
     clip-to-geometry true
-	draw-border-with-background false
 }
 
-// Inactive window transparency
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    match app-id="Alacritty"
+    match app-id="zen"
+    match app-id="com.mitchellh.ghostty"
+    match app-id="kitty"
+    draw-border-with-background false
+}
+
 window-rule {
     match is-active=false
     opacity 0.9
 }
 
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+// Open DMS windows as floating by default
+window-rule {
+    match app-id=r#"org.quickshell$"#
+    open-floating true
+}
+
+layer-rule {
+    match namespace="dms:blurwallpaper"
+    place-within-backdrop true
+}
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}
+layout {
+    // You can tailor the gaps to fit dms spacing.
+    gaps 5
+    background-color "transparent"
+}
+
+include "dms/colors.kdl"
+include "dms/layout.kdl"
+include "dms/alttab.kdl"
+include "dms/binds.kdl"
