@@ -1,4 +1,4 @@
-spawn-at-startup "dms" "run"
+// spawn-at-startup "dms" "run"
 
 output "eDP-1" {
     mode "1920x1080@60.024"
@@ -245,6 +245,7 @@ layer-rule {
 }
 layout {
     // You can tailor the gaps to fit dms spacing.
+    center-focused-column "always"
     gaps 5
     background-color "transparent"
 }
