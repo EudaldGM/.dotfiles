@@ -5,14 +5,11 @@
 #install tmux
 #install make
 #install starship
-#install gtklock
-#install waybar
-#install vicinae
-#install swaybg
-#install mako
 #install git
 #install gh
 #install rustup
+#install niri
+#install dms
 
 touch ~/.bash_prompt
 echo "source ~/.bash_aliases" >> ~/.bashrc
@@ -25,11 +22,12 @@ then
 	curl -fsSL https://mise.run | sh
 fi
 
+mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit neovim zls zig yazi python
+
 #git
 git config --global user.email "eudaldguillen@gmail.com"
 git config --global user.name "EudaldGM"
 
-mise use -g go node ripgrep fzf eza usage zoxide kubectl kubectx kubens lazygit neovim zls zig yazi python
 
 #nvim
 ln -fsr ~/.dotfiles/nvim ~/.config/
@@ -45,19 +43,8 @@ ln -fsr ~/.dotfiles/alacritty/ ~/.config/
 #starship
 ln -fsr ~/.dotfiles/starship.toml ~/.config
 
-#waybar
-ln -fsr ~/.dotfiles/waybar ~/.config
-
-#vicinae
-ln -fsr ~/.dotfiles/vicinae ~/.config
-
-#mako
-ln -fsr ~/.dotfiles/mako ~/.config
-systemctl --user add-wants niri.service mako.service
-systemctl --user add-wants niri.service waybar.service
-
-
 #misc
+touch ~/.gitconfig
 echo "[alias]
   url = !bash -c 'git config --get remote.origin.url | sed -E \"s/.+:\\(.+\\)\\.git$/https:\\/\\/github\\.com\\/\\1/g\"'
 " >> ~/.gitconfig
