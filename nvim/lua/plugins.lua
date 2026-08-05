@@ -21,6 +21,7 @@ local plugins = {
   "https://github.com/mason-org/mason.nvim",
   "https://github.com/williamboman/mason-lspconfig.nvim",
   "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+  "https://github.com/MeanderingProgrammer/render-markdown.nvim",
 
   -- Completion
   "https://github.com/hrsh7th/nvim-cmp",
@@ -44,7 +45,7 @@ local plugins = {
   "https://github.com/nvim-neotest/nvim-nio",
   "https://github.com/leoluz/nvim-dap-go",
   "https://github.com/mfussenegger/nvim-dap-python",
-  "https://github.com/mrcjkb/rustaceanvim",
+  -- "https://github.com/mrcjkb/rustaceanvim",
   -- -- LLM
   -- "https://github.com/huggingface/llm.nvim",
 }
