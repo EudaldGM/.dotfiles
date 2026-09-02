@@ -1,0 +1,5 @@
+[tools]
+kubectl = "latest"
+zoxide = "latest"
+fzf = "latest"
+neovim = "latest"
