@@ -82,22 +82,23 @@ require('nvim-treesitter').setup {
   install_dir = vim.fn.stdpath('data') .. '/site'
 }
 require('nvim-treesitter').install {
-  'json',
-  'yaml',
-  'html',
-  'css',
   'bash',
-  'lua',
-  'vim',
+  'css',
   'dockerfile',
   'gitignore',
-  'vimdoc',
-  'python',
-  'toml',
   'go',
-  'rust',
   'hcl',
+  'html',
+  'json',
+  'lua',
+  'python',
+  'rust',
+  'sql',
   'terraform',
+  'toml',
+  'vim',
+  'vimdoc',
+  'yaml',
   'zig'
 }
 
@@ -320,6 +321,7 @@ require("mason-lspconfig").setup({
     "zls",
     "tflint",
     "rust_analyzer",
+    "postgres_lsp",
   },
   handlers = {
     function(server_name)
@@ -342,6 +344,7 @@ require("mason-tool-installer").setup({
     "codelldb",
     "delve",
     "debugpy",
+    "pgformatter",
   },
 })
 
