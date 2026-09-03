@@ -81,22 +81,24 @@ require('nvim-treesitter').setup {
   install_dir = vim.fn.stdpath('data') .. '/site'
 }
 require('nvim-treesitter').install {
-  'json',
-  'yaml',
-  'html',
-  'css',
   'bash',
-  'lua',
-  'vim',
+  'css',
   'dockerfile',
   'gitignore',
-  'vimdoc',
-  'python',
-  'toml',
   'go',
-  'rust',
   'hcl',
+  'html',
+  'javascript',
+  'json',
+  'lua',
+  'python',
+  'rust',
   'terraform',
+  'typescript',
+  'toml',
+  'vim',
+  'vimdoc',
+  'yaml',
   'zig'
 }
 
@@ -390,9 +392,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     opts.desc = "Show documentation for what is under cursor"
     keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-    opts.desc = "Restart LSP"
-    keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
   end,
 })
 
