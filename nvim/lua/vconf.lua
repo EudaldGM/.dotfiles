@@ -375,12 +375,3 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.fn.setpos(".", save_cursor)
     end,
 })
-
-vim.api.nvim_create_autocmd("BufLeave", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.modified and vim.bo.buftype == "" and vim.fn.expand("%") ~= "" then
-      vim.cmd("silent! write")
-    end
-  end,
-})
