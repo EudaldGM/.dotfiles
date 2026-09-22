@@ -90,6 +90,7 @@ require('nvim-treesitter').install {
   'html',
   'javascript',
   'json',
+  'jsonnet',
   'lua',
   'python',
   'rust',
