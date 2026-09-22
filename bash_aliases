@@ -80,3 +80,10 @@ gP1(){
 	brunch=$(git branch --show-current)
 	git push --set-upstream origin $brunch
 }
+
+terraform-rvp-runs(){
+  cd ~/repos/dsh-terraform-k8s/
+  gh workflow run terraform-run.yaml -F command=apply -F platform=rvp-aws-lz-laas
+  gh workflow run terraform-run.yaml -F command=apply -F platform=rvp-azure-dsh
+  gh workflow run terraform-run.yaml -F command=apply -F platform=rvp-aws-cp
+}
