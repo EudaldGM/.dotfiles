@@ -194,6 +194,15 @@ binds {
     XF86AudioMute allow-when-locked=true {
         spawn "dms" "ipc" "call" "audio" "mute";
     }
+    XF86AudioPlay allow-when-locked=true {
+        spawn "dms" "ipc" "call" "mpris" "playPause";
+    }
+    XF86AudioNext allow-when-locked=true {
+        spawn "dms" "ipc" "call" "mpris" "next";
+    }
+    XF86AudioPrev allow-when-locked=true {
+        spawn "dms" "ipc" "call" "mpris" "previous";
+    }
 
     // Brightness Controls
     XF86MonBrightnessUp allow-when-locked=true {
