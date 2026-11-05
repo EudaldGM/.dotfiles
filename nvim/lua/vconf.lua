@@ -222,6 +222,10 @@ vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" }
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
+--search & replace
+vim.keymap.set("n", "<leader>R", [[:%s/\<<C-r><C-w>\>//gc<Left><Left><Left>]])
+vim.keymap.set("x", "<leader>R", [[y:%s/\V<C-r>=escape(@", '/\')<CR>//gc<Left><Left><Left>]])
+
 --new splits
 vim.keymap.set('n', '<leader>vs', ':vsplit<CR>', { desc = "VSplit" })
 vim.keymap.set('n', '<leader>vff', function()
