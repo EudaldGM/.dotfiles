@@ -89,6 +89,7 @@ require('nvim-treesitter').install {
   'hcl',
   'html',
   'javascript',
+  'jsdoc',
   'json',
   'jsonnet',
   'lua',
@@ -96,6 +97,7 @@ require('nvim-treesitter').install {
   'rust',
   'terraform',
   'typescript',
+  'tsx',
   'toml',
   'vim',
   'vimdoc',
@@ -322,6 +324,8 @@ require("mason-lspconfig").setup({
     "zls",
     "tflint",
     "rust_analyzer",
+    "ts_ls",
+    "eslint",
   },
   handlers = {
     function(server_name)
@@ -344,6 +348,7 @@ require("mason-tool-installer").setup({
     "codelldb",
     "delve",
     "debugpy",
+    "js-debug-adapter",
   },
 })
 
@@ -423,8 +428,7 @@ vim.lsp.config("lua_ls", {
   },
 })
 
--- Enable servers (was defined but never applied before)
-vim.lsp.enable({ "terraformls", "tflint", "lua_ls" })
+vim.lsp.enable({ "terraformls", "tflint", "lua_ls", "zls" })
 
 -- ============================================================================
 -- COMPLETION
@@ -518,6 +522,7 @@ vim.keymap.set('n', '<leader>dL', function()
     codelldb    = { 'rust' },
     python      = { 'python' },
     go          = { 'go' },
+    ['pwa-node'] = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
   })
   vim.notify('launch.json reloaded', vim.log.levels.INFO)
 end, { desc = "Reload launch.json" })
