@@ -82,6 +82,7 @@ require('nvim-treesitter').setup {
 }
 require('nvim-treesitter').install {
   'bash',
+  'c',
   'css',
   'dockerfile',
   'gitignore',
@@ -326,6 +327,7 @@ require("mason-lspconfig").setup({
     "rust_analyzer",
     "ts_ls",
     "eslint",
+    "clangd",
   },
   handlers = {
     function(server_name)
@@ -519,7 +521,7 @@ vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, 
 
 vim.keymap.set('n', '<leader>dL', function()
   require('dap.ext.vscode').load_launchjs(nil, {
-    codelldb    = { 'rust' },
+    codelldb    = { 'rust', 'c' },
     python      = { 'python' },
     go          = { 'go' },
     ['pwa-node'] = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
@@ -582,6 +584,41 @@ dap.configurations.rust = {
     args           = function()
       local args = vim.fn.input('Arguments: ')
       return vim.split(args, ' ')
+    end,
+  },
+  {
+    name    = 'Attach to process',
+    type    = 'codelldb',
+    request = 'attach',
+    pid     = require('dap.utils').pick_process,
+    args    = {},
+  },
+}
+
+-- C: requires codelldb (shares the adapter above)
+dap.configurations.c = {
+  {
+    name    = 'Launch binary',
+    type    = 'codelldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd         = '${workspaceFolder}',
+    stopOnEntry = false,
+    args        = {},
+  },
+  {
+    name    = 'Launch binary (with args)',
+    type    = 'codelldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd         = '${workspaceFolder}',
+    stopOnEntry = false,
+    args        = function()
+      return vim.split(vim.fn.input('Arguments: '), ' ', { trimempty = true })
     end,
   },
   {
